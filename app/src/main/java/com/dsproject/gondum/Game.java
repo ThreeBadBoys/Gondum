@@ -1,3 +1,5 @@
+package com.dsproject.gondum;
+
 public class Game {
 
     public int[][][] board = new int[3][3][3];
