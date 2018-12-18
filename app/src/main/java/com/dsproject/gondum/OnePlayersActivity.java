@@ -10,30 +10,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class OnePlayersActivity extends AppCompatActivity {
-    ImageView imageView1;
-    ImageView imageView2;
-    ImageView imageView3;
-    ImageView imageView4;
-    ImageView imageView5;
-    ImageView imageView6;
-    ImageView imageView7;
-    ImageView imageView8;
-    ImageView imageView9;
-    ImageView imageView10;
-    ImageView imageView11;
-    ImageView imageView12;
-    ImageView imageView13;
-    ImageView imageView14;
-    ImageView imageView15;
-    ImageView imageView16;
-    ImageView imageView17;
-    ImageView imageView18;
-    ImageView imageView19;
-    ImageView imageView20;
-    ImageView imageView21;
-    ImageView imageView22;
-    ImageView imageView23;
-    ImageView imageView24;
+    ImageView imageView2_1;
+    ImageView imageView2_2;
+    ImageView imageView2_3;
+    ImageView imageView2_4;
+    ImageView imageView2_5;
+    ImageView imageView2_6;
+    ImageView imageView2_7;
+    ImageView imageView2_8;
+    ImageView imageView2_9;
+    ImageView imageView2_10;
+    ImageView imageView2_11;
+    ImageView imageView2_12;
+    ImageView imageView2_13;
+    ImageView imageView2_14;
+    ImageView imageView2_15;
+    ImageView imageView2_16;
+    ImageView imageView2_17;
+    ImageView imageView2_18;
+    ImageView imageView2_19;
+    ImageView imageView2_20;
+    ImageView imageView2_21;
+    ImageView imageView2_22;
+    ImageView imageView2_23;
+    ImageView imageView2_24;
     TextView men_blue;
     TextView men_red;
     TextView men_blue_trash;
@@ -61,30 +61,30 @@ public class OnePlayersActivity extends AppCompatActivity {
     }
 
     void init() {
-        imageView1 = findViewById(R.id.image2_1);
-        imageView2 = findViewById(R.id.image2_2);
-        imageView3 = findViewById(R.id.image2_3);
-        imageView4 = findViewById(R.id.image2_4);
-        imageView5 = findViewById(R.id.image2_5);
-        imageView6 = findViewById(R.id.image2_6);
-        imageView7 = findViewById(R.id.image2_7);
-        imageView8 = findViewById(R.id.image2_8);
-        imageView9 = findViewById(R.id.image2_9);
-        imageView10 = findViewById(R.id.image2_10);
-        imageView11 = findViewById(R.id.image2_11);
-        imageView12 = findViewById(R.id.image2_12);
-        imageView13 = findViewById(R.id.image2_13);
-        imageView14 = findViewById(R.id.image2_14);
-        imageView15 = findViewById(R.id.image2_15);
-        imageView16 = findViewById(R.id.image2_16);
-        imageView17 = findViewById(R.id.image2_17);
-        imageView18 = findViewById(R.id.image2_18);
-        imageView19 = findViewById(R.id.image2_19);
-        imageView20 = findViewById(R.id.image2_20);
-        imageView21 = findViewById(R.id.image2_21);
-        imageView22 = findViewById(R.id.image2_22);
-        imageView23 = findViewById(R.id.image2_23);
-        imageView24 = findViewById(R.id.image2_24);
+        imageView2_1 = findViewById(R.id.image2_1);
+        imageView2_2 = findViewById(R.id.image2_2);
+        imageView2_3 = findViewById(R.id.image2_3);
+        imageView2_4 = findViewById(R.id.image2_4);
+        imageView2_5 = findViewById(R.id.image2_5);
+        imageView2_6 = findViewById(R.id.image2_6);
+        imageView2_7 = findViewById(R.id.image2_7);
+        imageView2_8 = findViewById(R.id.image2_8);
+        imageView2_9 = findViewById(R.id.image2_9);
+        imageView2_10 = findViewById(R.id.image2_10);
+        imageView2_11 = findViewById(R.id.image2_11);
+        imageView2_12 = findViewById(R.id.image2_12);
+        imageView2_13 = findViewById(R.id.image2_13);
+        imageView2_14 = findViewById(R.id.image2_14);
+        imageView2_15 = findViewById(R.id.image2_15);
+        imageView2_16 = findViewById(R.id.image2_16);
+        imageView2_17 = findViewById(R.id.image2_17);
+        imageView2_18 = findViewById(R.id.image2_18);
+        imageView2_19 = findViewById(R.id.image2_19);
+        imageView2_20 = findViewById(R.id.image2_20);
+        imageView2_21 = findViewById(R.id.image2_21);
+        imageView2_22 = findViewById(R.id.image2_22);
+        imageView2_23 = findViewById(R.id.image2_23);
+        imageView2_24 = findViewById(R.id.image2_24);
         men_blue = findViewById(R.id.blue_men_2);
         men_red = findViewById(R.id.red_men_2);
         men_blue_trash = findViewById(R.id.blue_men_trash_2);
@@ -101,77 +101,77 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     public void onClick1(View view) {
         switch (view.getId()) {
-            case R.id.image1:
-                imageView1.setImageResource(R.drawable.red);
+            case R.id.image2_1:
+                imageView2_1.setImageResource(R.drawable.red);
                 break;
-            case R.id.image2:
-                imageView2.setImageResource(R.drawable.blue);
+            case R.id.image2_2:
+                imageView2_2.setImageResource(R.drawable.blue);
                 break;
-            case R.id.image3:
-                imageView3.setImageResource(R.drawable.red);
+            case R.id.image2_3:
+                imageView2_3.setImageResource(R.drawable.red);
                 break;
-            case R.id.image4:
-                imageView4.setImageResource(R.drawable.red);
+            case R.id.image2_4:
+                imageView2_4.setImageResource(R.drawable.red);
                 break;
-            case R.id.image5:
-                imageView5.setImageResource(R.drawable.red);
+            case R.id.image2_5:
+                imageView2_5.setImageResource(R.drawable.red);
                 break;
-            case R.id.image6:
-                imageView6.setImageResource(R.drawable.red);
+            case R.id.image2_6:
+                imageView2_6.setImageResource(R.drawable.red);
                 break;
-            case R.id.image7:
-                imageView7.setImageResource(R.drawable.red);
+            case R.id.image2_7:
+                imageView2_7.setImageResource(R.drawable.red);
                 break;
-            case R.id.image8:
-                imageView8.setImageResource(R.drawable.red);
+            case R.id.image2_8:
+                imageView2_8.setImageResource(R.drawable.red);
                 break;
-            case R.id.image9:
-                imageView9.setImageResource(R.drawable.red);
+            case R.id.image2_9:
+                imageView2_9.setImageResource(R.drawable.red);
                 break;
-            case R.id.image10:
-                imageView10.setImageResource(R.drawable.red);
+            case R.id.image2_10:
+                imageView2_10.setImageResource(R.drawable.red);
                 break;
-            case R.id.image11:
-                imageView11.setImageResource(R.drawable.red);
+            case R.id.image2_11:
+                imageView2_11.setImageResource(R.drawable.red);
                 break;
-            case R.id.image12:
-                imageView12.setImageResource(R.drawable.red);
+            case R.id.image2_12:
+                imageView2_12.setImageResource(R.drawable.red);
                 break;
-            case R.id.image13:
-                imageView13.setImageResource(R.drawable.red);
+            case R.id.image2_13:
+                imageView2_13.setImageResource(R.drawable.red);
                 break;
-            case R.id.image14:
-                imageView14.setImageResource(R.drawable.red);
+            case R.id.image2_14:
+                imageView2_14.setImageResource(R.drawable.red);
                 break;
-            case R.id.image15:
-                imageView15.setImageResource(R.drawable.red);
+            case R.id.image2_15:
+                imageView2_15.setImageResource(R.drawable.red);
                 break;
-            case R.id.image16:
-                imageView16.setImageResource(R.drawable.red);
+            case R.id.image2_16:
+                imageView2_16.setImageResource(R.drawable.red);
                 break;
-            case R.id.image17:
-                imageView17.setImageResource(R.drawable.red);
+            case R.id.image2_17:
+                imageView2_17.setImageResource(R.drawable.red);
                 break;
-            case R.id.image18:
-                imageView18.setImageResource(R.drawable.red);
+            case R.id.image2_18:
+                imageView2_18.setImageResource(R.drawable.red);
                 break;
-            case R.id.image19:
-                imageView19.setImageResource(R.drawable.red);
+            case R.id.image2_19:
+                imageView2_19.setImageResource(R.drawable.red);
                 break;
-            case R.id.image20:
-                imageView20.setImageResource(R.drawable.red);
+            case R.id.image2_20:
+                imageView2_20.setImageResource(R.drawable.red);
                 break;
-            case R.id.image21:
-                imageView21.setImageResource(R.drawable.red);
+            case R.id.image2_21:
+                imageView2_21.setImageResource(R.drawable.red);
                 break;
-            case R.id.image22:
-                imageView22.setImageResource(R.drawable.red);
+            case R.id.image2_22:
+                imageView2_22.setImageResource(R.drawable.red);
                 break;
-            case R.id.image23:
-                imageView23.setImageResource(R.drawable.red);
+            case R.id.image2_23:
+                imageView2_23.setImageResource(R.drawable.red);
                 break;
-            case R.id.image24:
-                imageView24.setImageResource(R.drawable.red);
+            case R.id.image2_24:
+                imageView2_24.setImageResource(R.drawable.red);
                 break;
         }
     }

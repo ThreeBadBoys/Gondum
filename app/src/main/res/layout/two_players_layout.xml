@@ -572,130 +572,180 @@
     </FrameLayout>
 
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="14dp"
-        android:orientation="horizontal">
+        android:layout_alignParentTop="true">
 
-        <ImageView
-            android:id="@+id/image25"
-            android:layout_width="34dp"
-            android:layout_height="30dp"
-            android:onClick="onClick"
-            android:scaleType="fitXY"
-            android:src="@drawable/red" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/red_men"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginStart="4dp"
-            android:text="12"
-            android:textColor="#fa5754"
-            android:textSize="24sp"
-            tools:text="12" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-    <LinearLayout
+                <ImageView
+                    android:layout_width="34dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/red_trash" />
+
+                <TextView
+                    android:id="@+id/red_men_trash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="4dp"
+                    android:text="0"
+                    android:textColor="#fa5754"
+                    android:textSize="24sp"
+                    tools:text="0" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/image25"
+                    android:layout_width="34dp"
+                    android:layout_height="30dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/red" />
+
+                <TextView
+                    android:id="@+id/red_men"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="4dp"
+                    android:text="12"
+                    android:textColor="#fa5754"
+                    android:textSize="24sp"
+                    tools:text="12" />
+            </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="14dp"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:layout_alignParentTop="true">
 
-        <ImageView
-            android:id="@+id/image26"
-            android:layout_width="34dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="4dp"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:scaleType="fitXY"
-            android:src="@drawable/blue" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/blue_men"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="12"
-            android:textColor="#5a97f9"
-            android:textSize="24sp"
-            tools:text="12" />
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:layout_width="34dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/blue_trash" />
+
+                <TextView
+                    android:id="@+id/blue_men_trash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="4dp"
+                    android:text="0"
+                    android:textColor="#5a97f9"
+                    android:textSize="24sp"
+                    tools:text="0" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/image26"
+                    android:layout_width="34dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/blue" />
+
+                <TextView
+                    android:id="@+id/blue_men"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="12"
+                    android:textColor="#5a97f9"
+                    android:textSize="24sp"
+                    tools:text="12" />
 
 
-    </LinearLayout>
+            </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="60dp"
-        android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="34dp"
-            android:layout_height="30dp"
-            app:srcCompat="@drawable/blue_trash" />
-
-        <TextView
-            android:id="@+id/red_men_trash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginStart="4dp"
-            android:text="0"
-            android:textColor="#5a97f9"
-            android:textSize="24sp"
-            tools:text="0" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="60dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="34dp"
-            android:layout_height="30dp"
-            app:srcCompat="@drawable/red_trash" />
-
-        <TextView
-            android:id="@+id/blue_men_trash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginStart="4dp"
-            android:text="0"
-            android:textColor="#fa5754"
-            android:textSize="24sp"
-            tools:text="0" />
-    </LinearLayout>
 </RelativeLayout>
