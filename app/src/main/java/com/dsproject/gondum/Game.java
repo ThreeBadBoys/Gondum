@@ -1,3 +1,5 @@
+package com.dsproject.Gondum;
+
 public class Game {
     public int turn = 1;
 
