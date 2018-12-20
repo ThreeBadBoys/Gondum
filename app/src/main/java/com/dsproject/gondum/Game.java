@@ -38,17 +38,18 @@ public class Game {
 
         return matchCount;
     }
-
-    public boolean move(int x1, int y1, int z1, int x2, int y2, int z2) {
-        if (isValidMove(x1, y1, z1, x2, y2, z2)) {
-            board[x2][y2][z2] = board[x1][y1][z1];
-            board[x1][y1][z1] = 0;
-            if (gameState() == 0)
-                nextTurn();
-            return true;
-        } else
-            return false;
-    }
+    /**I comment this method because we don't have isValidMove method
+     **/
+//    public boolean move(int x1, int y1, int z1, int x2, int y2, int z2) {
+//        if (isValidMove(x1, y1, z1, x2, y2, z2)) {
+//            board[x2][y2][z2] = board[x1][y1][z1];
+//            board[x1][y1][z1] = 0;
+//            if (gameState() == 0)
+//                nextTurn();
+//            return true;
+//        } else
+//            return false;
+//    }
 
     public boolean setup(int x, int y, int z) {
         if (isValidSetup(x, y, z)) {
@@ -59,19 +60,20 @@ public class Game {
         } else
             return false;
     }
-
-    public boolean fly(int x1, int y1, int z1, int x2, int y2, int z2) {
-        if (isValidFly(x1, y1, z1, x2, y2, z2)) {
-            board[x2][y2][z2] = board[x1][y1][z1];
-            board[x1][y1][z1] = 0;
-
-
-            if (gameState() == 0)
-                nextTurn();
-            return true;
-        } else
-            return false;
-    }
+/**I comment this method because we don't have isValidFly method
+  **/
+//    public boolean fly(int x1, int y1, int z1, int x2, int y2, int z2) {
+//        if (isValidFly(x1, y1, z1, x2, y2, z2)) {
+//            board[x2][y2][z2] = board[x1][y1][z1];
+//            board[x1][y1][z1] = 0;
+//
+//
+//            if (gameState() == 0)
+//                nextTurn();
+//            return true;
+//        } else
+//            return false;
+//    }
 
     public int gameState() {
         int RedValidMoves = 0;
