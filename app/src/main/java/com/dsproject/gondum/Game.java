@@ -1,5 +1,4 @@
-package com.dsproject.Gondum;
-
+package com.dsproject.gondum;
 public class Game {
     public int turn = 1;
     public int[][][] board = new int[3][3][3];
