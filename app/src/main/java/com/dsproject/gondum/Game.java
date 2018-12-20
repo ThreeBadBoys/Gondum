@@ -54,9 +54,9 @@ public class Game {
         if (isValidMove(x1, y1, z1, x2, y2, z2)) {
             board[x2][y2][z2] = board[x1][y1][z1];
             board[x1][y1][z1] = 0;
-            if (gameState() == 0)
-                nextTurn();
-            return true;
+            if (nextTurn())
+                return true;
+            return false;
         } else
             return false;
     }
@@ -65,11 +65,9 @@ public class Game {
         if (isValidFly(x1, y1, z1, x2, y2, z2)) {
             board[x2][y2][z2] = board[x1][y1][z1];
             board[x1][y1][z1] = 0;
-
-
-            if (gameState() == 0)
-                nextTurn();
-            return true;
+            if (nextTurn())
+                return true;
+            return false;
         } else
             return false;
     }
