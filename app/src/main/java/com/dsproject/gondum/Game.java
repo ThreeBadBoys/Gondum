@@ -1,4 +1,5 @@
-package com.dsproject.gondum;
+package com.dsproject.Gondum;
+
 public class Game {
     public int turn = 1;
     public int[][][] board = new int[3][3][3];
@@ -38,42 +39,40 @@ public class Game {
 
         return matchCount;
     }
-    /**I comment this method because we don't have isValidMove method
-     **/
-//    public boolean move(int x1, int y1, int z1, int x2, int y2, int z2) {
-//        if (isValidMove(x1, y1, z1, x2, y2, z2)) {
-//            board[x2][y2][z2] = board[x1][y1][z1];
-//            board[x1][y1][z1] = 0;
-//            if (gameState() == 0)
-//                nextTurn();
-//            return true;
-//        } else
-//            return false;
-//    }
 
     public boolean setup(int x, int y, int z) {
         if (isValidSetup(x, y, z)) {
             board[x][y][z] = turn;
             if (nextTurn())
-                return true;;
+                return true;
             return false;
         } else
             return false;
     }
-/**I comment this method because we don't have isValidFly method
-  **/
-//    public boolean fly(int x1, int y1, int z1, int x2, int y2, int z2) {
-//        if (isValidFly(x1, y1, z1, x2, y2, z2)) {
-//            board[x2][y2][z2] = board[x1][y1][z1];
-//            board[x1][y1][z1] = 0;
-//
-//
-//            if (gameState() == 0)
-//                nextTurn();
-//            return true;
-//        } else
-//            return false;
-//    }
+    
+    public boolean move(int x1, int y1, int z1, int x2, int y2, int z2) {
+        if (isValidMove(x1, y1, z1, x2, y2, z2)) {
+            board[x2][y2][z2] = board[x1][y1][z1];
+            board[x1][y1][z1] = 0;
+            if (gameState() == 0)
+                nextTurn();
+            return true;
+        } else
+            return false;
+    }
+
+    public boolean fly(int x1, int y1, int z1, int x2, int y2, int z2) {
+        if (isValidFly(x1, y1, z1, x2, y2, z2)) {
+            board[x2][y2][z2] = board[x1][y1][z1];
+            board[x1][y1][z1] = 0;
+
+
+            if (gameState() == 0)
+                nextTurn();
+            return true;
+        } else
+            return false;
+    }
 
     public int gameState() {
         int RedValidMoves = 0;
@@ -136,6 +135,27 @@ public class Game {
     
     public boolean isValidSetup(int x, int y, int z){
         return (board[x][y][z]==0);
+    }
+    
+    public boolean isValidMove(int x1, int y1, int z1, int x2, int y2, int z2){
+        return (board[x1][y1][z1]==turn&&board[x2][y2][z2]==0&&(Math.abs(z2-z1)<=1&&Math.abs(y2-y1)<=1&&Math.abs(x2-x1)<=1)&&(x1!=x2&&y1!=y2&&z1!=z2));
+    }
+    
+    public boolean isValidFly(int x1, int y1, int z1, int x2, int y2, int z2){
+        return (board[x1][y1][z1]==turn&&board[x2][y2][z2]==0&&(x1!=x2&&y1!=y2&&z1!=z2));
+    }
+    
+    public boolean delete(int x, int y, int z){
+        if(board[x][y][z]==(turn==1?2:1)&&evaluate(x, y, z)==0){
+            board[x][y][z]=0;
+            if(turn==1){
+                Red.menInBoardCount--;
+            }else{
+                Blue.menInBoardCount--;
+            }
+            return true;
+        }
+        return false;
     }
     
 }
