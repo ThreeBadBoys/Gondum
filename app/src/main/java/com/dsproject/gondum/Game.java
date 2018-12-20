@@ -54,9 +54,9 @@ public class Game {
     public boolean setup(int x, int y, int z) {
         if (isValidSetup(x, y, z)) {
             board[x][y][z] = turn;
-            if (gameState() == 0)
-                nextTurn();
-            return true;
+            if (nextTurn())
+                return true;;
+            return false;
         } else
             return false;
     }
@@ -68,7 +68,7 @@ public class Game {
 
 
             if (gameState() == 0)
-                nextturn();
+                nextTurn();
             return true;
         } else
             return false;
@@ -101,10 +101,12 @@ public class Game {
 
     }
     
-    public void nextTurn(){
+    public boolean nextTurn(){
         if(gameState()==0){
             turn=turn==1?2:1;
+            return true;
         }
+        return false;
     }
     
     public boolean hasValidMove(int x, int y, int z){
@@ -129,6 +131,10 @@ public class Game {
                 return (board[x][y][z-1]==0||(x==0?board[x+1][y][z]==0:board[x-1][y][z]==0)||(y==0?board[x][y+1][z]==0:board[x][y-1][z]==0));
         }
         return false;
+    }
+    
+    public boolean isValidSetup(int x, int y, int z){
+        return (board[x][y][z]==0);
     }
     
 }
