@@ -47,9 +47,11 @@ public class Game {
     public boolean setup(int x, int y, int z) {
         if (isValidSetup(x, y, z)) {
             board[x][y][z] = turn;
-            if (nextTurn())
-                return true;
-            return false;
+            turn = (turn == 1 ? 2 : 1);
+            return true;
+//            if (nextTurn())
+//                return true;
+//            return false;
         } else
             return false;
     }
@@ -105,7 +107,7 @@ public class Game {
     
     public boolean nextTurn(){
         if(gameState()==0){
-            turn=turn==1?2:1;
+            turn = (turn == 1 ? 2 : 1);
             return true;
         }
         return false;
