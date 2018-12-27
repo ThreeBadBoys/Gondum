@@ -1,9 +1,11 @@
-package com.dsproject.Gondum;
+package com.dsproject.gondum;
 
 public class Game {
     public int turn = 1;
+    //1 -> red & 2 -> blue
     public int[][][] board = new int[3][3][3];
-
+    Red red = new Red();
+    Blue blue = new Blue();
 
     public void gameReset() {
         for (int x = 0; x < 3; x++) {
@@ -13,6 +15,8 @@ public class Game {
                 }
             }
         }
+        red = new Red();
+        blue = new Blue();
     }
 
     public void boardPrint() {
@@ -147,9 +151,9 @@ public class Game {
         if(board[x][y][z]==(turn==1?2:1)&&evaluate(x, y, z)==0){
             board[x][y][z]=0;
             if(turn==1){
-                Red.menInBoardCount--;
+                blue.menInBoardCount--;
             }else{
-                Blue.menInBoardCount--;
+                red.menInBoardCount--;
             }
             return true;
         }

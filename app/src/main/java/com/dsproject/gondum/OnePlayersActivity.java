@@ -40,6 +40,12 @@ public class OnePlayersActivity extends AppCompatActivity {
     TextView men_red_trash;
     Typeface typeface;
 
+    int x;
+    int y;
+    int z;
+
+    Game game = new Game();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,79 +105,133 @@ public class OnePlayersActivity extends AppCompatActivity {
         men_red_trash.setTypeface(typeface);
     }
 
+    public void playTurn(int x, int y, int z){
+        if(game.turn==1){
+            if(game.red.phase==1){
+                game.setup(x, y, z);
+            } else if (game.red.phase==2){
+                if(this.x != -1 && this.y != -1 && this.z != -1){
+                    game.move(this.x, this.x, this.x, x, y, z);
+                    this.x = -1;
+                    this.y = -1;
+                    this.z = -1;
+                } else {
+                    this.x = x;
+                    this.y = y;
+                    this.z = z;
+                }
+            } else {
+                if(this.x != -1 && this.y != -1 && this.z != -1){
+                    game.fly(this.x, this.x, this.x, x, y, z);
+                    this.x = -1;
+                    this.y = -1;
+                    this.z = -1;
+                } else {
+                    this.x = x;
+                    this.y = y;
+                    this.z = z;
+                }
+            }
+        }
+    }
+
     public void onClick1(View view) {
         switch (view.getId()) {
             case R.id.image2_1:
                 imageView2_1.setImageResource(R.drawable.red);
+                playTurn(0, 0, 0);
                 break;
             case R.id.image2_2:
                 imageView2_2.setImageResource(R.drawable.blue);
+                playTurn(0, 1, 0);
                 break;
             case R.id.image2_3:
                 imageView2_3.setImageResource(R.drawable.red);
+                playTurn(0, 2, 0);
                 break;
             case R.id.image2_4:
                 imageView2_4.setImageResource(R.drawable.red);
+                playTurn(0, 0, 1);
                 break;
             case R.id.image2_5:
                 imageView2_5.setImageResource(R.drawable.red);
+                playTurn(0, 1, 1);
                 break;
             case R.id.image2_6:
                 imageView2_6.setImageResource(R.drawable.red);
+                playTurn(0, 2, 1);
                 break;
             case R.id.image2_7:
                 imageView2_7.setImageResource(R.drawable.red);
+                playTurn(0, 0, 2);
                 break;
             case R.id.image2_8:
                 imageView2_8.setImageResource(R.drawable.red);
+                playTurn(0, 1, 2);
                 break;
             case R.id.image2_9:
                 imageView2_9.setImageResource(R.drawable.red);
+                playTurn(0, 2, 2);
                 break;
             case R.id.image2_10:
                 imageView2_10.setImageResource(R.drawable.red);
+                playTurn(1, 0, 0);
                 break;
             case R.id.image2_11:
                 imageView2_11.setImageResource(R.drawable.red);
+                playTurn(1, 0, 1);
                 break;
             case R.id.image2_12:
                 imageView2_12.setImageResource(R.drawable.red);
+                playTurn(1, 0, 2);
                 break;
             case R.id.image2_13:
                 imageView2_13.setImageResource(R.drawable.red);
+                playTurn(1, 2, 0);
                 break;
             case R.id.image2_14:
                 imageView2_14.setImageResource(R.drawable.red);
+                playTurn(1, 2, 1);
                 break;
             case R.id.image2_15:
                 imageView2_15.setImageResource(R.drawable.red);
+                playTurn(1, 2, 2);
                 break;
             case R.id.image2_16:
                 imageView2_16.setImageResource(R.drawable.red);
+                playTurn(2, 0, 2);
                 break;
             case R.id.image2_17:
                 imageView2_17.setImageResource(R.drawable.red);
+                playTurn(2, 1, 2);
                 break;
             case R.id.image2_18:
                 imageView2_18.setImageResource(R.drawable.red);
+                playTurn(2, 2, 2);
                 break;
             case R.id.image2_19:
                 imageView2_19.setImageResource(R.drawable.red);
+                playTurn(2, 0, 1);
                 break;
             case R.id.image2_20:
                 imageView2_20.setImageResource(R.drawable.red);
+                playTurn(2, 1, 1);
                 break;
             case R.id.image2_21:
                 imageView2_21.setImageResource(R.drawable.red);
+                playTurn(2, 2, 1);
                 break;
             case R.id.image2_22:
                 imageView2_22.setImageResource(R.drawable.red);
+                playTurn(2, 0, 0);
                 break;
             case R.id.image2_23:
                 imageView2_23.setImageResource(R.drawable.red);
+                playTurn(2, 1, 0);
                 break;
             case R.id.image2_24:
                 imageView2_24.setImageResource(R.drawable.red);
+                playTurn(2, 2, 0);
                 break;
         }
     }

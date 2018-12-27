@@ -1,7 +1,8 @@
 package com.dsproject.gondum;
 
 public class Red {
-    int menCount = 12;
-    int menInBoardCount = 0;
-    int phase;
+    public int menCount = 12;
+    public int menInBoardCount = 0;
+    public int phase = 1;
+    //1 -> setup & 2 -> move & 3 -> fly
 }
