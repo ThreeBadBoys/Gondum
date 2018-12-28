@@ -7,6 +7,14 @@
     android:background="@mipmap/back"
     tools:context=".OnePlayersActivity">
 
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="72dp"
+        android:layout_height="73dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/red_robo" />
 
     <FrameLayout
         android:layout_width="426dp"

@@ -39,7 +39,6 @@ public class OnePlayersActivity extends AppCompatActivity {
     TextView men_blue_trash;
     TextView men_red_trash;
     Typeface typeface;
-
     int x;
     int y;
     int z;
@@ -299,7 +298,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             case R.id.image2_11:
                 res = playTurn(1, 0, 1, imageView2_11);
                 if(res.succ){
-                    imageView2_11.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+                    imageView2_11.setImageResource(res.turn == 1 ? R.drawable.red: R.drawable.blue);
                     if(res.phase>1){
                         this.Img.setImageResource(0);
                     }
@@ -424,4 +423,5 @@ public class OnePlayersActivity extends AppCompatActivity {
                 break;
         }
     }
+
 }
