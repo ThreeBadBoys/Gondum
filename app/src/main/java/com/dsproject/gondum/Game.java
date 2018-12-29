@@ -55,6 +55,9 @@ public class Game {
     }
 
     public boolean insert(int x, int y, int z) {
+        /**
+         * This function is for inserting a piece to an empty node
+         * **/
         if (isValidInsert(x, y, z)) {
             if (turn == 1) {
                 red.menCount--;
@@ -63,27 +66,20 @@ public class Game {
                 blue.menCount--;
                 blue.menInBoardCount++;
             }
-
             board[x][y][z] = turn;
-            turn = (turn == 1 ? 2 : 1);
             return true;
-//            if (nextTurn())
-//                return true;
-//            return false;
         } else
             return false;
     }
 
     public boolean move(int x1, int y1, int z1, int x2, int y2, int z2) {
         /**
-         * This function is for moving a piece from on node to empty adjacent node
+         * This function is for moving a piece from one node to empty adjacent node
          * **/
         if (isValidMove(x1, y1, z1, x2, y2, z2)) {
             board[x2][y2][z2] = board[x1][y1][z1];
             board[x1][y1][z1] = 0;
-            if (nextTurn())
-                return true;
-            return false;
+            return true;
         } else
             return false;
     }
@@ -95,9 +91,7 @@ public class Game {
         if (isValidFly(x1, y1, z1, x2, y2, z2)) {
             board[x2][y2][z2] = board[x1][y1][z1];
             board[x1][y1][z1] = 0;
-            if (nextTurn())
-                return true;
-            return false;
+            return true;
         } else
             return false;
     }
