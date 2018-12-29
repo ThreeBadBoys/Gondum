@@ -39,11 +39,12 @@ public class OnePlayersActivity extends AppCompatActivity {
     TextView men_blue_trash;
     TextView men_red_trash;
     Typeface typeface;
+
     int x;
     int y;
     int z;
-    ImageView Img;
-
+    ImageView img;
+    boolean matched = false;
     Game game = new Game();
 
     @Override
@@ -57,6 +58,155 @@ public class OnePlayersActivity extends AppCompatActivity {
         men_blue.setText(NumberToPersian.toPersianNumber("12"));
         men_blue_trash.setText(NumberToPersian.toPersianNumber("0"));
         men_red_trash.setText(NumberToPersian.toPersianNumber("0"));
+
+
+        imageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image1Listener();
+            }
+        });
+        imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image2Listener();
+            }
+        });
+
+        imageView3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image3Listener();
+            }
+        });
+        imageView4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image4Listener();
+            }
+        });
+        imageView5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image5Listener();
+            }
+        });
+        imageView6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image6Listener();
+            }
+        });
+        imageView7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image7Listener();
+            }
+        });
+        imageView8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image8Listener();
+            }
+        });
+        imageView9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image9Listener();
+            }
+        });
+        imageView10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image10Listener();
+            }
+        });
+        imageView11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image11Listener();
+            }
+        });
+        imageView12.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image12Listener();
+            }
+        });
+        imageView13.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image13Listener();
+            }
+        });
+        imageView14.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image14Listener();
+            }
+        });
+        imageView15.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image15Listener();
+            }
+        });
+        imageView16.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image16Listener();
+            }
+        });
+        imageView17.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image17Listener();
+            }
+        });
+        imageView18.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image18Listener();
+            }
+        });
+        imageView19.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image19Listener();
+            }
+        });
+        imageView20.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image20Listener();
+            }
+        });
+        imageView21.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image21Listener();
+            }
+        });
+        imageView22.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image22Listener();
+            }
+        });
+        imageView23.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image23Listener();
+            }
+        });
+        imageView24.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image24Listener();
+            }
+        });
+
+
     }
 
     private void changeStatusBarColor() {
@@ -105,21 +255,28 @@ public class OnePlayersActivity extends AppCompatActivity {
         men_red_trash.setTypeface(typeface);
     }
 
-    public Result playTurn(int x, int y, int z, ImageView Img){
-//        Img.setColorFilter(ContextCompat.getColor(this, R.color.COLOR_YOUR_COLOR), android.graphics.PorterDuff.Mode.MULTIPLY);
+    public Result selectNode(int x, int y, int z, ImageView img) {
         Result res = new Result();
-        if(game.turn==1){
-            if(game.red.phase==1){
+        if (this.matched) {
+            res.succ = game.delete(x, y, z);
+            if (res.succ) {
+                this.matched = false;
+                img.setImageResource(0);
+            }
+            return res;
+        } else if (game.turn == 1) {
+            if (game.red.phase == 1) {
                 res.succ = game.insert(x, y, z);
+                this.matched = game.evaluate(x, y, z);
                 res.x = x;
                 res.y = y;
                 res.z = z;
                 res.phase = 1;
                 res.turn = game.turn;
                 return res;
-            } else if (game.red.phase==2){
+            } else if (game.red.phase == 2) {
                 res.phase = game.red.phase;
-                if(this.x != -1){
+                if (this.x != -1) {
                     res.succ = game.move(this.x, this.y, this.z, x, y, z);
                     res.x = this.x;
                     res.y = this.y;
@@ -128,16 +285,16 @@ public class OnePlayersActivity extends AppCompatActivity {
                     this.x = -1;
                     return res;
                 } else {
-                    res.succ=false;
+                    res.succ = false;
                     this.x = x;
                     this.y = y;
                     this.z = z;
-                    this.Img = Img;
+                    this.img = img;
                     return res;
                 }
             } else {
                 res.phase = game.blue.phase;
-                if(this.x != -1){
+                if (this.x != -1) {
                     res.succ = game.fly(this.x, this.y, this.z, x, y, z);
                     res.x = this.x;
                     res.y = this.y;
@@ -146,11 +303,11 @@ public class OnePlayersActivity extends AppCompatActivity {
                     this.x = -1;
                     return res;
                 } else {
-                    res.succ=false;
+                    res.succ = false;
                     this.x = x;
                     this.y = y;
                     this.z = z;
-                    this.Img = Img;
+                    this.img = img;
                     return res;
                 }
             }
@@ -178,7 +335,7 @@ public class OnePlayersActivity extends AppCompatActivity {
                     this.x = x;
                     this.y = y;
                     this.z = z;
-                    this.Img = Img;
+                    this.img = img;
                     return res;
                 }
             } else {
@@ -196,233 +353,305 @@ public class OnePlayersActivity extends AppCompatActivity {
                     this.x = x;
                     this.y = y;
                     this.z = z;
-                    this.Img = Img;
+                    this.img = img;
                     return res;
                 }
             }
         }
     }
 
-    public void onClick1(View view) {
+    private void image1Listener() {
         Result res = new Result();
-        switch (view.getId()) {
-            case R.id.image1:
-                res = playTurn(0, 0, 0, imageView1);
-                if(res.succ){
-                    imageView1.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2:
-                res = playTurn(0, 1, 0, imageView2);
-                if(res.succ){
-                    imageView2.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image3:
-                res = playTurn(0, 2, 0, imageView3);
-                if(res.succ){
-                    imageView3.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image4:
-                res = playTurn(0, 0, 1, imageView4);
-                if(res.succ){
-                    imageView4.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image5:
-                res = playTurn(0, 1, 1, imageView5);
-                if(res.succ){
-                    imageView5.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image6:
-                res = playTurn(0, 2, 1, imageView6);
-                if(res.succ){
-                    imageView6.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image7:
-                res = playTurn(0, 0, 2, imageView7);
-                if(res.succ){
-                    imageView7.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image8:
-                res = playTurn(0, 1, 2, imageView8);
-                if(res.succ){
-                    imageView8.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image9:
-                res = playTurn(0, 2, 2, imageView9);
-                if(res.succ){
-                    imageView9.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image10:
-                res = playTurn(1, 0, 0, imageView10);
-                if(res.succ){
-                    imageView10.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image11:
-                res = playTurn(1, 0, 1, imageView11);
-                if(res.succ){
-                    imageView11.setImageResource(res.turn == 1 ? R.drawable.red: R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image12:
-                res = playTurn(1, 0, 2, imageView12);
-                if(res.succ){
-                    imageView12.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image13:
-                res = playTurn(1, 2, 0, imageView13);
-                if(res.succ){
-                    imageView13.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image14:
-                res = playTurn(1, 2, 1, imageView14);
-                if(res.succ){
-                    imageView14.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image15:
-                res = playTurn(1, 2, 2, imageView15);
-                if(res.succ){
-                    imageView15.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image16:
-                res = playTurn(2, 0, 2, imageView16);
-                if(res.succ){
-                    imageView16.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image17:
-                res = playTurn(2, 1, 2, imageView17);
-                if(res.succ){
-                    imageView17.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image18:
-                res = playTurn(2, 2, 0, imageView18);
-                if(res.succ){
-                    imageView18.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image19:
-                res = playTurn(2, 0, 1, imageView19);
-                if(res.succ){
-                    imageView19.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image20:
-                res = playTurn(2, 1, 1, imageView20);
-                if(res.succ){
-                    imageView20.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image21:
-                res = playTurn(2, 2, 1, imageView21);
-                if(res.succ){
-                    imageView21.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image22:
-                res = playTurn(2, 0, 0, imageView22);
-                if(res.succ){
-                    imageView22.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image23:
-                res = playTurn(2, 1, 0, imageView23);
-                if(res.succ){
-                    imageView23.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image24:
-                res = playTurn(2, 2, 0, imageView24);
-                if(res.succ){
-                    imageView24.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if(res.phase>1){
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
+
+        res = selectNode(0, 0, 0, imageView1);
+        if (res.succ) {
+            imageView1.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
         }
     }
 
+    private void image2Listener() {
+        Result res = new Result();
+        res = selectNode(0, 1, 0, imageView2);
+        if (res.succ) {
+            imageView2.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image3Listener() {
+        Result res = new Result();
+        res = selectNode(0, 2, 0, imageView3);
+        if (res.succ) {
+            imageView3.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image4Listener() {
+        Result res = new Result();
+        res = selectNode(0, 0, 1, imageView4);
+        if (res.succ) {
+            imageView4.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image5Listener() {
+        Result res = new Result();
+        res = selectNode(0, 1, 1, imageView5);
+        if (res.succ) {
+            imageView5.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image6Listener() {
+        Result res = new Result();
+        res = selectNode(0, 2, 1, imageView6);
+        if (res.succ) {
+            imageView6.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image7Listener() {
+        Result res = new Result();
+        res = selectNode(0, 0, 2, imageView7);
+        if (res.succ) {
+            imageView7.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image8Listener() {
+        Result res = new Result();
+        res = selectNode(0, 1, 2, imageView8);
+        if (res.succ) {
+            imageView8.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image9Listener() {
+        Result res = new Result();
+        res = selectNode(0, 2, 2, imageView9);
+        if (res.succ) {
+            imageView9.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image10Listener() {
+        Result res = new Result();
+        res = selectNode(1, 0, 0, imageView10);
+        if (res.succ) {
+            imageView10.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image11Listener() {
+        Result res = new Result();
+        res = selectNode(1, 0, 1, imageView11);
+        if (res.succ) {
+            imageView11.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image12Listener() {
+        Result res = new Result();
+        res = selectNode(1, 0, 2, imageView12);
+        if (res.succ) {
+            imageView12.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image13Listener() {
+        Result res = new Result();
+        res = selectNode(1, 2, 0, imageView13);
+        if (res.succ) {
+            imageView13.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image14Listener() {
+        Result res = new Result();
+        res = selectNode(1, 2, 1, imageView14);
+        if (res.succ) {
+            imageView14.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image15Listener() {
+        Result res = new Result();
+        res = selectNode(1, 2, 2, imageView15);
+        if (res.succ) {
+            imageView15.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image16Listener() {
+        Result res = new Result();
+        res = selectNode(2, 0, 2, imageView16);
+        if (res.succ) {
+            imageView16.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image17Listener() {
+        Result res = new Result();
+        res = selectNode(2, 1, 2, imageView17);
+        if (res.succ) {
+            imageView17.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image18Listener() {
+        Result res = new Result();
+        res = selectNode(2, 2, 2, imageView18);
+        if (res.succ) {
+            imageView18.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image19Listener() {
+        Result res = new Result();
+        res = selectNode(2, 0, 1, imageView19);
+        if (res.succ) {
+            imageView19.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image20Listener() {
+        Result res = new Result();
+        res = selectNode(2, 1, 1, imageView20);
+        if (res.succ) {
+            imageView20.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image21Listener() {
+        Result res = new Result();
+        res = selectNode(2, 2, 1, imageView21);
+        if (res.succ) {
+            imageView21.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image22Listener() {
+        Result res = new Result();
+        res = selectNode(2, 0, 0, imageView22);
+        if (res.succ) {
+            imageView22.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image23Listener() {
+        Result res = new Result();
+        res = selectNode(2, 1, 0, imageView23);
+        if (res.succ) {
+            imageView23.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image24Listener() {
+        Result res = new Result();
+        res = selectNode(2, 2, 0, imageView24);
+        if (res.succ) {
+            imageView24.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+    }
 }

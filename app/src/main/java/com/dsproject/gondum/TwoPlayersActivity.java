@@ -43,9 +43,8 @@ public class TwoPlayersActivity extends AppCompatActivity {
     int x;
     int y;
     int z;
-    ImageView Img;
+    ImageView img;
     boolean matched = false;
-
     Game game = new Game();
 
     @Override
@@ -59,6 +58,154 @@ public class TwoPlayersActivity extends AppCompatActivity {
         men_blue.setText(NumberToPersian.toPersianNumber("12"));
         men_blue_trash.setText(NumberToPersian.toPersianNumber("0"));
         men_red_trash.setText(NumberToPersian.toPersianNumber("0"));
+
+
+        imageView2_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image1Listener();
+            }
+        });
+        imageView2_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image2Listener();
+            }
+        });
+
+        imageView2_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image3Listener();
+            }
+        });
+        imageView2_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image4Listener();
+            }
+        });
+        imageView2_5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image5Listener();
+            }
+        });
+        imageView2_6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image6Listener();
+            }
+        });
+        imageView2_7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image7Listener();
+            }
+        });
+        imageView2_8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image8Listener();
+            }
+        });
+        imageView2_9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image9Listener();
+            }
+        });
+        imageView2_10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image10Listener();
+            }
+        });
+        imageView2_11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image11Listener();
+            }
+        });
+        imageView2_12.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image12Listener();
+            }
+        });
+        imageView2_13.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image13Listener();
+            }
+        });
+        imageView2_14.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image14Listener();
+            }
+        });
+        imageView2_15.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image15Listener();
+            }
+        });
+        imageView2_16.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image16Listener();
+            }
+        });
+        imageView2_17.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image17Listener();
+            }
+        });
+        imageView2_18.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image18Listener();
+            }
+        });
+        imageView2_19.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image19Listener();
+            }
+        });
+        imageView2_20.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image20Listener();
+            }
+        });
+        imageView2_21.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image21Listener();
+            }
+        });
+        imageView2_22.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image22Listener();
+            }
+        });
+        imageView2_23.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image23Listener();
+            }
+        });
+        imageView2_24.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image24Listener();
+            }
+        });
+
 
     }
 
@@ -96,7 +243,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     this.x = x;
                     this.y = y;
                     this.z = z;
-                    this.Img = img;
+                    this.img = img;
                     return res;
                 }
             } else {
@@ -114,7 +261,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     this.x = x;
                     this.y = y;
                     this.z = z;
-                    this.Img = img;
+                    this.img = img;
                     return res;
                 }
             }
@@ -142,7 +289,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     this.x = x;
                     this.y = y;
                     this.z = z;
-                    this.Img = img;
+                    this.img = img;
                     return res;
                 }
             } else {
@@ -160,235 +307,302 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     this.x = x;
                     this.y = y;
                     this.z = z;
-                    this.Img = img;
+                    this.img = img;
                     return res;
                 }
             }
         }
     }
+    private void image1Listener() {
+        Result res = new Result();
 
-    public void onClick(View view) {
-        Result res;
-        switch (view.getId()) {
-            case R.id.image2_1:
-                res = selectNode(0, 0, 0, imageView2_1);
-                if (res.succ) {
-                    imageView2_1.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_2:
-                res = selectNode(0, 1, 0, imageView2_2);
-                if (res.succ) {
-                    imageView2_2.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_3:
-                res = selectNode(0, 2, 0, imageView2_3);
-                if (res.succ) {
-                    imageView2_3.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_4:
-                res = selectNode(0, 0, 1, imageView2_4);
-                if (res.succ) {
-                    imageView2_4.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_5:
-                res = selectNode(0, 1, 1, imageView2_5);
-                if (res.succ) {
-                    imageView2_5.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_6:
-                res = selectNode(0, 2, 1, imageView2_6);
-                if (res.succ) {
-                    imageView2_6.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_7:
-                res = selectNode(0, 0, 2, imageView2_7);
-                if (res.succ) {
-                    imageView2_7.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_8:
-                res = selectNode(0, 1, 2, imageView2_8);
-                if (res.succ) {
-                    imageView2_8.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_9:
-                res = selectNode(0, 2, 2, imageView2_9);
-                if (res.succ) {
-                    imageView2_9.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_10:
-                res = selectNode(1, 0, 0, imageView2_10);
-                if (res.succ) {
-                    imageView2_10.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_11:
-                res = selectNode(1, 0, 1, imageView2_11);
-                if (res.succ) {
-                    imageView2_11.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_12:
-                res = selectNode(1, 0, 2, imageView2_12);
-                if (res.succ) {
-                    imageView2_12.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_13:
-                res = selectNode(1, 2, 0, imageView2_13);
-                if (res.succ) {
-                    imageView2_13.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_14:
-                res = selectNode(1, 2, 1, imageView2_14);
-                if (res.succ) {
-                    imageView2_14.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_15:
-                res = selectNode(1, 2, 2, imageView2_15);
-                if (res.succ) {
-                    imageView2_15.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_16:
-                res = selectNode(2, 0, 2, imageView2_16);
-                if (res.succ) {
-                    imageView2_16.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_17:
-                res = selectNode(2, 1, 2, imageView2_17);
-                if (res.succ) {
-                    imageView2_17.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
+        res = selectNode(0, 0, 0, imageView2_1);
+        if (res.succ) {
+            imageView2_1.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
 
-            case R.id.image2_19:
-                res = selectNode(2, 0, 1, imageView2_19);
-                if (res.succ) {
-                    imageView2_19.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_18:
-                res = selectNode(2, 2, 0, imageView2_18);
-                if (res.succ) {
-                    imageView2_18.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_20:
-                res = selectNode(2, 1, 1, imageView2_20);
-                if (res.succ) {
-                    imageView2_20.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_21:
-                res = selectNode(2, 2, 1, imageView2_21);
-                if (res.succ) {
-                    imageView2_21.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_22:
-                res = selectNode(2, 0, 0, imageView2_22);
-                if (res.succ) {
-                    imageView2_22.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_23:
-                res = selectNode(2, 1, 0, imageView2_23);
-                if (res.succ) {
-                    imageView2_23.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
-            case R.id.image2_24:
-                res = selectNode(2, 2, 0, imageView2_24);
-                if (res.succ) {
-                    imageView2_24.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
-                    if (res.phase > 1) {
-                        this.Img.setImageResource(0);
-                    }
-                }
-                break;
+            }
         }
     }
+
+    private void image2Listener() {
+        Result res = new Result();
+        res = selectNode(0, 1, 0, imageView2_2);
+        if (res.succ) {
+            imageView2_2.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image3Listener() {
+        Result res = new Result();
+        res = selectNode(0, 2, 0, imageView2_3);
+        if (res.succ) {
+            imageView2_3.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image4Listener() {
+        Result res = new Result();
+        res = selectNode(0, 0, 1, imageView2_4);
+        if (res.succ) {
+            imageView2_4.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image5Listener() {
+        Result res = new Result();
+        res = selectNode(0, 1, 1, imageView2_5);
+        if (res.succ) {
+            imageView2_5.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image6Listener() {
+        Result res = new Result();
+        res = selectNode(0, 2, 1, imageView2_6);
+        if (res.succ) {
+            imageView2_6.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image7Listener() {
+        Result res = new Result();
+        res = selectNode(0, 0, 2, imageView2_7);
+        if (res.succ) {
+            imageView2_7.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image8Listener() {
+        Result res = new Result();
+        res = selectNode(0, 1, 2, imageView2_8);
+        if (res.succ) {
+            imageView2_8.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image9Listener() {
+        Result res = new Result();
+        res = selectNode(0, 2, 2, imageView2_9);
+        if (res.succ) {
+            imageView2_9.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image10Listener() {
+        Result res = new Result();
+        res = selectNode(1, 0, 0, imageView2_10);
+        if (res.succ) {
+            imageView2_10.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image11Listener() {
+        Result res = new Result();
+        res = selectNode(1, 0, 1, imageView2_11);
+        if (res.succ) {
+            imageView2_11.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image12Listener() {
+        Result res = new Result();
+        res = selectNode(1, 0, 2, imageView2_12);
+        if (res.succ) {
+            imageView2_12.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image13Listener() {
+        Result res = new Result();
+        res = selectNode(1, 2, 0, imageView2_13);
+        if (res.succ) {
+            imageView2_13.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image14Listener() {
+        Result res = new Result();
+        res = selectNode(1, 2, 1, imageView2_14);
+        if (res.succ) {
+            imageView2_14.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image15Listener() {
+        Result res = new Result();
+        res = selectNode(1, 2, 2, imageView2_15);
+        if (res.succ) {
+            imageView2_15.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image16Listener() {
+        Result res = new Result();
+        res = selectNode(2, 0, 2, imageView2_16);
+        if (res.succ) {
+            imageView2_16.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image17Listener() {
+        Result res = new Result();
+        res = selectNode(2, 1, 2, imageView2_17);
+        if (res.succ) {
+            imageView2_17.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image18Listener() {
+        Result res = new Result();
+        res = selectNode(2, 2, 2, imageView2_18);
+        if (res.succ) {
+            imageView2_18.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image19Listener() {
+        Result res = new Result();
+        res = selectNode(2, 0, 1, imageView2_19);
+        if (res.succ) {
+            imageView2_19.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image20Listener() {
+        Result res = new Result();
+        res = selectNode(2, 1, 1, imageView2_20);
+        if (res.succ) {
+            imageView2_20.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image21Listener() {
+        Result res = new Result();
+        res = selectNode(2, 2, 1, imageView2_21);
+        if (res.succ) {
+            imageView2_21.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image22Listener() {
+        Result res = new Result();
+        res = selectNode(2, 0, 0, imageView2_22);
+        if (res.succ) {
+            imageView2_22.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image23Listener() {
+        Result res = new Result();
+        res = selectNode(2, 1, 0, imageView2_23);
+        if (res.succ) {
+            imageView2_23.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+    private void image24Listener() {
+        Result res = new Result();
+        res = selectNode(2, 2, 0, imageView2_24);
+        if (res.succ) {
+            imageView2_24.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            if (res.phase > 1) {
+                this.img.setImageResource(0);
+
+            }
+        }
+    }
+
+
 
     void init() {
         imageView2_1 = findViewById(R.id.image2_1);
@@ -434,5 +648,11 @@ public class TwoPlayersActivity extends AppCompatActivity {
             Window window = getWindow();
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
     }
 }
