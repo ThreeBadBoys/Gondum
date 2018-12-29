@@ -112,8 +112,15 @@ public class Game {
                 }
             }
         }
-        if (RedValidMoves != 0 && BlueValidMoves != 0)
-            return 0;
+        if (RedValidMoves != 0 && BlueValidMoves != 0) {
+            if (red.menCount + red.menInBoardCount > 2) {
+                if (blue.menCount + blue.menInBoardCount > 2) {
+                    return 0;
+                }
+                return 1;
+            }
+            return 2;
+        }
         if (RedValidMoves == 0 && BlueValidMoves != 0)
             return 1;
         if (BlueValidMoves == 0 && RedValidMoves != 0)
@@ -128,6 +135,7 @@ public class Game {
          * This function is for checking the players turn in the game
          * **/
         if (gameState() == 0) {
+            System.out.print("xvxcb");
             turn = (turn == 1 ? 2 : 1);
             return true;
         }
@@ -135,27 +143,41 @@ public class Game {
     }
 
     public boolean hasValidMove(int x, int y, int z) {
+        boolean res = false;
         if (x == 1) {
-            return (board[x - 1][y][z] == 0 || board[x + 1][y][z] == 0);
-        } else if (y == 1) {
-            return (board[x][y - 1][z] == 0 || board[x][y + 1][z] == 0);
-        } else if (z == 1) {
-            return (board[x][y][z - 1] == 0 || board[x][y][z + 1] == 0);
-        } else {
-            if (x == 0)
-                return (board[x + 1][y][z] == 0 || (z == 0 ? board[x][y][z + 1] == 0 : board[x][y][z - 1] == 0) || (y == 0 ? board[x][y + 1][z] == 0 : board[x][y - 1][z] == 0));
-            if (y == 0)
-                return (board[x][y + 1][z] == 0 || (x == 0 ? board[x + 1][y][z] == 0 : board[x - 1][y][z] == 0) || (z == 0 ? board[x][y][z + 1] == 0 : board[x][y][z - 1] == 0));
-            if (z == 0)
-                return (board[x][y][z + 1] == 0 || (x == 0 ? board[x + 1][y][z] == 0 : board[x - 1][y][z] == 0) || (y == 0 ? board[x][y + 1][z] == 0 : board[x][y - 1][z] == 0));
-            if (x == 2)
-                return (board[x - 1][y][z] == 0 || (z == 0 ? board[x][y][z + 1] == 0 : board[x][y][z - 1] == 0) || (y == 0 ? board[x][y + 1][z] == 0 : board[x][y - 1][z] == 0));
-            if (y == 2)
-                return (board[x][y - 1][z] == 0 || (x == 0 ? board[x + 1][y][z] == 0 : board[x - 1][y][z] == 0) || (z == 0 ? board[x][y][z + 1] == 0 : board[x][y][z - 1] == 0));
-            if (z == 2)
-                return (board[x][y][z - 1] == 0 || (x == 0 ? board[x + 1][y][z] == 0 : board[x - 1][y][z] == 0) || (y == 0 ? board[x][y + 1][z] == 0 : board[x][y - 1][z] == 0));
+            res = (board[x - 1][y][z] == 0 || board[x + 1][y][z] == 0);
         }
-        return false;
+        if (y == 1) {
+            res = res || (board[x][y - 1][z] == 0 || board[x][y + 1][z] == 0);
+        }
+        if (z == 1) {
+            res = res || (board[x][y][z - 1] == 0 || board[x][y][z + 1] == 0);
+        }
+        if (x == 0)
+            res = res || (board[x + 1][y][z] == 0
+                    || (z == 0 ? board[x][y][z + 1] == 0 : z == 2 ? board[x][y][z - 1] == 0 : (board[x][y][z - 1] == 0 || board[x][y][z + 1] == 0))
+                    || (y == 0 ? board[x][y + 1][z] == 0 : y == 2 ? board[x][y - 1][z] == 0 : (board[x][y - 1][z] == 0 || board[x][y + 1][z] == 0)));
+        if (y == 0)
+            res = res || (board[x][y + 1][z] == 0
+                    || (x == 0 ? board[x + 1][y][z] == 0 : x == 2 ? board[x - 1][y][z] == 0 : (board[x - 1][y][z] == 0 || board[x = 1][y][z] == 0))
+                    || (z == 0 ? board[x][y][z + 1] == 0 : z == 2 ? board[x][y][z - 1] == 0 : (board[x][y][z - 1] == 0 || board[x][y][z + 1] == 0)));
+        if (z == 0)
+            res = res || (board[x][y][z + 1] == 0
+                    || (x == 0 ? board[x + 1][y][z] == 0 : x == 2 ? board[x - 1][y][z] == 0 : (board[x - 1][y][z] == 0 || board[x + 1][y][z] == 0))
+                    || (y == 0 ? board[x][y + 1][z] == 0 : y == 2 ? board[x][y - 1][z] == 0 : (board[x][y - 1][z] == 0 || board[x][y + 1][z] == 0)));
+        if (x == 2)
+            res = res || (board[x - 1][y][z] == 0
+                    || (z == 0 ? board[x][y][z + 1] == 0 : z == 2 ? board[x][y][z - 1] == 0 : (board[x][y][z - 1] == 0 || board[x][y][z + 1] == 0))
+                    || (y == 0 ? board[x][y + 1][z] == 0 : y == 2 ? board[x][y - 1][z] == 0 : (board[x][y - 1][z] == 0 || board[x][y + 1][z] == 0)));
+        if (y == 2)
+            res = res || (board[x][y - 1][z] == 0
+                    || (x == 0 ? board[x + 1][y][z] == 0 : x == 2 ? board[x - 1][y][z] == 0 : (board[x - 1][y][z] == 0 || board[x = 1][y][z] == 0))
+                    || (z == 0 ? board[x][y][z + 1] == 0 : z == 2 ? board[x][y][z - 1] == 0 : (board[x][y][z - 1] == 0 || board[x][y][z + 1] == 0)));
+        if (z == 2)
+            res = res || (board[x][y][z + 1] == 0
+                    || (x == 0 ? board[x + 1][y][z] == 0 : x == 2 ? board[x - 1][y][z] == 0 : (board[x - 1][y][z] == 0 || board[x + 1][y][z] == 0))
+                    || (y == 0 ? board[x][y + 1][z] == 0 : y == 2 ? board[x][y - 1][z] == 0 : (board[x][y - 1][z] == 0 || board[x][y + 1][z] == 0)));
+        return res;
     }
 
     public boolean isValidInsert(int x, int y, int z) {

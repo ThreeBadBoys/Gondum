@@ -268,6 +268,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (game.red.phase == 1) {
                 res.succ = game.insert(x, y, z);
                 this.matched = game.evaluate(x, y, z);
+                if(!this.matched) game.nextTurn();
                 res.x = x;
                 res.y = y;
                 res.z = z;
@@ -651,6 +652,7 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        game.gameReset();
         finish();
         super.onBackPressed();
     }
