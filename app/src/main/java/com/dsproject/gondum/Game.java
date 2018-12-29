@@ -54,8 +54,16 @@ public class Game {
         return false;
     }
 
-    public boolean setup(int x, int y, int z) {
-        if (isValidSetup(x, y, z)) {
+    public boolean insert(int x, int y, int z) {
+        if (isValidInsert(x, y, z)) {
+            if (turn == 1) {
+                red.menCount--;
+                red.menInBoardCount++;
+            } else {
+                blue.menCount--;
+                blue.menInBoardCount++;
+            }
+
             board[x][y][z] = turn;
             turn = (turn == 1 ? 2 : 1);
             return true;
@@ -156,8 +164,9 @@ public class Game {
         return false;
     }
 
-    public boolean isValidSetup(int x, int y, int z) {
-        return (board[x][y][z] == 0);
+    public boolean isValidInsert(int x, int y, int z) {
+        return (board[x][y][z] == 0 &&
+                ((turn == 1 && red.menCount > 0) || (turn == 2 && blue.menCount > 0)));
     }
 
     public boolean isValidMove(int x1, int y1, int z1, int x2, int y2, int z2) {
@@ -172,7 +181,7 @@ public class Game {
         /**
          * This function is for removing the piece from the board when the winning state is happened.
          * **/
-        if (board[x][y][z] == (turn == 1 ? 2 : 1) && !evaluate(x, y, z)) {
+        if (board[x][y][z] == (turn == 1 ? 2 : 1)) {
             board[x][y][z] = 0;
             if (turn == 1) {
                 blue.menInBoardCount--;
