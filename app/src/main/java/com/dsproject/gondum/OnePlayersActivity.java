@@ -2,6 +2,7 @@ package com.dsproject.gondum;
 
 import android.graphics.Typeface;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -106,6 +107,7 @@ public class OnePlayersActivity extends AppCompatActivity {
     }
 
     public Result playTurn(int x, int y, int z, ImageView Img){
+//        Img.setColorFilter(ContextCompat.getColor(this, R.color.COLOR_YOUR_COLOR), android.graphics.PorterDuff.Mode.MULTIPLY);
         Result res = new Result();
         if(game.turn==1){
             if(game.red.phase==1){

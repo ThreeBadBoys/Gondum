@@ -39,20 +39,19 @@ public class Game {
         }
     }
 
-    public int evaluate(int x, int y, int z) {
+    public boolean evaluate(int x, int y, int z) {
         /**
-         * This function is for checking how many winning state happened during the game!!
-         * returning the numbers of winning states
+         * This function is for checking if the matching state is happened!
          **/
-        int matchCount = 0;
-        if (this.board[x][y][z] != 0 && this.board[0][y][z] == this.board[1][y][z] && this.board[1][y][z] == this.board[2][y][z])
-            matchCount++;
-        if (this.board[x][y][z] != 0 && this.board[x][0][z] == this.board[x][1][z] && this.board[x][1][z] == this.board[x][2][z])
-            matchCount++;
-        if (this.board[x][y][z] != 0 && this.board[x][y][0] == this.board[x][y][1] && this.board[x][y][1] == this.board[x][y][2])
-            matchCount++;
 
-        return matchCount;
+        if (this.board[x][y][z] != 0 && this.board[0][y][z] == this.board[1][y][z] && this.board[1][y][z] == this.board[2][y][z])
+            return true;
+        if (this.board[x][y][z] != 0 && this.board[x][0][z] == this.board[x][1][z] && this.board[x][1][z] == this.board[x][2][z])
+            return true;
+        if (this.board[x][y][z] != 0 && this.board[x][y][0] == this.board[x][y][1] && this.board[x][y][1] == this.board[x][y][2])
+            return true;
+
+        return false;
     }
 
     public boolean setup(int x, int y, int z) {
@@ -173,7 +172,7 @@ public class Game {
         /**
          * This function is for removing the piece from the board when the winning state is happened.
          * **/
-        if (board[x][y][z] == (turn == 1 ? 2 : 1) && evaluate(x, y, z) == 0) {
+        if (board[x][y][z] == (turn == 1 ? 2 : 1) && !evaluate(x, y, z)) {
             board[x][y][z] = 0;
             if (turn == 1) {
                 blue.menInBoardCount--;
