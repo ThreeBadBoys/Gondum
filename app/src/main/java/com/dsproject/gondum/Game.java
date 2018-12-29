@@ -7,7 +7,12 @@ public class Game {
     Red red = new Red();
     Blue blue = new Blue();
 
+
     public void gameReset() {
+        /**
+         * This function is for restarting the game.
+         * Returning everything to the first state.
+         * **/
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
                 for (int z = 0; z < 3; z++) {
@@ -20,6 +25,9 @@ public class Game {
     }
 
     public void boardPrint() {
+        /**
+         * This function is for printing the pieces over the board.
+         * **/
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
                 for (int z = 0; z < 3; z++) {
@@ -32,7 +40,10 @@ public class Game {
     }
 
     public int evaluate(int x, int y, int z) {
-
+        /**
+         * This function is for checking how many winning state happened during the game!!
+         * returning the numbers of winning states
+         **/
         int matchCount = 0;
         if (this.board[x][y][z] != 0 && this.board[0][y][z] == this.board[1][y][z] && this.board[1][y][z] == this.board[2][y][z])
             matchCount++;
@@ -55,8 +66,11 @@ public class Game {
         } else
             return false;
     }
-    
+
     public boolean move(int x1, int y1, int z1, int x2, int y2, int z2) {
+        /**
+         * This function is for moving a piece from on node to empty adjacent node
+         * **/
         if (isValidMove(x1, y1, z1, x2, y2, z2)) {
             board[x2][y2][z2] = board[x1][y1][z1];
             board[x1][y1][z1] = 0;
@@ -68,6 +82,9 @@ public class Game {
     }
 
     public boolean fly(int x1, int y1, int z1, int x2, int y2, int z2) {
+        /**
+         * This function is for moving a piece from one node to other empty nodes
+         * **/
         if (isValidFly(x1, y1, z1, x2, y2, z2)) {
             board[x2][y2][z2] = board[x1][y1][z1];
             board[x1][y1][z1] = 0;
@@ -104,62 +121,68 @@ public class Game {
         return 3;
 
     }
-    
-    public boolean nextTurn(){
-        if(gameState()==0){
+
+    public boolean nextTurn() {
+        /**
+         * This function is for checking the players turn in the game
+         * **/
+        if (gameState() == 0) {
             turn = (turn == 1 ? 2 : 1);
             return true;
         }
         return false;
     }
-    
-    public boolean hasValidMove(int x, int y, int z){
-        if(x==1){
-            return (board[x-1][y][z]==0||board[x+1][y][z]==0);
-        }else if(y==1){
-            return (board[x][y-1][z]==0||board[x][y+1][z]==0);
-        }else if(z==1){
-            return (board[x][y][z-1]==0||board[x][y][z+1]==0);
-        }else{
-            if(x==0)
-                return (board[x+1][y][z]==0||(z==0?board[x][y][z+1]==0:board[x][y][z-1]==0)||(y==0?board[x][y+1][z]==0:board[x][y-1][z]==0));
-            if(y==0)
-                return (board[x][y+1][z]==0||(x==0?board[x+1][y][z]==0:board[x-1][y][z]==0)||(z==0?board[x][y][z+1]==0:board[x][y][z-1]==0));
-            if(z==0)
-                return (board[x][y][z+1]==0||(x==0?board[x+1][y][z]==0:board[x-1][y][z]==0)||(y==0?board[x][y+1][z]==0:board[x][y-1][z]==0));
-            if(x==2)
-                return (board[x-1][y][z]==0||(z==0?board[x][y][z+1]==0:board[x][y][z-1]==0)||(y==0?board[x][y+1][z]==0:board[x][y-1][z]==0));
-            if(y==2)
-                return (board[x][y-1][z]==0||(x==0?board[x+1][y][z]==0:board[x-1][y][z]==0)||(z==0?board[x][y][z+1]==0:board[x][y][z-1]==0));
-            if(z==2)
-                return (board[x][y][z-1]==0||(x==0?board[x+1][y][z]==0:board[x-1][y][z]==0)||(y==0?board[x][y+1][z]==0:board[x][y-1][z]==0));
+
+    public boolean hasValidMove(int x, int y, int z) {
+        if (x == 1) {
+            return (board[x - 1][y][z] == 0 || board[x + 1][y][z] == 0);
+        } else if (y == 1) {
+            return (board[x][y - 1][z] == 0 || board[x][y + 1][z] == 0);
+        } else if (z == 1) {
+            return (board[x][y][z - 1] == 0 || board[x][y][z + 1] == 0);
+        } else {
+            if (x == 0)
+                return (board[x + 1][y][z] == 0 || (z == 0 ? board[x][y][z + 1] == 0 : board[x][y][z - 1] == 0) || (y == 0 ? board[x][y + 1][z] == 0 : board[x][y - 1][z] == 0));
+            if (y == 0)
+                return (board[x][y + 1][z] == 0 || (x == 0 ? board[x + 1][y][z] == 0 : board[x - 1][y][z] == 0) || (z == 0 ? board[x][y][z + 1] == 0 : board[x][y][z - 1] == 0));
+            if (z == 0)
+                return (board[x][y][z + 1] == 0 || (x == 0 ? board[x + 1][y][z] == 0 : board[x - 1][y][z] == 0) || (y == 0 ? board[x][y + 1][z] == 0 : board[x][y - 1][z] == 0));
+            if (x == 2)
+                return (board[x - 1][y][z] == 0 || (z == 0 ? board[x][y][z + 1] == 0 : board[x][y][z - 1] == 0) || (y == 0 ? board[x][y + 1][z] == 0 : board[x][y - 1][z] == 0));
+            if (y == 2)
+                return (board[x][y - 1][z] == 0 || (x == 0 ? board[x + 1][y][z] == 0 : board[x - 1][y][z] == 0) || (z == 0 ? board[x][y][z + 1] == 0 : board[x][y][z - 1] == 0));
+            if (z == 2)
+                return (board[x][y][z - 1] == 0 || (x == 0 ? board[x + 1][y][z] == 0 : board[x - 1][y][z] == 0) || (y == 0 ? board[x][y + 1][z] == 0 : board[x][y - 1][z] == 0));
         }
         return false;
     }
-    
-    public boolean isValidSetup(int x, int y, int z){
-        return (board[x][y][z]==0);
+
+    public boolean isValidSetup(int x, int y, int z) {
+        return (board[x][y][z] == 0);
     }
-    
-    public boolean isValidMove(int x1, int y1, int z1, int x2, int y2, int z2){
-        return (board[x1][y1][z1]==turn&&board[x2][y2][z2]==0&&(Math.abs(z2-z1)<=1&&Math.abs(y2-y1)<=1&&Math.abs(x2-x1)<=1)&&(x1!=x2&&y1!=y2&&z1!=z2));
+
+    public boolean isValidMove(int x1, int y1, int z1, int x2, int y2, int z2) {
+        return (board[x1][y1][z1] == turn && board[x2][y2][z2] == 0 && (Math.abs(z2 - z1) <= 1 && Math.abs(y2 - y1) <= 1 && Math.abs(x2 - x1) <= 1) && (x1 != x2 && y1 != y2 && z1 != z2));
     }
-    
-    public boolean isValidFly(int x1, int y1, int z1, int x2, int y2, int z2){
-        return (board[x1][y1][z1]==turn&&board[x2][y2][z2]==0&&(x1!=x2&&y1!=y2&&z1!=z2));
+
+    public boolean isValidFly(int x1, int y1, int z1, int x2, int y2, int z2) {
+        return (board[x1][y1][z1] == turn && board[x2][y2][z2] == 0 && (x1 != x2 && y1 != y2 && z1 != z2));
     }
-    
-    public boolean delete(int x, int y, int z){
-        if(board[x][y][z]==(turn==1?2:1)&&evaluate(x, y, z)==0){
-            board[x][y][z]=0;
-            if(turn==1){
+
+    public boolean delete(int x, int y, int z) {
+        /**
+         * This function is for removing the piece from the board when the winning state is happened.
+         * **/
+        if (board[x][y][z] == (turn == 1 ? 2 : 1) && evaluate(x, y, z) == 0) {
+            board[x][y][z] = 0;
+            if (turn == 1) {
                 blue.menInBoardCount--;
-            }else{
+            } else {
                 red.menInBoardCount--;
             }
             return true;
         }
         return false;
     }
-    
+
 }
