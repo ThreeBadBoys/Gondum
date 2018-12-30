@@ -7,12 +7,12 @@ public class Game {
     Red red = new Red();
     Blue blue = new Blue();
 
-
+    /**
+     * This function is for restarting the game.
+     * Returning everything to the first state.
+     * **/
     public void gameReset() {
-        /**
-         * This function is for restarting the game.
-         * Returning everything to the first state.
-         * **/
+
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
                 for (int z = 0; z < 3; z++) {
@@ -23,11 +23,11 @@ public class Game {
         red = new Red();
         blue = new Blue();
     }
-
+    /**
+     * This function is for printing the pieces over the board.
+     * **/
     public void boardPrint() {
-        /**
-         * This function is for printing the pieces over the board.
-         * **/
+
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
                 for (int z = 0; z < 3; z++) {
@@ -38,11 +38,11 @@ public class Game {
             System.out.println();
         }
     }
+    /**
+     * This function is for checking if the matching state is happened!
+     **/
 
     public boolean evaluate(int x, int y, int z) {
-        /**
-         * This function is for checking if the matching state is happened!
-         **/
 
         if (this.board[x][y][z] != 0 && this.board[0][y][z] == this.board[1][y][z] && this.board[1][y][z] == this.board[2][y][z])
             return true;
@@ -53,11 +53,11 @@ public class Game {
 
         return false;
     }
-
+    /**
+     * This function is for inserting a piece to an empty node
+     * **/
     public boolean insert(int x, int y, int z) {
-        /**
-         * This function is for inserting a piece to an empty node
-         * **/
+
         if (isValidInsert(x, y, z)) {
             if (turn == 1) {
                 red.menCount--;
@@ -71,11 +71,11 @@ public class Game {
         } else
             return false;
     }
-
+    /**
+     * This function is for moving a piece from one node to empty adjacent node
+     * **/
     public boolean move(int x1, int y1, int z1, int x2, int y2, int z2) {
-        /**
-         * This function is for moving a piece from one node to empty adjacent node
-         * **/
+
         if (isValidMove(x1, y1, z1, x2, y2, z2)) {
             board[x2][y2][z2] = board[x1][y1][z1];
             board[x1][y1][z1] = 0;
@@ -97,6 +97,7 @@ public class Game {
     }
 
     public int gameState() {
+
         int RedValidMoves = 0;
         int BlueValidMoves = 0;
 
@@ -121,19 +122,20 @@ public class Game {
             }
             return 2;
         }
-        if (RedValidMoves == 0 && BlueValidMoves != 0)
-            return 1;
-        if (BlueValidMoves == 0 && RedValidMoves != 0)
+        if (RedValidMoves == 0) {
+            if (BlueValidMoves != 0) {
+                return 1;
+            }
+        } else {
             return 2;
-
+        }
         return 3;
-
     }
-
+    /**
+     * This function is for checking the players turn in the game
+     * **/
     public boolean nextTurn() {
-        /**
-         * This function is for checking the players turn in the game
-         * **/
+
         if (gameState() == 0) {
             turn = (turn == 1 ? 2 : 1);
             return true;
