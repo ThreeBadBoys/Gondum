@@ -222,7 +222,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
             if (game.red.phase == 1) {
                 res.succ = game.insert(x, y, z);
                 this.matched = game.evaluate(x, y, z);
-                if(!this.matched) game.nextTurn();
+                if (!this.matched) game.nextTurn();
                 res.x = x;
                 res.y = y;
                 res.z = z;
@@ -314,8 +314,9 @@ public class TwoPlayersActivity extends AppCompatActivity {
             }
         }
     }
+
     private void image1Listener() {
-        Result res = new Result();
+        Result res;
 
         res = selectNode(0, 0, 0, imageView2_1);
         if (res.succ) {
@@ -328,7 +329,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image2Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(0, 1, 0, imageView2_2);
         if (res.succ) {
             imageView2_2.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -340,7 +341,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image3Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(0, 2, 0, imageView2_3);
         if (res.succ) {
             imageView2_3.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -352,7 +353,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image4Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(0, 0, 1, imageView2_4);
         if (res.succ) {
             imageView2_4.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -364,7 +365,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image5Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(0, 1, 1, imageView2_5);
         if (res.succ) {
             imageView2_5.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -376,7 +377,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image6Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(0, 2, 1, imageView2_6);
         if (res.succ) {
             imageView2_6.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -388,7 +389,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image7Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(0, 0, 2, imageView2_7);
         if (res.succ) {
             imageView2_7.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -400,7 +401,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image8Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(0, 1, 2, imageView2_8);
         if (res.succ) {
             imageView2_8.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -412,7 +413,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image9Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(0, 2, 2, imageView2_9);
         if (res.succ) {
             imageView2_9.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -424,7 +425,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image10Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(1, 0, 0, imageView2_10);
         if (res.succ) {
             imageView2_10.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -436,7 +437,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image11Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(1, 0, 1, imageView2_11);
         if (res.succ) {
             imageView2_11.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -448,7 +449,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image12Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(1, 0, 2, imageView2_12);
         if (res.succ) {
             imageView2_12.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -460,7 +461,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image13Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(1, 2, 0, imageView2_13);
         if (res.succ) {
             imageView2_13.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -472,7 +473,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image14Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(1, 2, 1, imageView2_14);
         if (res.succ) {
             imageView2_14.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -484,7 +485,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image15Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(1, 2, 2, imageView2_15);
         if (res.succ) {
             imageView2_15.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -496,7 +497,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image16Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(2, 0, 2, imageView2_16);
         if (res.succ) {
             imageView2_16.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -508,7 +509,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image17Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(2, 1, 2, imageView2_17);
         if (res.succ) {
             imageView2_17.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -520,7 +521,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image18Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(2, 2, 2, imageView2_18);
         if (res.succ) {
             imageView2_18.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -532,7 +533,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image19Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(2, 0, 1, imageView2_19);
         if (res.succ) {
             imageView2_19.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -544,7 +545,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image20Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(2, 1, 1, imageView2_20);
         if (res.succ) {
             imageView2_20.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -556,7 +557,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image21Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(2, 2, 1, imageView2_21);
         if (res.succ) {
             imageView2_21.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -568,7 +569,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image22Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(2, 0, 0, imageView2_22);
         if (res.succ) {
             imageView2_22.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -580,7 +581,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image23Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(2, 1, 0, imageView2_23);
         if (res.succ) {
             imageView2_23.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -592,7 +593,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image24Listener() {
-        Result res = new Result();
+        Result res;
         res = selectNode(2, 2, 0, imageView2_24);
         if (res.succ) {
             imageView2_24.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
@@ -602,7 +603,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             }
         }
     }
-
 
 
     void init() {
