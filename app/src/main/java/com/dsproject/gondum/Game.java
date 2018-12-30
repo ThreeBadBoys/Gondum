@@ -10,7 +10,7 @@ public class Game {
     /**
      * This function is for restarting the game.
      * Returning everything to the first state.
-     * **/
+     **/
     public void gameReset() {
 
         for (int x = 0; x < 3; x++) {
@@ -23,9 +23,10 @@ public class Game {
         red = new Red();
         blue = new Blue();
     }
+
     /**
      * This function is for printing the pieces over the board.
-     * **/
+     **/
     public void boardPrint() {
 
         for (int x = 0; x < 3; x++) {
@@ -38,6 +39,7 @@ public class Game {
             System.out.println();
         }
     }
+
     /**
      * This function is for checking if the matching state is happened!
      **/
@@ -53,9 +55,10 @@ public class Game {
 
         return false;
     }
+
     /**
      * This function is for inserting a piece to an empty node
-     * **/
+     **/
     public boolean insert(int x, int y, int z) {
 
         if (isValidInsert(x, y, z)) {
@@ -71,9 +74,10 @@ public class Game {
         } else
             return false;
     }
+
     /**
      * This function is for moving a piece from one node to empty adjacent node
-     * **/
+     **/
     public boolean move(int x1, int y1, int z1, int x2, int y2, int z2) {
 
         if (isValidMove(x1, y1, z1, x2, y2, z2)) {
@@ -131,9 +135,10 @@ public class Game {
         }
         return 3;
     }
+
     /**
      * This function is for checking the players turn in the game
-     * **/
+     **/
     public boolean nextTurn() {
 
         if (gameState() == 0) {
@@ -143,6 +148,9 @@ public class Game {
         return false;
     }
 
+    /**
+     * Checking the adjacent Nodes of the pieces
+     **/
     public boolean hasValidMove(int x, int y, int z) {
         if (x == 0 && y == 0 && z == 0) {
             return (board[0][1][0] == 0 || board[1][0][0] == 0 || board[0][0][1] == 0);
