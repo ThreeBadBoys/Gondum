@@ -72,7 +72,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
                 image2Listener();
             }
         });
-
         imageView2_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
