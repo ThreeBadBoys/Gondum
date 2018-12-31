@@ -40,6 +40,8 @@ public class TwoPlayersActivity extends AppCompatActivity {
     TextView men_red_trash;
     Typeface typeface;
 
+
+
     int x;
     int y;
     int z;
@@ -214,20 +216,19 @@ public class TwoPlayersActivity extends AppCompatActivity {
             res.succ = game.delete(x, y, z);
             if (res.succ) {
                 this.matched = false;
-                img.setImageResource(0);
+                res.turn=0;
+                game.nextTurn();
             }
-            return res;
         } else if (game.turn == 1) {
             if (game.red.phase == 1) {
                 res.succ = game.insert(x, y, z);
                 this.matched = game.evaluate(x, y, z);
+                res.turn = game.turn;
                 if (!this.matched) game.nextTurn();
                 res.x = x;
                 res.y = y;
                 res.z = z;
                 res.phase = 1;
-                res.turn = game.turn;
-                return res;
             } else if (game.red.phase == 2) {
                 res.phase = game.red.phase;
                 if (this.x != -1) {
@@ -239,14 +240,12 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     res.z = this.z;
                     res.turn = game.turn;
                     this.x = -1;
-                    return res;
                 } else {
                     res.succ = false;
                     this.x = x;
                     this.y = y;
                     this.z = z;
                     this.img = img;
-                    return res;
                 }
             } else {
                 res.phase = game.red.phase;
@@ -259,27 +258,24 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     res.z = this.z;
                     res.turn = game.turn;
                     this.x = -1;
-                    return res;
                 } else {
                     res.succ = false;
                     this.x = x;
                     this.y = y;
                     this.z = z;
                     this.img = img;
-                    return res;
                 }
             }
         } else {
             if (game.blue.phase == 1) {
                 res.succ = game.insert(x, y, z);
                 this.matched = game.evaluate(x, y, z);
+                res.turn = game.turn;
                 if (!this.matched) game.nextTurn();
                 res.x = x;
                 res.y = y;
                 res.z = z;
                 res.phase = 1;
-                res.turn = game.turn;
-                return res;
             } else if (game.blue.phase == 2) {
                 res.phase = game.blue.phase;
                 if (this.x != -1) {
@@ -291,14 +287,12 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     res.z = this.z;
                     res.turn = game.turn;
                     this.x = -1;
-                    return res;
                 } else {
                     res.succ = false;
                     this.x = x;
                     this.y = y;
                     this.z = z;
                     this.img = img;
-                    return res;
                 }
             } else {
                 res.phase = game.blue.phase;
@@ -311,25 +305,30 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     res.z = this.z;
                     res.turn = game.turn;
                     this.x = -1;
-                    return res;
                 } else {
                     res.succ = false;
                     this.x = x;
                     this.y = y;
                     this.z = z;
                     this.img = img;
-                    return res;
                 }
             }
         }
+        if(res.succ){
+            men_red.setText(NumberToPersian.toPersianNumber(String.valueOf(game.red.menCount)));
+            men_red_trash.setText(NumberToPersian.toPersianNumber(String.valueOf(12-(game.red.menCount+game.red.menInBoardCount))));
+            men_blue.setText(NumberToPersian.toPersianNumber(String.valueOf(game.blue.menCount)));
+            men_blue_trash.setText(NumberToPersian.toPersianNumber(String.valueOf(12-(game.blue.menCount+game.blue.menInBoardCount))));
+            changeFont();
+        }
+        return  res;
     }
 
     private void image1Listener() {
         Result res;
-
         res = selectNode(0, 0, 0, imageView2_1);
         if (res.succ) {
-            imageView2_1.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_1.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -341,7 +340,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(0, 1, 0, imageView2_2);
         if (res.succ) {
-            imageView2_2.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_2.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -353,7 +352,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(0, 2, 0, imageView2_3);
         if (res.succ) {
-            imageView2_3.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_3.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -365,7 +364,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(0, 0, 1, imageView2_4);
         if (res.succ) {
-            imageView2_4.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_4.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -377,7 +376,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(0, 1, 1, imageView2_5);
         if (res.succ) {
-            imageView2_5.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_5.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -389,7 +388,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(0, 2, 1, imageView2_6);
         if (res.succ) {
-            imageView2_6.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_6.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -401,7 +400,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(0, 0, 2, imageView2_7);
         if (res.succ) {
-            imageView2_7.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_7.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -413,7 +412,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(0, 1, 2, imageView2_8);
         if (res.succ) {
-            imageView2_8.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_8.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -425,7 +424,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(0, 2, 2, imageView2_9);
         if (res.succ) {
-            imageView2_9.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_9.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -437,7 +436,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(1, 0, 0, imageView2_10);
         if (res.succ) {
-            imageView2_10.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_10.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -449,7 +448,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(1, 0, 1, imageView2_11);
         if (res.succ) {
-            imageView2_11.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_11.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -461,7 +460,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(1, 0, 2, imageView2_12);
         if (res.succ) {
-            imageView2_12.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_12.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -473,7 +472,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(1, 2, 0, imageView2_13);
         if (res.succ) {
-            imageView2_13.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_13.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -485,7 +484,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(1, 2, 1, imageView2_14);
         if (res.succ) {
-            imageView2_14.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_14.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -497,7 +496,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(1, 2, 2, imageView2_15);
         if (res.succ) {
-            imageView2_15.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_15.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -509,7 +508,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(2, 0, 2, imageView2_16);
         if (res.succ) {
-            imageView2_16.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_16.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -521,7 +520,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(2, 1, 2, imageView2_17);
         if (res.succ) {
-            imageView2_17.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_17.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -533,7 +532,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(2, 2, 2, imageView2_18);
         if (res.succ) {
-            imageView2_18.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_18.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -545,7 +544,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(2, 0, 1, imageView2_19);
         if (res.succ) {
-            imageView2_19.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_19.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -557,7 +556,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(2, 1, 1, imageView2_20);
         if (res.succ) {
-            imageView2_20.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_20.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -569,7 +568,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(2, 2, 1, imageView2_21);
         if (res.succ) {
-            imageView2_21.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_21.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -581,7 +580,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(2, 0, 0, imageView2_22);
         if (res.succ) {
-            imageView2_22.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_22.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -593,7 +592,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(2, 1, 0, imageView2_23);
         if (res.succ) {
-            imageView2_23.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_23.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -605,7 +604,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(2, 2, 0, imageView2_24);
         if (res.succ) {
-            imageView2_24.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2_24.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
