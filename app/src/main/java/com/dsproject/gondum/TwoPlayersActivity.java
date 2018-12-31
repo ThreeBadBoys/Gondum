@@ -211,7 +211,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
 
     public Result selectNode(int x, int y, int z, ImageView img) {
         Result res = new Result();
-        if (this.matched) {
+        if (this.matched) {//For deletion the opponent piece
             res.succ = game.delete(x, y, z);
             if (res.succ) {
                 this.matched = false;
@@ -233,6 +233,8 @@ public class TwoPlayersActivity extends AppCompatActivity {
                 res.phase = game.red.phase;
                 if (this.x != -1) {
                     res.succ = game.move(this.x, this.y, this.z, x, y, z);
+                    this.matched = game.evaluate(x, y, z);
+                    if (!this.matched) game.nextTurn();
                     res.x = this.x;
                     res.y = this.y;
                     res.z = this.z;
@@ -248,9 +250,11 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     return res;
                 }
             } else {
-                res.phase = game.blue.phase;
+                res.phase = game.red.phase;
                 if (this.x != -1) {
                     res.succ = game.fly(this.x, this.y, this.z, x, y, z);
+                    this.matched = game.evaluate(x, y, z);
+                    if (!this.matched) game.nextTurn();
                     res.x = this.x;
                     res.y = this.y;
                     res.z = this.z;
@@ -269,6 +273,8 @@ public class TwoPlayersActivity extends AppCompatActivity {
         } else {
             if (game.blue.phase == 1) {
                 res.succ = game.insert(x, y, z);
+                this.matched = game.evaluate(x, y, z);
+                if (!this.matched) game.nextTurn();
                 res.x = x;
                 res.y = y;
                 res.z = z;
@@ -279,6 +285,8 @@ public class TwoPlayersActivity extends AppCompatActivity {
                 res.phase = game.blue.phase;
                 if (this.x != -1) {
                     res.succ = game.move(this.x, this.y, this.z, x, y, z);
+                    this.matched = game.evaluate(x, y, z);
+                    if (!this.matched) game.nextTurn();
                     res.x = this.x;
                     res.y = this.y;
                     res.z = this.z;
@@ -297,6 +305,8 @@ public class TwoPlayersActivity extends AppCompatActivity {
                 res.phase = game.blue.phase;
                 if (this.x != -1) {
                     res.succ = game.fly(this.x, this.y, this.z, x, y, z);
+                    this.matched = game.evaluate(x, y, z);
+                    if (!this.matched) game.nextTurn();
                     res.x = this.x;
                     res.y = this.y;
                     res.z = this.z;
