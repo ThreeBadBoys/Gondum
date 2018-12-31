@@ -65,9 +65,11 @@ public class Game {
             if (turn == 1) {
                 red.menCount--;
                 red.menInBoardCount++;
+                if(red.menCount == 0) red.phase = 2;
             } else {
                 blue.menCount--;
                 blue.menInBoardCount++;
+                if(blue.menCount == 0) blue.phase = 2;
             }
             board[x][y][z] = turn;
             return true;
@@ -83,6 +85,11 @@ public class Game {
         if (isValidMove(x1, y1, z1, x2, y2, z2)) {
             board[x2][y2][z2] = board[x1][y1][z1];
             board[x1][y1][z1] = 0;
+            if (turn == 1) {
+                if(red.menInBoardCount == 3) red.phase = 3;
+            } else {
+                if(blue.menInBoardCount == 3) blue.phase = 3;
+            }
             return true;
         } else
             return false;

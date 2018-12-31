@@ -42,7 +42,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
 
 
 
-    int x;
+    int x = -1;
     int y;
     int z;
     ImageView img;
@@ -234,18 +234,20 @@ public class TwoPlayersActivity extends AppCompatActivity {
                 if (this.x != -1) {
                     res.succ = game.move(this.x, this.y, this.z, x, y, z);
                     this.matched = game.evaluate(x, y, z);
+                    res.turn = game.turn;
                     if (!this.matched) game.nextTurn();
+                    if (res.succ) this.x = -1;
                     res.x = this.x;
                     res.y = this.y;
                     res.z = this.z;
-                    res.turn = game.turn;
-                    this.x = -1;
                 } else {
                     res.succ = false;
-                    this.x = x;
-                    this.y = y;
-                    this.z = z;
-                    this.img = img;
+                    if(game.board[x][y][z] == 1){
+                        this.x = x;
+                        this.y = y;
+                        this.z = z;
+                        this.img = img;
+                    }
                 }
             } else {
                 res.phase = game.red.phase;
@@ -281,18 +283,20 @@ public class TwoPlayersActivity extends AppCompatActivity {
                 if (this.x != -1) {
                     res.succ = game.move(this.x, this.y, this.z, x, y, z);
                     this.matched = game.evaluate(x, y, z);
+                    res.turn = game.turn;
                     if (!this.matched) game.nextTurn();
+                    if (res.succ) this.x = -1;
                     res.x = this.x;
                     res.y = this.y;
                     res.z = this.z;
-                    res.turn = game.turn;
-                    this.x = -1;
                 } else {
                     res.succ = false;
-                    this.x = x;
-                    this.y = y;
-                    this.z = z;
-                    this.img = img;
+                    if(game.board[x][y][z] == 2){
+                        this.x = x;
+                        this.y = y;
+                        this.z = z;
+                        this.img = img;
+                    }
                 }
             } else {
                 res.phase = game.blue.phase;
@@ -331,7 +335,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_1.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
