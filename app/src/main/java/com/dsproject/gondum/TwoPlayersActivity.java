@@ -667,7 +667,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
         }
     }
 
-
     void init() {
         imageView2_1 = findViewById(R.id.image2_1);
         imageView2_2 = findViewById(R.id.image2_2);
