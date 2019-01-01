@@ -214,12 +214,12 @@ public class TwoPlayersActivity extends AppCompatActivity {
 
     }
 
-    public Result selectNode(int x, int y, int z, ImageView img) {
+    public Result selectNode(int X, int Y, int Z, ImageView img) {
         Result res = new Result();
 
         if (this.matched) {//For deletion the opponent piece
-            res.succ = game.delete(x, y, z);
-            Log.i("delete",String.valueOf(this.matched));
+            res.succ = game.delete(X, Y, Z);
+            Log.i("delete", String.valueOf(this.matched));
             if (res.succ) {
                 this.matched = false;
                 res.turn = 0;
@@ -227,104 +227,128 @@ public class TwoPlayersActivity extends AppCompatActivity {
             }
         } else if (game.turn == 1) {
             if (game.red.phase == 1) {
-                res.succ = game.insert(x, y, z);
-                this.matched = game.evaluate(x, y, z);
-                res.turn = game.turn;
-                if (!this.matched && res.succ) game.nextTurn();
-                res.x = x;
-                res.y = y;
-                res.z = z;
-                res.phase = 1;
+                res.succ = game.insert(X, Y, Z);
+                if (res.succ) {
+                    this.matched = game.evaluate(X, Y, Z);
+                    res.turn = game.turn;
+                    if (!this.matched) game.nextTurn();
+                    res.x = X;
+                    res.y = Y;
+                    res.z = Z;
+                    res.phase = 1;
+                }
             } else if (game.red.phase == 2) {
                 res.phase = game.red.phase;
+                Log.i("redmove", "entered");
                 if (this.x != -1) {
-                    res.succ = game.move(this.x, this.y, this.z, x, y, z);
-                    this.matched = game.evaluate(x, y, z);
-                    res.turn = game.turn;
-                    if (!this.matched && res.succ) game.nextTurn();
-                    if (res.succ) this.x = -1;
-                    res.x = this.x;
-                    res.y = this.y;
-                    res.z = this.z;
-                    Log.i("redmove",String.valueOf(this.matched));
+                    res.succ = game.move(this.x, this.y, this.z, X, Y, Z);
+                    if (res.succ) {
+                        this.matched = game.evaluate(X, Y, Z);
+                        res.turn = game.turn;
+                        if (!this.matched) game.nextTurn();
+                        if (res.succ) this.x = -1;
+                        res.x = this.x;
+                        res.y = this.y;
+                        res.z = this.z;
+                    }
                 } else {
                     res.succ = false;
-                    if (game.board[x][y][z] == 1) {
-                        this.x = x;
-                        this.y = y;
-                        this.z = z;
+                    if (game.board[X][Y][Z] == 1) {
+                        this.x = X;
+                        this.y = Y;
+                        this.z = Z;
                         this.img = img;
                     }
                 }
             } else {
-                Log.i("redfly",String.valueOf(this.matched));
+                Log.i("redfly", "entered x1:" + this.x + " y1: " + this.y + " z1: " + this.z
+                        + " x2: " + X + " Y2: " + Y + " Z2 : " + Z);
                 res.phase = game.red.phase;
                 if (this.x != -1) {
-                    res.succ = game.fly(this.x, this.y, this.z, x, y, z);
-                    this.matched = game.evaluate(x, y, z);
-                    if (!this.matched && res.succ) game.nextTurn();
-                    res.x = this.x;
-                    res.y = this.y;
-                    res.z = this.z;
-                    res.turn = game.turn;
-                    this.x = -1;
+                    Log.i("redfly", "1");
+
+                    res.succ = game.fly(this.x, this.y, this.z, X, Y, Z);
+                    if (res.succ) {
+                        this.matched = game.evaluate(X, Y, Z);
+                        if (!this.matched) game.nextTurn();
+                        res.x = this.x;
+                        res.y = this.y;
+                        res.z = this.z;
+                        res.turn = game.turn;
+                        this.x = -1;
+                    }
                 } else {
+                    Log.i("redfly", "2");
                     res.succ = false;
-                    this.x = x;
-                    this.y = y;
-                    this.z = z;
-                    this.img = img;
+                    if (game.board[X][Y][Z] == 1) {
+                        this.x = X;
+                        this.y = Y;
+                        this.z = Z;
+                        this.img = img;
+                    }
                 }
             }
         } else {
             if (game.blue.phase == 1) {
-                res.succ = game.insert(x, y, z);
-                this.matched = game.evaluate(x, y, z);
-                res.turn = game.turn;
-                if (!this.matched && res.succ) game.nextTurn();
-                res.x = x;
-                res.y = y;
-                res.z = z;
-                res.phase = 1;
+                res.succ = game.insert(X, Y, Z);
+                if (res.succ) {
+                    this.matched = game.evaluate(X, Y, Z);
+                    res.turn = game.turn;
+                    if (!this.matched) game.nextTurn();
+                    res.x = X;
+                    res.y = Y;
+                    res.z = Z;
+                    res.phase = 1;
+                }
             } else if (game.blue.phase == 2) {
                 res.phase = game.blue.phase;
+                Log.i("bluemove", "entered");
                 if (this.x != -1) {
-                    res.succ = game.move(this.x, this.y, this.z, x, y, z);
-                    this.matched = game.evaluate(x, y, z);
-                    res.turn = game.turn;
-                    if (!this.matched && res.succ) game.nextTurn();
-                    if (res.succ) this.x = -1;
-                    res.x = this.x;
-                    res.y = this.y;
-                    res.z = this.z;
-                    Log.i("bluemove",String.valueOf(this.matched));
+                    res.succ = game.move(this.x, this.y, this.z, X, Y, Z);
+                    if (res.succ) {
+                        this.matched = game.evaluate(X, Y, Z);
+                        res.turn = game.turn;
+                        if (!this.matched) game.nextTurn();
+                        if (res.succ) this.x = -1;
+                        res.x = this.x;
+                        res.y = this.y;
+                        res.z = this.z;
+
+                    }
                 } else {
                     res.succ = false;
-                    if (game.board[x][y][z] == 2) {
-                        this.x = x;
-                        this.y = y;
-                        this.z = z;
+                    if (game.board[X][Y][Z] == 2) {
+                        this.x = X;
+                        this.y = Y;
+                        this.z = Z;
                         this.img = img;
                     }
                 }
             } else {
-                Log.i("bluefly",String.valueOf(this.matched));
+                Log.i("bluefly", "entered x1:" + this.x + " y1: " + this.y + " z1: " + this.z
+                        + " x2: " + X + " Y2: " + Y + " Z2 : " + Z);
                 res.phase = game.blue.phase;
                 if (this.x != -1) {
-                    res.succ = game.fly(this.x, this.y, this.z, x, y, z);
-                    this.matched = game.evaluate(x, y, z);
-                    if (!this.matched && res.succ) game.nextTurn();
-                    res.x = this.x;
-                    res.y = this.y;
-                    res.z = this.z;
-                    res.turn = game.turn;
-                    this.x = -1;
+                    Log.i("bluefly", "1");
+                    res.succ = game.fly(this.x, this.y, this.z, X, Y, Z);
+                    if (res.succ) {
+                        this.matched = game.evaluate(X, Y, Z);
+                        if (!this.matched) game.nextTurn();
+                        res.x = this.x;
+                        res.y = this.y;
+                        res.z = this.z;
+                        res.turn = game.turn;
+                        this.x = -1;
+                    }
                 } else {
+                    Log.i("bluefly", "2");
                     res.succ = false;
-                    this.x = x;
-                    this.y = y;
-                    this.z = z;
-                    this.img = img;
+                    if (game.board[X][Y][Z] == 2) {
+                        this.x = X;
+                        this.y = Y;
+                        this.z = Z;
+                        this.img = img;
+                    }
                 }
             }
         }
@@ -337,7 +361,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         }
         if (!this.matched)
 
-        Log.i("res", "phase:" + String.valueOf(res.phase) + " succ:" + String.valueOf(res.succ) + " turn:" + String.valueOf(res.turn) + " x:" + String.valueOf(res.x) + " y:" + String.valueOf(res.y) + " z:" + String.valueOf(res.z));
+            Log.i("res", "phase:" + String.valueOf(res.phase) + " succ:" + String.valueOf(res.succ) + " turn:" + String.valueOf(res.turn) + " x:" + String.valueOf(res.x) + " y:" + String.valueOf(res.y) + " z:" + String.valueOf(res.z));
         return res;
     }
 
@@ -363,7 +387,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_2.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -377,7 +400,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_3.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -391,7 +413,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_4.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -405,7 +426,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_5.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -419,19 +439,19 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_6.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
 
     private void image7Listener() {
         Result res;
+        changeText();
         res = selectNode(0, 0, 2, imageView2_7);
+        changeText();
         if (res.succ) {
             imageView2_7.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -445,7 +465,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_8.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -459,7 +478,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_9.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -473,7 +491,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_10.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -487,7 +504,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_11.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -501,7 +517,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_12.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -515,7 +530,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_13.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -529,7 +543,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_14.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -543,7 +556,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_15.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -557,7 +569,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_16.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -571,7 +582,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_17.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -585,7 +595,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_18.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -599,7 +608,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_19.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -613,7 +621,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_20.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -627,7 +634,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_21.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -641,7 +647,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_22.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -654,7 +659,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_23.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -667,7 +671,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             imageView2_24.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -731,7 +734,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                 turn_red.setText("نوبت منه");
                 turn_blue.setText("منتظرباش");
             }
-        }else if (game.turn == 2) {
+        } else if (game.turn == 2) {
             if (this.matched) {
                 turn_blue.setText("مهره رفیقت رو حذف کن");
                 turn_red.setText("منتظرباش");

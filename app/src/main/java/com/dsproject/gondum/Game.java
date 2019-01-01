@@ -85,14 +85,11 @@ public class Game {
     public boolean move(int x1, int y1, int z1, int x2, int y2, int z2) {
 
         if (isValidMove(x1, y1, z1, x2, y2, z2)) {
-            Log.i("Move","Move happened");
+            Log.i("Move", "Move happened from x1: " + String.valueOf(x1)
+                    + " y1:" + String.valueOf(y1) + " z1: " + String.valueOf(z1) + " to x2: "
+                    + String.valueOf(x2) + " y2: " + String.valueOf(y2) + " z2: " + String.valueOf(z2));
             board[x2][y2][z2] = board[x1][y1][z1];
             board[x1][y1][z1] = 0;
-            if (turn == 1) {
-                if (red.menInBoardCount == 3) red.phase = 3;
-            } else {
-                if (blue.menInBoardCount == 3) blue.phase = 3;
-            }
             return true;
         } else
             return false;
@@ -176,6 +173,7 @@ public class Game {
             turn = (turn == 1 ? 2 : 1);
             return true;
         }
+        Log.i("winner", String.valueOf(red.menInBoardCount < 3 ? "red" : "blue"));
         return false;
     }
 
@@ -250,37 +248,45 @@ public class Game {
     }
 
     public boolean isValidMove(int x1, int y1, int z1, int x2, int y2, int z2) {
+        if (x1 == x2) {
+            if (y1 == y2) {
+                if (z1 == z2) {
+                    return false;
+                }
+            }
+        }
         if (board[x1][y1][z1] == turn) {
-            Log.i("isValid","First");
+            Log.i("isValid", "First");
             if (board[x2][y2][z2] == 0) {
-                Log.i("isValid","Second");
-                if (Math.abs(z2 - z1) <= 1) {
-                    Log.i("isValid","Third");
-                    if (Math.abs(y2 - y1) <= 1) {
-                        Log.i("isValid","Fourth");
-                        if (Math.abs(x2 - x1) <= 1){
-                            Log.i("isValid","Fifth");
-                            return true;
-                        }else{
-                            return false;
-                        }
-                    } else {
-                        return false;
-                    }
+                Log.i("isValid", "Second");
+                if (XOR(XOR(Math.abs(z2 - z1) == 1, Math.abs(y2 - y1) == 1), Math.abs(x2 - x1) == 1)) {
+                    Log.i("isValid", "Third");
+                    return true;
                 } else {
                     return false;
                 }
             } else {
                 return false;
             }
-
         } else {
             return false;
         }
     }
 
     public boolean isValidFly(int x1, int y1, int z1, int x2, int y2, int z2) {
-        return (board[x1][y1][z1] == turn && board[x2][y2][z2] == 0 && (x1 != x2 && y1 != y2 && z1 != z2));
+//        return (board[x1][y1][z1] == turn && board[x2][y2][z2] == 0 && (x1 != x2 && y1 != y2 && z1 != z2));
+        if (x1 == x2) {
+            if (y1 == y2) {
+                if (z1 == z2) {
+                    return false;
+                }
+            }
+        }
+        if (board[x2][y2][z2] == 0) {
+                return true;
+            }
+
+        return false;
     }
 
     public boolean delete(int x, int y, int z) {
@@ -294,6 +300,20 @@ public class Game {
             } else {
                 red.menInBoardCount--;
             }
+            if (turn == 1) {
+                if (blue.menInBoardCount == 3 && blue.menCount == 0) blue.phase = 3;
+            } else {
+                if (red.menInBoardCount == 3 && red.menCount == 0) red.phase = 3;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean XOR(boolean a, boolean b) {
+        if (a || b) {
+            if (a && b)
+                return false;
             return true;
         }
         return false;
