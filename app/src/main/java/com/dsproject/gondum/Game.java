@@ -110,75 +110,57 @@ public class Game {
     public int gameState() {
         int redValidMoves = 0;
         int blueValidMoves = 0;
-        if (turn == 1) {
-            if (red.menCount != 0) {
-                if (blue.menCount + blue.menInBoardCount > 2) {
-                    return 0;
-                } else {
-                    return 1;
-                }
-            } else if (red.menInBoardCount > 2) {
-
-                for (int x = 0; x < 3; x++) {
-                    for (int y = 0; y < 3; y++) {
-                        for (int z = 0; z < 3; z++) {
-                            if (board[x][y][z] == 1) {
-                                if (hasValidMove(x, y, z))
-                                    redValidMoves++;
-                            }
+        if (red.menInBoardCount + red.menCount < 3) {
+            return 2;
+        } else if (blue.menInBoardCount + blue.menCount < 3) {
+            return 1;
+        } else {
+            for (int x = 0; x < 3; x++) {
+                for (int y = 0; y < 3; y++) {
+                    for (int z = 0; z < 3; z++) {
+                        if (board[x][y][z] == 2) {
+                            if (hasValidMove(x, y, z))
+                                blueValidMoves++;
                         }
                     }
-                }
-                if (redValidMoves > 0) {
-                    return 0;
-                } else {
-                    return 2;
                 }
             }
-
-        } else {
-            if (blue.menCount != 0) {
-                if (red.menCount + red.menInBoardCount > 2) {
-                    return 0;
-                } else {
-                    return 2;
-                }
-            } else if (blue.menInBoardCount > 2) {
-                for (int x = 0; x < 3; x++) {
-                    for (int y = 0; y < 3; y++) {
-                        for (int z = 0; z < 3; z++) {
-                            if (board[x][y][z] == 2) {
-                                if (hasValidMove(x, y, z))
-                                    blueValidMoves++;
-                            }
+            for (int x = 0; x < 3; x++) {
+                for (int y = 0; y < 3; y++) {
+                    for (int z = 0; z < 3; z++) {
+                        if (board[x][y][z] == 1) {
+                            if (hasValidMove(x, y, z))
+                                redValidMoves++;
                         }
                     }
                 }
-                if (blueValidMoves > 0) {
-                    return 0;
-                } else {
-                    return 1;
-                }
+            }
+            if (redValidMoves > 0) {
+                return 0;
+            } else if (blueValidMoves > 0) {
+                return 0;
+            } else if (blueValidMoves == 0 && redValidMoves == 0) {
+                return 3;
+            } else if (redValidMoves == 0) {
+                return 2;
+            } else {
+                return 1;
             }
         }
-        return 3;
     }
 
     /**
      * This function is for checking the players turn in the game
      **/
     public boolean nextTurn() {
-    Log.i("GameState" , gameState() + "");
-        if (gameState() == 0) {
+        Log.i("GameState", gameState() + "");
+        Log.i("count", "red:" + red.menInBoardCount + " blue:" + blue.menInBoardCount);
+        int gameState = gameState();
+        if (gameState == 0) {
             turn = (turn == 1 ? 2 : 1);
             return true;
-        }else if (gameState() == 1){
-            Log.i("winner", "red won");
-
-        }else if (gameState() == 2){
-            Log.i("winner", "red won");
-
         }
+        Log.i("winner", gameState==1?"red won":gameState==2?"blue won":"stand off");
         return false;
     }
 
@@ -265,7 +247,7 @@ public class Game {
             if (board[x2][y2][z2] == 0) {
                 Log.i("isValid", "Second");
                 if (XOR(XOR(Math.abs(z2 - z1) == 1, Math.abs(y2 - y1) == 1), Math.abs(x2 - x1) == 1)) {
-                    if(Math.abs(z2 - z1) <= 1 && Math.abs(y2 - y1) <= 1 &&Math.abs(x2 - x1) <= 1) {
+                    if (Math.abs(z2 - z1) <= 1 && Math.abs(y2 - y1) <= 1 && Math.abs(x2 - x1) <= 1) {
                         Log.i("isValid", "Third");
                         return true;
                     }
@@ -291,8 +273,8 @@ public class Game {
             }
         }
         if (board[x2][y2][z2] == 0) {
-                return true;
-            }
+            return true;
+        }
 
         return false;
     }
