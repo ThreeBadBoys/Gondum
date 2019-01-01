@@ -260,8 +260,10 @@ public class Game {
             if (board[x2][y2][z2] == 0) {
                 Log.i("isValid", "Second");
                 if (XOR(XOR(Math.abs(z2 - z1) == 1, Math.abs(y2 - y1) == 1), Math.abs(x2 - x1) == 1)) {
-                    Log.i("isValid", "Third");
-                    return true;
+                    if(Math.abs(z2 - z1) <= 1 && Math.abs(y2 - y1) <= 1 &&Math.abs(x2 - x1) <= 1) {
+                        Log.i("isValid", "Third");
+                        return true;
+                    }
                 } else {
                     return false;
                 }
@@ -271,6 +273,7 @@ public class Game {
         } else {
             return false;
         }
+        return false;
     }
 
     public boolean isValidFly(int x1, int y1, int z1, int x2, int y2, int z2) {
