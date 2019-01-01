@@ -216,7 +216,16 @@ public class TwoPlayersActivity extends AppCompatActivity {
 
     public Result selectNode(int X, int Y, int Z, ImageView img) {
         Result res = new Result();
-
+        for (int i = 1; i < 3; i++) {
+            int a[][] = game.board[i];
+            for (int j = 1; j < 3; j++) {
+                int b[] = a[j];
+                for (int k = 1; k < 3; k++) {
+                    Log.i("board", ""+b[k]);
+                }
+            }
+        }
+        
         if (this.matched) {//For deletion the opponent piece
             res.succ = game.delete(X, Y, Z);
             Log.i("delete", String.valueOf(this.matched));
