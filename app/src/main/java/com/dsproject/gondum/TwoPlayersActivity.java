@@ -1,5 +1,7 @@
 package com.dsproject.gondum;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -7,8 +9,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import pl.droidsonroids.gif.GifImageView;
 
 public class TwoPlayersActivity extends AppCompatActivity {
     ImageView imageView2_1;
@@ -50,6 +55,13 @@ public class TwoPlayersActivity extends AppCompatActivity {
     ImageView img;
     boolean matched = false;
     Game game = new Game();
+
+    Dialog dialog;
+
+    GifImageView gify;
+    Button exit;
+    Button menu;
+    Button restart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,6 +223,30 @@ public class TwoPlayersActivity extends AppCompatActivity {
             }
         });
 
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
+            }
+        });
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TwoPlayersActivity.this, MainMenuActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        restart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                game.gameBackEndReset();
+                GameFrontEndReset();
+                dialog.dismiss();
+            }
+        });
 
     }
 
@@ -359,8 +395,18 @@ public class TwoPlayersActivity extends AppCompatActivity {
 
         }
         if (!this.matched)
-
             Log.i("res", "phase:" + String.valueOf(res.phase) + " succ:" + String.valueOf(res.succ) + " turn:" + String.valueOf(res.turn) + " x:" + String.valueOf(res.x) + " y:" + String.valueOf(res.y) + " z:" + String.valueOf(res.z));
+        if (game.gameState() != 0) {
+
+            if (game.gameState() == 1) {
+                gify.setImageResource(R.drawable.redbot);
+            } else {
+                gify.setImageResource(R.drawable.bluebot);
+            }
+            dialog.setCancelable(false);
+            dialog.show();
+        }
+
         return res;
     }
 
@@ -706,6 +752,13 @@ public class TwoPlayersActivity extends AppCompatActivity {
         turn_blue = findViewById(R.id.blue_turn);
         turn_red = findViewById(R.id.red_turn);
         typeface = Typeface.createFromAsset(getResources().getAssets(), "iransansweb.ttf");
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_layout);
+        gify = dialog.findViewById(R.id.gify);
+        exit = dialog.findViewById(R.id.exit);
+        menu = dialog.findViewById(R.id.main_menu);
+        restart = dialog.findViewById(R.id.restart);
+
     }
 
     void changeFont() {
@@ -744,9 +797,44 @@ public class TwoPlayersActivity extends AppCompatActivity {
         }
     }
 
+    public void GameFrontEndReset() {
+        imageView2_1.setImageResource(0);
+        imageView2_2.setImageResource(0);
+        imageView2_3.setImageResource(0);
+        imageView2_4.setImageResource(0);
+        imageView2_5.setImageResource(0);
+        imageView2_6.setImageResource(0);
+        imageView2_7.setImageResource(0);
+        imageView2_8.setImageResource(0);
+        imageView2_9.setImageResource(0);
+        imageView2_10.setImageResource(0);
+        imageView2_11.setImageResource(0);
+        imageView2_12.setImageResource(0);
+        imageView2_13.setImageResource(0);
+        imageView2_14.setImageResource(0);
+        imageView2_15.setImageResource(0);
+        imageView2_16.setImageResource(0);
+        imageView2_17.setImageResource(0);
+        imageView2_18.setImageResource(0);
+        imageView2_19.setImageResource(0);
+        imageView2_20.setImageResource(0);
+        imageView2_21.setImageResource(0);
+        imageView2_22.setImageResource(0);
+        imageView2_23.setImageResource(0);
+        imageView2_24.setImageResource(0);
+
+        turn_red.setText("نوبت منه");
+        turn_blue.setText("منتظرباش");
+        men_red_trash.setText("0");
+        men_blue_trash.setText("0");
+        men_blue.setText("12");
+        men_red.setText("12");
+
+    }
+
     @Override
     public void onBackPressed() {
-        game.gameReset();
+        game.gameBackEndReset();
         finish();
         super.onBackPressed();
     }

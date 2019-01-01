@@ -13,7 +13,7 @@ public class Game {
      * This function is for restarting the game.
      * Returning everything to the first state.
      **/
-    public void gameReset() {
+    public void gameBackEndReset() {
 
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {

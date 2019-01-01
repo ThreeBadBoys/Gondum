@@ -652,7 +652,7 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        game.gameReset();
+        game.gameBackEndReset();
         finish();
         super.onBackPressed();
     }
