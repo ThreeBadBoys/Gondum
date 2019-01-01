@@ -216,16 +216,16 @@ public class TwoPlayersActivity extends AppCompatActivity {
 
     public Result selectNode(int X, int Y, int Z, ImageView img) {
         Result res = new Result();
-        for (int i = 1; i < 3; i++) {
-            int a[][] = game.board[i];
-            for (int j = 1; j < 3; j++) {
-                int b[] = a[j];
-                for (int k = 1; k < 3; k++) {
-                    Log.i("board", ""+b[k]);
-                }
-            }
-        }
-        
+        Log.i("board", ""+game.board[0][0][0]+" "+game.board[0][1][0]+" "+game.board[0][2][0]+" ");
+        Log.i("board", ""+game.board[1][0][0]+" "+game.board[1][1][0]+" "+game.board[1][2][0]+" ");
+        Log.i("board", ""+game.board[2][0][0]+" "+game.board[2][1][0]+" "+game.board[2][2][0]+" ");
+        Log.i("board", ""+game.board[0][0][1]+" "+game.board[0][1][1]+" "+game.board[0][2][1]+" ");
+        Log.i("board", ""+game.board[1][0][1]+" "+game.board[1][1][1]+" "+game.board[1][2][1]+" ");
+        Log.i("board", ""+game.board[2][0][1]+" "+game.board[2][1][1]+" "+game.board[2][2][1]+" ");
+        Log.i("board", ""+game.board[0][0][2]+" "+game.board[0][1][2]+" "+game.board[0][2][2]+" ");
+        Log.i("board", ""+game.board[1][0][2]+" "+game.board[1][1][2]+" "+game.board[1][2][2]+" ");
+        Log.i("board", ""+game.board[2][0][2]+" "+game.board[2][1][2]+" "+game.board[2][2][2]+" ");
+
         if (this.matched) {//For deletion the opponent piece
             res.succ = game.delete(X, Y, Z);
             Log.i("delete", String.valueOf(this.matched));
