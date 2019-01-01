@@ -250,8 +250,6 @@ public class Game {
     }
 
     public boolean isValidMove(int x1, int y1, int z1, int x2, int y2, int z2) {
-        //return (board[x1][y1][z1] == turn && board[x2][y2][z2] == 0 && (Math.abs(z2 - z1) <= 1
-        // && Math.abs(y2 - y1) <= 1 && Math.abs(x2 - x1) <= 1) && (x1 != x2 && y1 != y2 && z1 != z2));
         if (board[x1][y1][z1] == turn) {
             Log.i("isValid","First");
             if (board[x2][y2][z2] == 0) {
