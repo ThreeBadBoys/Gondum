@@ -1,5 +1,7 @@
 package com.dsproject.gondum;
 
+import android.util.Log;
+
 public class Game {
     public int turn = 1;
     //1 -> red & 2 -> blue
@@ -65,11 +67,11 @@ public class Game {
             if (turn == 1) {
                 red.menCount--;
                 red.menInBoardCount++;
-                if(red.menCount == 0) red.phase = 2;
+                if (red.menCount == 0) red.phase = 2;
             } else {
                 blue.menCount--;
                 blue.menInBoardCount++;
-                if(blue.menCount == 0) blue.phase = 2;
+                if (blue.menCount == 0) blue.phase = 2;
             }
             board[x][y][z] = turn;
             return true;
@@ -83,12 +85,13 @@ public class Game {
     public boolean move(int x1, int y1, int z1, int x2, int y2, int z2) {
 
         if (isValidMove(x1, y1, z1, x2, y2, z2)) {
+            Log.i("Move","Move happened");
             board[x2][y2][z2] = board[x1][y1][z1];
             board[x1][y1][z1] = 0;
             if (turn == 1) {
-                if(red.menInBoardCount == 3) red.phase = 3;
+                if (red.menInBoardCount == 3) red.phase = 3;
             } else {
-                if(blue.menInBoardCount == 3) blue.phase = 3;
+                if (blue.menInBoardCount == 3) blue.phase = 3;
             }
             return true;
         } else
@@ -247,7 +250,35 @@ public class Game {
     }
 
     public boolean isValidMove(int x1, int y1, int z1, int x2, int y2, int z2) {
-        return (board[x1][y1][z1] == turn && board[x2][y2][z2] == 0 && (Math.abs(z2 - z1) <= 1 && Math.abs(y2 - y1) <= 1 && Math.abs(x2 - x1) <= 1) && (x1 != x2 && y1 != y2 && z1 != z2));
+        //return (board[x1][y1][z1] == turn && board[x2][y2][z2] == 0 && (Math.abs(z2 - z1) <= 1
+        // && Math.abs(y2 - y1) <= 1 && Math.abs(x2 - x1) <= 1) && (x1 != x2 && y1 != y2 && z1 != z2));
+        if (board[x1][y1][z1] == turn) {
+            Log.i("isValid","First");
+            if (board[x2][y2][z2] == 0) {
+                Log.i("isValid","Second");
+                if (Math.abs(z2 - z1) <= 1) {
+                    Log.i("isValid","Third");
+                    if (Math.abs(y2 - y1) <= 1) {
+                        Log.i("isValid","Fourth");
+                        if (Math.abs(x2 - x1) <= 1){
+                            Log.i("isValid","Fifth");
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+
+        } else {
+            return false;
+        }
     }
 
     public boolean isValidFly(int x1, int y1, int z1, int x2, int y2, int z2) {

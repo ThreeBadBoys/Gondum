@@ -219,6 +219,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
 
         if (this.matched) {//For deletion the opponent piece
             res.succ = game.delete(x, y, z);
+            Log.i("delete",String.valueOf(this.matched));
             if (res.succ) {
                 this.matched = false;
                 res.turn = 0;
@@ -245,6 +246,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     res.x = this.x;
                     res.y = this.y;
                     res.z = this.z;
+                    Log.i("redmove",String.valueOf(this.matched));
                 } else {
                     res.succ = false;
                     if (game.board[x][y][z] == 1) {
@@ -255,6 +257,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     }
                 }
             } else {
+                Log.i("redfly",String.valueOf(this.matched));
                 res.phase = game.red.phase;
                 if (this.x != -1) {
                     res.succ = game.fly(this.x, this.y, this.z, x, y, z);
@@ -294,6 +297,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     res.x = this.x;
                     res.y = this.y;
                     res.z = this.z;
+                    Log.i("bluemove",String.valueOf(this.matched));
                 } else {
                     res.succ = false;
                     if (game.board[x][y][z] == 2) {
@@ -304,6 +308,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     }
                 }
             } else {
+                Log.i("bluefly",String.valueOf(this.matched));
                 res.phase = game.blue.phase;
                 if (this.x != -1) {
                     res.succ = game.fly(this.x, this.y, this.z, x, y, z);
