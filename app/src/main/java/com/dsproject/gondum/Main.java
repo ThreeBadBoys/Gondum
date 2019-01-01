@@ -9,7 +9,6 @@ public class Main {
 //        game.board[1][2][0] = 1;
 //        System.out.println(game.evaluate(1, 2, 1));
 //        game.boardPrint();
-        System.out.println("ygygyugygyugy");
 
     }
 }

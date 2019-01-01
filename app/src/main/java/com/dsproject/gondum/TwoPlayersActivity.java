@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -224,7 +225,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                 res.succ = game.insert(x, y, z);
                 this.matched = game.evaluate(x, y, z);
                 res.turn = game.turn;
-                if (!this.matched) game.nextTurn();
+                if (!this.matched && res.succ) game.nextTurn();
                 res.x = x;
                 res.y = y;
                 res.z = z;
@@ -235,7 +236,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     res.succ = game.move(this.x, this.y, this.z, x, y, z);
                     this.matched = game.evaluate(x, y, z);
                     res.turn = game.turn;
-                    if (!this.matched) game.nextTurn();
+                    if (!this.matched && res.succ) game.nextTurn();
                     if (res.succ) this.x = -1;
                     res.x = this.x;
                     res.y = this.y;
@@ -254,7 +255,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                 if (this.x != -1) {
                     res.succ = game.fly(this.x, this.y, this.z, x, y, z);
                     this.matched = game.evaluate(x, y, z);
-                    if (!this.matched) game.nextTurn();
+                    if (!this.matched && res.succ) game.nextTurn();
                     res.x = this.x;
                     res.y = this.y;
                     res.z = this.z;
@@ -273,7 +274,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                 res.succ = game.insert(x, y, z);
                 this.matched = game.evaluate(x, y, z);
                 res.turn = game.turn;
-                if (!this.matched) game.nextTurn();
+                if (!this.matched && res.succ) game.nextTurn();
                 res.x = x;
                 res.y = y;
                 res.z = z;
@@ -284,7 +285,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     res.succ = game.move(this.x, this.y, this.z, x, y, z);
                     this.matched = game.evaluate(x, y, z);
                     res.turn = game.turn;
-                    if (!this.matched) game.nextTurn();
+                    if (!this.matched && res.succ) game.nextTurn();
                     if (res.succ) this.x = -1;
                     res.x = this.x;
                     res.y = this.y;
@@ -303,7 +304,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                 if (this.x != -1) {
                     res.succ = game.fly(this.x, this.y, this.z, x, y, z);
                     this.matched = game.evaluate(x, y, z);
-                    if (!this.matched) game.nextTurn();
+                    if (!this.matched && res.succ) game.nextTurn();
                     res.x = this.x;
                     res.y = this.y;
                     res.z = this.z;
@@ -325,6 +326,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
             men_blue_trash.setText(NumberToPersian.toPersianNumber(String.valueOf(12-(game.blue.menCount+game.blue.menInBoardCount))));
             changeFont();
         }
+        Log.i("res","phase:"+String.valueOf(res.phase)+" succ:"+String.valueOf(res.succ)+" turn:"+String.valueOf(res.turn)+" x:"+String.valueOf(res.x)+" y:"+String.valueOf(res.y)+" z:"+String.valueOf(res.z));
         return  res;
     }
 
@@ -473,7 +475,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
 
     private void image13Listener() {
         Result res;
-        res = selectNode(1, 2, 0, imageView2_13);
+        res = selectNode(1, 2, 2, imageView2_13);
         if (res.succ) {
             imageView2_13.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
@@ -497,7 +499,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
 
     private void image15Listener() {
         Result res;
-        res = selectNode(1, 2, 2, imageView2_15);
+        res = selectNode(1, 2, 0, imageView2_15);
         if (res.succ) {
             imageView2_15.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
@@ -592,8 +594,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image23Listener() {
-        Result res;
-        res = selectNode(2, 1, 0, imageView2_23);
+        Result res = selectNode(2, 1, 0, imageView2_23);
         if (res.succ) {
             imageView2_23.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
@@ -604,8 +605,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     }
 
     private void image24Listener() {
-        Result res;
-        res = selectNode(2, 2, 0, imageView2_24);
+        Result res = selectNode(2, 2, 0, imageView2_24);
         if (res.succ) {
             imageView2_24.setImageResource(res.turn == 0 ? 0 : res.turn == 1 ? R.drawable.red : R.drawable.blue);
             if (res.phase > 1) {
