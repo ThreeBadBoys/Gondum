@@ -216,15 +216,15 @@ public class TwoPlayersActivity extends AppCompatActivity {
 
     public Result selectNode(int X, int Y, int Z, ImageView img) {
         Result res = new Result();
-        Log.i("board", ""+game.board[0][0][0]+" "+game.board[0][1][0]+" "+game.board[0][2][0]+" ");
-        Log.i("board", ""+game.board[1][0][0]+" "+game.board[1][1][0]+" "+game.board[1][2][0]+" ");
-        Log.i("board", ""+game.board[2][0][0]+" "+game.board[2][1][0]+" "+game.board[2][2][0]+" ");
-        Log.i("board", ""+game.board[0][0][1]+" "+game.board[0][1][1]+" "+game.board[0][2][1]+" ");
-        Log.i("board", ""+game.board[1][0][1]+" "+game.board[1][1][1]+" "+game.board[1][2][1]+" ");
-        Log.i("board", ""+game.board[2][0][1]+" "+game.board[2][1][1]+" "+game.board[2][2][1]+" ");
-        Log.i("board", ""+game.board[0][0][2]+" "+game.board[0][1][2]+" "+game.board[0][2][2]+" ");
-        Log.i("board", ""+game.board[1][0][2]+" "+game.board[1][1][2]+" "+game.board[1][2][2]+" ");
-        Log.i("board", ""+game.board[2][0][2]+" "+game.board[2][1][2]+" "+game.board[2][2][2]+" ");
+//        Log.i("board", ""+String.valueOf(game.board[0][0][0])+" "+String.valueOf(game.board[0][1][0])+" "+String.valueOf(game.board[0][2][0])+" ");
+//        Log.i("board", ""+String.valueOf(game.board[1][0][0])+" "+String.valueOf(game.board[1][1][0])+" "+String.valueOf(game.board[1][2][0])+" ");
+//        Log.i("board", ""+String.valueOf(game.board[2][0][0])+" "+String.valueOf(game.board[2][1][0])+" "+String.valueOf(game.board[2][2][0])+" ");
+//        Log.i("board", ""+String.valueOf(game.board[0][0][1])+" "+String.valueOf(game.board[0][1][1])+" "+String.valueOf(game.board[0][2][1])+" ");
+//        Log.i("board", ""+String.valueOf(game.board[1][0][1])+" "+String.valueOf(game.board[1][1][1])+" "+String.valueOf(game.board[1][2][1])+" ");
+//        Log.i("board", ""+String.valueOf(game.board[2][0][1])+" "+String.valueOf(game.board[2][1][1])+" "+String.valueOf(game.board[2][2][1])+" ");
+//        Log.i("board", ""+String.valueOf(game.board[0][0][2])+" "+String.valueOf(game.board[0][1][2])+" "+String.valueOf(game.board[0][2][2])+" ");
+//        Log.i("board", ""+String.valueOf(game.board[1][0][2])+" "+String.valueOf(game.board[1][1][2])+" "+String.valueOf(game.board[1][2][2])+" ");
+//        Log.i("board", ""+String.valueOf(game.board[2][0][2])+" "+String.valueOf(game.board[2][1][2])+" "+String.valueOf(game.board[2][2][2])+" ");
 
         if (this.matched) {//For deletion the opponent piece
             res.succ = game.delete(X, Y, Z);
@@ -279,11 +279,11 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     res.succ = game.fly(this.x, this.y, this.z, X, Y, Z);
                     if (res.succ) {
                         this.matched = game.evaluate(X, Y, Z);
+                        res.turn = game.turn;
                         if (!this.matched) game.nextTurn();
                         res.x = this.x;
                         res.y = this.y;
                         res.z = this.z;
-                        res.turn = game.turn;
                         this.x = -1;
                     }
                 } else {
@@ -342,11 +342,11 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     res.succ = game.fly(this.x, this.y, this.z, X, Y, Z);
                     if (res.succ) {
                         this.matched = game.evaluate(X, Y, Z);
+                        res.turn = game.turn;
                         if (!this.matched) game.nextTurn();
                         res.x = this.x;
                         res.y = this.y;
                         res.z = this.z;
-                        res.turn = game.turn;
                         this.x = -1;
                     }
                 } else {

@@ -168,12 +168,17 @@ public class Game {
      * This function is for checking the players turn in the game
      **/
     public boolean nextTurn() {
-
+    Log.i("GameState" , gameState() + "");
         if (gameState() == 0) {
             turn = (turn == 1 ? 2 : 1);
             return true;
+        }else if (gameState() == 1){
+            Log.i("winner", "red won");
+
+        }else if (gameState() == 2){
+            Log.i("winner", "red won");
+
         }
-        Log.i("winner", String.valueOf(red.menInBoardCount < 3 ? "red" : "blue"));
         return false;
     }
 
