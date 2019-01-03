@@ -1,6 +1,8 @@
 package com.dsproject.gondum;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,13 +41,14 @@ public class OnePlayersActivity extends AppCompatActivity {
     TextView men_blue_trash;
     TextView men_red_trash;
     Typeface typeface;
-
+    MediaPlayer mediaPlayer;
     int x;
     int y;
     int z;
     ImageView img;
     boolean matched = false;
     Game game = new Game();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +75,6 @@ public class OnePlayersActivity extends AppCompatActivity {
                 image2Listener();
             }
         });
-
         imageView3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,7 +208,16 @@ public class OnePlayersActivity extends AppCompatActivity {
             }
         });
 
+        avoidStatusBarChange();
+        mediaPlayer = MediaPlayer.create(this, R.raw.best);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mediaPlayer.release();
     }
 
     private void changeStatusBarColor() {
@@ -655,5 +666,24 @@ public class OnePlayersActivity extends AppCompatActivity {
         game.gameBackEndReset();
         finish();
         super.onBackPressed();
+    }
+
+    private void avoidStatusBarChange() {
+        getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+            @Override
+            public void onSystemUiVisibilityChange(int visibility) {
+                if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
+                    changeStatusBarColor();
+
+                } else {
+                    changeStatusBarColor();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        Window window = getWindow();
+                        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+                        window.setStatusBarColor(Color.parseColor("#1EB83C"));
+                    }
+                }
+            }
+        });
     }
 }

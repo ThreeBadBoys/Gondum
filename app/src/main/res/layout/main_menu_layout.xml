@@ -7,7 +7,7 @@
     tools:context=".MainMenuActivity"
     android:background="@mipmap/o">
 
-    <LinearLayout
+    <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -16,8 +16,8 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:weightSum="2"
-        android:orientation="vertical"
+        android:rowCount="2"
+        android:columnCount="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,22 +25,56 @@
 
         <Button
             android:id="@+id/two"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginBottom="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_row="0"
+            android:layout_column="1"
             android:background="@drawable/btn_style"
             android:onClick="onClickListener"
             android:text="بازی دو نفره" />
 
         <Button
             android:id="@+id/one"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_margin="4dp"
             android:background="@drawable/btn_style"
             android:onClick="onClickListener"
             android:text="بازی تک نفره" />
+        <Button
+            android:id="@+id/three"
+            android:layout_width="wrap_content"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:textColor="#fff"
+            android:layout_margin="4dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_style2"
+            android:onClick="onClickListener"
+            android:text="خروج"/>
+        <Button
+            android:id="@+id/four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_margin="4dp"
+            android:background="@drawable/btn_style"
+            android:onClick="onClickListener"
+            android:text="آموزش"
+            />
 
-    </LinearLayout>
+    </GridLayout>
+
+    <ImageView
+        android:layout_width="63dp"
+        android:layout_height="54dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/b"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

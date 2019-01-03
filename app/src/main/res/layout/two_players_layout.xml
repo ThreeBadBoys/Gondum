@@ -571,7 +571,8 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#d4a472">
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
@@ -656,7 +657,8 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#d4a472">
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
@@ -743,6 +745,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
+        android:background="#d4a472"
         android:textAlignment="center"
         android:textColor="#fa5754"
         android:textStyle="bold" />
@@ -753,6 +756,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:background="#d4a472"
         android:textAlignment="center"
         android:textColor="#5a97f9"
         android:textStyle="bold" />

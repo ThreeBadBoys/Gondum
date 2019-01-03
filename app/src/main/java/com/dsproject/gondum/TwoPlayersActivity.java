@@ -1,14 +1,27 @@
 package com.dsproject.gondum;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,6 +70,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
     Game game = new Game();
 
     Dialog dialog;
+    MediaPlayer mediaPlayer;
 
     GifImageView gify;
     Button exit;
@@ -248,6 +262,17 @@ public class TwoPlayersActivity extends AppCompatActivity {
             }
         });
 
+        avoidStatusBarChange();
+        mediaPlayer = MediaPlayer.create(this, R.raw.best);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mediaPlayer.release();
     }
 
     public Result selectNode(int X, int Y, int Z, ImageView img) {
@@ -265,6 +290,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                 res.succ = game.insert(X, Y, Z);
                 if (res.succ) {
                     this.matched = game.evaluate(X, Y, Z);
+                    if (this.matched) shakeItBaby();
                     res.turn = game.turn;
                     if (!this.matched) game.nextTurn();
                     res.x = X;
@@ -279,6 +305,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     res.succ = game.move(this.x, this.y, this.z, X, Y, Z);
                     if (res.succ) {
                         this.matched = game.evaluate(X, Y, Z);
+                        if (this.matched) shakeItBaby();
                         res.turn = game.turn;
                         if (!this.matched) game.nextTurn();
                         if (res.succ) this.x = -1;
@@ -305,6 +332,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     res.succ = game.fly(this.x, this.y, this.z, X, Y, Z);
                     if (res.succ) {
                         this.matched = game.evaluate(X, Y, Z);
+                        if (this.matched) shakeItBaby();
                         res.turn = game.turn;
                         if (!this.matched) game.nextTurn();
                         res.x = this.x;
@@ -328,6 +356,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                 res.succ = game.insert(X, Y, Z);
                 if (res.succ) {
                     this.matched = game.evaluate(X, Y, Z);
+                    if (this.matched) shakeItBaby();
                     res.turn = game.turn;
                     if (!this.matched) game.nextTurn();
                     res.x = X;
@@ -342,6 +371,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     res.succ = game.move(this.x, this.y, this.z, X, Y, Z);
                     if (res.succ) {
                         this.matched = game.evaluate(X, Y, Z);
+                        if (this.matched) shakeItBaby();
                         res.turn = game.turn;
                         if (!this.matched) game.nextTurn();
                         if (res.succ) this.x = -1;
@@ -368,6 +398,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     res.succ = game.fly(this.x, this.y, this.z, X, Y, Z);
                     if (res.succ) {
                         this.matched = game.evaluate(X, Y, Z);
+                        if (this.matched) shakeItBaby();
                         res.turn = game.turn;
                         if (!this.matched) game.nextTurn();
                         res.x = this.x;
@@ -832,10 +863,38 @@ public class TwoPlayersActivity extends AppCompatActivity {
 
     }
 
+    private void shakeItBaby() {
+        if (Build.VERSION.SDK_INT >= 26) {
+            ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(150, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(150);
+        }
+    }
+
     @Override
     public void onBackPressed() {
         game.gameBackEndReset();
         finish();
         super.onBackPressed();
+    }
+
+    private void avoidStatusBarChange() {
+        getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+            @Override
+            public void onSystemUiVisibilityChange(int visibility) {
+                if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
+                    changeStatusBarColor();
+
+                } else {
+                    changeStatusBarColor();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        Window window = getWindow();
+                        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+                        window.setStatusBarColor(Color.parseColor("#1EB83C"));
+                    }
+                }
+            }
+        });
+
     }
 }
