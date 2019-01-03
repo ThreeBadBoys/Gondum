@@ -561,6 +561,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
+            android:background="#d4a472"
             android:layout_height="match_parent">
 
             <LinearLayout
@@ -646,6 +647,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
+            android:background="#d4a472"
             android:layout_height="match_parent">
 
             <LinearLayout
