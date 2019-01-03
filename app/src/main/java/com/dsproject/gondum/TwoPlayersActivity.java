@@ -320,6 +320,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                         this.y = Y;
                         this.z = Z;
                         this.img = img;
+                        img.setImageResource(R.drawable.yellow);
                     }
                 }
             } else {
@@ -348,6 +349,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                         this.y = Y;
                         this.z = Z;
                         this.img = img;
+                        img.setImageResource(R.drawable.yellow);
                     }
                 }
             }
@@ -387,6 +389,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                         this.y = Y;
                         this.z = Z;
                         this.img = img;
+                        img.setImageResource(R.drawable.yellow);
                     }
                 }
             } else {
@@ -414,6 +417,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                         this.y = Y;
                         this.z = Z;
                         this.img = img;
+                        img.setImageResource(R.drawable.yellow);
                     }
                 }
             }
