@@ -2,47 +2,32 @@ package com.dsproject.gondum;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 
-public class StartActivity extends AppCompatActivity {
-
-    ImageView img;
+public class HowToPlayActivity extends AppCompatActivity {
+    TextView textView;
+    Typeface typeface;
     MediaPlayer mediaPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
+        setContentView(R.layout.activity_how_to_play);
+        textView = findViewById(R.id.learning);
+        typeface = Typeface.createFromAsset(getResources().getAssets(), "iransansweb.ttf");
+        textView.setTypeface(typeface);
         changeStatusBarColor();
-        img = findViewById(R.id.img);
-        img.animate().alpha(1f).setDuration(8000);
-        Toast.makeText(this, "Click anywhere to continue...", Toast.LENGTH_LONG).show();
         avoidStatusBarChange();
-        mediaPlayer = MediaPlayer.create(this,R.raw.start);
+        mediaPlayer = MediaPlayer.create(this, R.raw.best);
+        mediaPlayer.setLooping(true);
         mediaPlayer.start();
-    }
-
-    public void click(View view) {
-
-        startActivity(new Intent(this, MainMenuActivity.class));
-        mediaPlayer.pause();
-        finish();
-
-    }
-
-
-
-    private void changeStatusBarColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
-        }
     }
 
     private void avoidStatusBarChange() {
@@ -63,5 +48,21 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        mediaPlayer.pause();
+        startActivity(new Intent(this, MainMenuActivity.class));
+        finish();
+        super.onBackPressed();
+
+    }
+
+    private void changeStatusBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+        }
     }
 }

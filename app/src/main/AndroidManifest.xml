@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainMenuActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".TwoPlayersActivity"
             android:screenOrientation="landscape" />
@@ -29,6 +29,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".HowToPlayActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

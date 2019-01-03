@@ -1,11 +1,13 @@
 package com.dsproject.gondum;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -42,6 +44,7 @@ public class OnePlayersActivity extends AppCompatActivity {
     TextView men_red_trash;
     Typeface typeface;
     MediaPlayer mediaPlayer;
+    SharedPreferences pref;
     int x;
     int y;
     int z;
@@ -61,6 +64,8 @@ public class OnePlayersActivity extends AppCompatActivity {
         men_blue.setText(NumberToPersian.toPersianNumber("12"));
         men_blue_trash.setText(NumberToPersian.toPersianNumber("0"));
         men_red_trash.setText(NumberToPersian.toPersianNumber("0"));
+
+        pref = getSharedPreferences("myprefs",MODE_PRIVATE);
 
 
         imageView1.setOnClickListener(new View.OnClickListener() {
@@ -210,8 +215,10 @@ public class OnePlayersActivity extends AppCompatActivity {
 
         avoidStatusBarChange();
         mediaPlayer = MediaPlayer.create(this, R.raw.best);
-        mediaPlayer.setLooping(true);
-        mediaPlayer.start();
+        if (pref.getBoolean("SOUND",true)) {
+            mediaPlayer.setLooping(true);
+            mediaPlayer.start();
+        }
     }
 
     @Override
@@ -663,7 +670,11 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if(mediaPlayer.isPlaying()){
+            mediaPlayer.pause();
+        }
         game.gameBackEndReset();
+        startActivity(new Intent(this,MainMenuActivity.class));
         finish();
         super.onBackPressed();
     }

@@ -1,27 +1,19 @@
 package com.dsproject.gondum;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.PixelFormat;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -71,7 +63,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
 
     Dialog dialog;
     MediaPlayer mediaPlayer;
-
+    SharedPreferences pref;
     GifImageView gify;
     Button exit;
     Button menu;
@@ -91,6 +83,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         men_blue_trash.setText(NumberToPersian.toPersianNumber("0"));
         men_red_trash.setText(NumberToPersian.toPersianNumber("0"));
 
+        pref = getSharedPreferences("myprefs",MODE_PRIVATE);
 
         imageView2_1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -264,8 +257,12 @@ public class TwoPlayersActivity extends AppCompatActivity {
 
         avoidStatusBarChange();
         mediaPlayer = MediaPlayer.create(this, R.raw.best);
-        mediaPlayer.setLooping(true);
-        mediaPlayer.start();
+        if(pref.getBoolean("SOUND",true)) {
+            mediaPlayer.setLooping(true);
+            mediaPlayer.start();
+        }
+//        getSharedPreferences("SOUND")
+
 
     }
 
@@ -873,6 +870,10 @@ public class TwoPlayersActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        startActivity(new Intent(this,MainMenuActivity.class));
+        if(mediaPlayer.isPlaying()){
+            mediaPlayer.pause();
+        }
         game.gameBackEndReset();
         finish();
         super.onBackPressed();
