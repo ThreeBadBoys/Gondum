@@ -241,6 +241,9 @@ public class TwoPlayersActivity extends AppCompatActivity {
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(mediaPlayer.isPlaying()){
+                    mediaPlayer.pause();
+                }
                 Intent intent = new Intent(TwoPlayersActivity.this, MainMenuActivity.class);
                 startActivity(intent);
                 finish();
