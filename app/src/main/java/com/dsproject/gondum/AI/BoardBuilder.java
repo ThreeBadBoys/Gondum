@@ -1,15 +1,30 @@
 package com.dsproject.gondum.AI;
 
-public class BoardBuilder {
-    public int[][][] boardBuilder() {
+import java.util.ArrayList;
 
+public class BoardBuilder {
+
+    public ArrayList<int[][][]> boardBuilder(int[][][] currentBoard) {
+        return null;
     }
 
-    public int[][][] insertBuilder() {}
+    public int[][][] insertBuilder() {
+        //TODO  InsertBuilder Method
+        return null;
+    }
 
-    public int[][][] moveBuilder() {}
+    public int[][][] moveBuilder() {
+        //TODO InsertBuilder Method
+        return null;
+    }
 
-    public int[][][] flyBuilder() {}
+    public int[][][] flyBuilder() {
+        //TODO flyBoard Mrthod
+        return null;
+    }
 
-    public int[][][] deleteBuilder() {}
+    public int[][][] deleteBuilder() {
+        //TODO deleteBoard Method
+        return null;
+    }
 }

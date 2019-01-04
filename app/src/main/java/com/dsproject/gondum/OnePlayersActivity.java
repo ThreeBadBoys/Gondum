@@ -718,7 +718,7 @@ public class OnePlayersActivity extends AppCompatActivity {
     }
 
     public void machineSelectNode(){
-
+        //TODO MachineSelectNode Method
     }
 
 }

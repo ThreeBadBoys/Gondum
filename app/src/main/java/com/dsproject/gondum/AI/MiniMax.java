@@ -1,16 +1,18 @@
 package com.dsproject.gondum.AI;
 
+import java.util.ArrayList;
+
 public class MiniMax {
-    BoardBuilder boardBuilder = new BoardBuilder();
+    private BoardBuilder boardBuilder = new BoardBuilder();
 
-    public static int minimax(int[][][] currentBoard, int depth, int alpha, int beta, boolean maximizingPlayer) {
-
-        if (depth == 0 /*  || Game over in this state */) {
+    public int minimax(int[][][] currentBoard, int depth, int alpha, int beta, boolean maximizingPlayer) {
+        ArrayList<int[][][]> boards = boardBuilder.boardBuilder(currentBoard);
+        if (depth == 0 || gameState(currentBoard) == 0) {
             return evaluation(currentBoard);
         }
         if (maximizingPlayer) {
             int maxEval = Integer.MIN_VALUE;
-            for (each child of the Nodes){
+            for (int[][][] child : boards) {
                 int eval = minimax(child, depth - 1, alpha, beta, false);
                 maxEval = max(maxEval, eval);
                 alpha = max(alpha, eval);
@@ -20,10 +22,9 @@ public class MiniMax {
             }
             return maxEval;
 
-
         } else {
             int minEval = Integer.MAX_VALUE;
-            for (each child of the Nodes){
+            for (int[][][] child : boards) {
                 int eval = minimax(child, depth - 1, alpha, beta, true);
                 minEval = min(minEval, eval);
                 beta = min(beta, eval);
@@ -33,20 +34,23 @@ public class MiniMax {
             }
             return minEval;
         }
-        //Just for hiding the error
-//        return 0;
-        ///////////////////////////
+    }
+
+
+    private int gameState(int[][][] currentBoard) {
+        //TODO Game State for this Method
+        return 0;
     }
 
     private static int evaluation(int[][][] currentBoard) {
         return 0;
     }
 
-    protected static int max(int a, int b) {
+    private static int max(int a, int b) {
         return a >= b ? a : b;
     }
 
-    protected static int min(int a, int b) {
+    private static int min(int a, int b) {
         return a >= b ? b : a;
     }
 }

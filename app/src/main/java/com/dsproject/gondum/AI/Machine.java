@@ -11,5 +11,8 @@ public class Machine extends Game {
         this.blue=blue;
     }
 
-    public int[][][] decision() {}
+    public int[][][] decision() {
+        //TODO Decision Method
+        return null;
+    }
 }
