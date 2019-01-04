@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class BoardBuilder {
 
-    public ArrayList<int[][][]> boardBuilder(int[][][] currentBoard) {
+    public ArrayList<int[][][]> boardBuilder(int[][][] currentBoard , int turn) {
         return null;
     }
 
