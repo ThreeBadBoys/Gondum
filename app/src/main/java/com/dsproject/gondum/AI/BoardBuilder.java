@@ -1,10 +1,21 @@
 package com.dsproject.gondum.AI;
 
+import com.dsproject.gondum.*;
+
 import java.util.ArrayList;
 
 public class BoardBuilder {
+    Red red;
+    Blue blue;
+    int turn;
 
-    public ArrayList<int[][][]> boardBuilder(int[][][] currentBoard , int turn) {
+    public BoardBuilder(Red red, Blue blue) {
+        this.red = red;
+        this.blue = blue;
+        this.turn = 2;
+    }
+
+    public ArrayList<int[][][]> boardBuilder(int[][][] board) {
         return null;
     }
 
