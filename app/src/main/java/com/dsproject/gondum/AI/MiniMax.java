@@ -1,7 +1,6 @@
 package com.dsproject.gondum.AI;
 
 import com.dsproject.gondum.*;
-
 import java.util.ArrayList;
 
 public class MiniMax {
