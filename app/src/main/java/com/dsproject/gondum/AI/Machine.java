@@ -18,8 +18,7 @@ public class Machine extends Game {
         b.menCount = blue.menCount;
         b.menInBoardCount = blue.menInBoardCount;
         b.phase = blue.phase;
-        boardBuilder = new BoardBuilder(r, b);
-        miniMax = new MiniMax(boardBuilder);
+        miniMax = new MiniMax();
     }
 
     public int[][][] decision() {
