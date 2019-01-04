@@ -20,7 +20,7 @@ public class MiniMax {
 
         Node node = new Node(currentBoard, red, blue, maximizingPlayer ? 2 : 1);
 
-        ArrayList<Node> states = boardBuilder.boardBuilder(new Node(currentBoard, red, blue, maximizingPlayer ? 2 : 1), matched);
+        ArrayList<Node> states = boardBuilder.boardBuilder(node, matched);
         if (maximizingPlayer) {
             int maxEval = Integer.MIN_VALUE;
             for (Node state : states) {

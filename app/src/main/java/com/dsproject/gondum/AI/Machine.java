@@ -4,7 +4,6 @@ import com.dsproject.gondum.*;
 
 public class Machine extends Game {
     MiniMax miniMax;
-    BoardBuilder boardBuilder;
     Red r = new Red();
     Blue b = new Blue();
 
