@@ -6,10 +6,11 @@ public class MiniMax {
     private BoardBuilder boardBuilder = new BoardBuilder();
 
     public int minimax(int[][][] currentBoard, int depth, int alpha, int beta, boolean maximizingPlayer) {
-        ArrayList<int[][][]> boards = boardBuilder.boardBuilder(currentBoard);
+
         if (depth == 0 || gameState(currentBoard) == 0) {
             return evaluation(currentBoard);
         }
+        ArrayList<int[][][]> boards = boardBuilder.boardBuilder(currentBoard);
         if (maximizingPlayer) {
             int maxEval = Integer.MIN_VALUE;
             for (int[][][] child : boards) {
