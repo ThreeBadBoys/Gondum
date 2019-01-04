@@ -7,25 +7,34 @@ public class Machine extends Game {
     BoardBuilder boardBuilder;
 
     public Machine(int[][][] board, Red red, Blue blue) {
-        this.board=board;
-        this.red=red;
-        this.blue=blue;
+        this.board = board;
+        this.red = red;
+        this.blue = blue;
         Red r = new Red();
         Blue b = new Blue();
-        r.menCount=red.menCount;
-        r.menInBoardCount=red.menInBoardCount;
-        r.phase=red.phase;
-        b.menCount=blue.menCount;
-        b.menInBoardCount=blue.menInBoardCount;
-        b.phase=blue.phase;
+        r.menCount = red.menCount;
+        r.menInBoardCount = red.menInBoardCount;
+        r.phase = red.phase;
+        b.menCount = blue.menCount;
+        b.menInBoardCount = blue.menInBoardCount;
+        b.phase = blue.phase;
         boardBuilder = new BoardBuilder(r, b);
         miniMax = new MiniMax(boardBuilder);
     }
 
     public int[][][] decision() {
         //TODO Decision Method
-        //miniMax.matched=true;
+        int[][][] board = miniMax.bestMove(this.board,4,Integer.MIN_VALUE,Integer.MAX_VALUE,true);
+            if(evaluateBoard(board));
+        miniMax.matched= evaluateBoard(board);
 
         return null;
     }
+
+    public boolean evaluateBoard(int[][][] board) {
+
+        return false;
+    }
+
+
 }

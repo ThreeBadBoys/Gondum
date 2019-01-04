@@ -15,7 +15,7 @@ public class BoardBuilder {
         this.turn = 2;
     }
 
-    public ArrayList<int[][][]> boardBuilder(int[][][] board,boolean matched) {
+    public ArrayList<Node> boardBuilder(int[][][] board,boolean matched) {
         return null;
     }
 
