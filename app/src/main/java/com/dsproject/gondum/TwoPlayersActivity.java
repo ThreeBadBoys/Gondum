@@ -53,7 +53,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
     TextView turn_blue;
     Typeface typeface;
 
-
     int x = -1;
     int y;
     int z;
@@ -83,7 +82,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         men_blue_trash.setText(NumberToPersian.toPersianNumber("0"));
         men_red_trash.setText(NumberToPersian.toPersianNumber("0"));
 
-        pref = getSharedPreferences("myprefs",MODE_PRIVATE);
+        pref = getSharedPreferences("myprefs", MODE_PRIVATE);
 
         imageView2_1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,7 +240,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mediaPlayer.isPlaying()){
+                if (mediaPlayer.isPlaying()) {
                     mediaPlayer.pause();
                 }
                 Intent intent = new Intent(TwoPlayersActivity.this, MainMenuActivity.class);
@@ -260,7 +259,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
 
         avoidStatusBarChange();
         mediaPlayer = MediaPlayer.create(this, R.raw.best);
-        if(pref.getBoolean("SOUND",true)) {
+        if (pref.getBoolean("SOUND", true)) {
             mediaPlayer.setLooping(true);
             mediaPlayer.start();
         }
@@ -301,7 +300,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
             } else if (game.red.phase == 2) {
                 res.phase = game.red.phase;
                 Log.i("redmove", "entered");
-                if (this.x != -1) {
+                if (this.x != -1 && game.board[X][Y][Z] == 0) {
                     res.succ = game.move(this.x, this.y, this.z, X, Y, Z);
                     if (res.succ) {
                         this.matched = game.evaluate(X, Y, Z);
@@ -316,6 +315,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                 } else {
                     res.succ = false;
                     if (game.board[X][Y][Z] == 1) {
+                        if(this.x != -1) this.img.setImageResource(R.drawable.red);
                         this.x = X;
                         this.y = Y;
                         this.z = Z;
@@ -345,6 +345,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     Log.i("redfly", "2");
                     res.succ = false;
                     if (game.board[X][Y][Z] == 1) {
+                        if(this.x != -1) this.img.setImageResource(R.drawable.red);
                         this.x = X;
                         this.y = Y;
                         this.z = Z;
@@ -369,7 +370,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
             } else if (game.blue.phase == 2) {
                 res.phase = game.blue.phase;
                 Log.i("bluemove", "entered");
-                if (this.x != -1) {
+                if (this.x != -1 && game.board[X][Y][Z] == 0) {
                     res.succ = game.move(this.x, this.y, this.z, X, Y, Z);
                     if (res.succ) {
                         this.matched = game.evaluate(X, Y, Z);
@@ -385,6 +386,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                 } else {
                     res.succ = false;
                     if (game.board[X][Y][Z] == 2) {
+                        if(this.x != -1) this.img.setImageResource(R.drawable.blue);
                         this.x = X;
                         this.y = Y;
                         this.z = Z;
@@ -396,7 +398,7 @@ public class TwoPlayersActivity extends AppCompatActivity {
                 Log.i("bluefly", "entered x1:" + this.x + " y1: " + this.y + " z1: " + this.z
                         + " x2: " + X + " Y2: " + Y + " Z2 : " + Z);
                 res.phase = game.blue.phase;
-                if (this.x != -1) {
+                if (this.x != -1 && game.board[X][Y][Z] == 0) {
                     Log.i("bluefly", "1");
                     res.succ = game.fly(this.x, this.y, this.z, X, Y, Z);
                     if (res.succ) {
@@ -410,9 +412,11 @@ public class TwoPlayersActivity extends AppCompatActivity {
                         this.x = -1;
                     }
                 } else {
+
                     Log.i("bluefly", "2");
                     res.succ = false;
                     if (game.board[X][Y][Z] == 2) {
+                        if(this.x != -1) this.img.setImageResource(R.drawable.blue);
                         this.x = X;
                         this.y = Y;
                         this.z = Z;
@@ -877,8 +881,8 @@ public class TwoPlayersActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this,MainMenuActivity.class));
-        if(mediaPlayer.isPlaying()){
+        startActivity(new Intent(this, MainMenuActivity.class));
+        if (mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
         }
         game.gameBackEndReset();
