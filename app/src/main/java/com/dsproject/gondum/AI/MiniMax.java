@@ -1,5 +1,6 @@
 package com.dsproject.gondum.AI;
 
+import com.dsproject.gondum.*;
 import java.util.ArrayList;
 
 public class MiniMax {
@@ -11,21 +12,21 @@ public class MiniMax {
         this.boardBuilder = boardBuilder;
     }
 
-    int[][][] bestMove(int[][][] currentBoard, int depth, int alpha, int beta, boolean maximizingPlayer) {
-        minimax(currentBoard, depth, alpha, beta, maximizingPlayer);
+    int[][][] bestMove(int[][][] currentBoard, Red red, Blue blue, int depth, int alpha, int beta, boolean maximizingPlayer) {
+        minimax(currentBoard, red, blue, depth, alpha, beta, maximizingPlayer);
         return board;
     }
 
-    public int minimax(int[][][] currentBoard, int depth, int alpha, int beta, boolean maximizingPlayer) {
+    public int minimax(int[][][] currentBoard, Red red, Blue blue, int depth, int alpha, int beta, boolean maximizingPlayer) {
 
-        if (depth == 0 || gameState(currentBoard) == 0) {
+        if (depth == 0 || gameState(currentBoard, red, blue) == 0) {
             return evaluation(currentBoard);
         }
         ArrayList<Node> nodes = boardBuilder.boardBuilder(currentBoard, matched);
         if (maximizingPlayer) {
             int maxEval = Integer.MIN_VALUE;
             for (Node child : nodes) {
-                int eval = minimax(child.board, depth - 1, alpha, beta, false);
+                int eval = minimax(child.board, child.red, child.blue, depth - 1, alpha, beta, false);
                 maxEval = max(maxEval, eval);
                 alpha = max(alpha, eval);
                 if (beta <= alpha) {
@@ -41,11 +42,10 @@ public class MiniMax {
                 }
             }
             return maxEval;
-
         } else {
             int minEval = Integer.MAX_VALUE;
             for (Node child : nodes) {
-                int eval = minimax(child.board, depth - 1, alpha, beta, true);
+                int eval = minimax(child.board, child.red, child.blue, depth - 1, alpha, beta, true);
                 minEval = min(minEval, eval);
                 beta = min(beta, eval);
                 if (beta <= alpha) {
@@ -57,13 +57,9 @@ public class MiniMax {
     }
 
 
-    private int gameState(int[][][] currentBoard) {
+    private int gameState(int[][][] currentBoard, Red red, Blue blue) {
         int redValidMoves = 0;
         int blueValidMoves = 0;
-
-
-
-
 
         if (red.menInBoardCount + red.menCount < 3) {
             return 2;

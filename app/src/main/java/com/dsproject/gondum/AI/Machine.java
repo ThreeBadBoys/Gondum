@@ -5,13 +5,13 @@ import com.dsproject.gondum.*;
 public class Machine extends Game {
     MiniMax miniMax;
     BoardBuilder boardBuilder;
+    Red r = new Red();
+    Blue b = new Blue();
 
     public Machine(int[][][] board, Red red, Blue blue) {
         this.board = board;
         this.red = red;
         this.blue = blue;
-        Red r = new Red();
-        Blue b = new Blue();
         r.menCount = red.menCount;
         r.menInBoardCount = red.menInBoardCount;
         r.phase = red.phase;
@@ -24,7 +24,7 @@ public class Machine extends Game {
 
     public int[][][] decision() {
         //TODO Decision Method
-        int[][][] board = miniMax.bestMove(this.board,4,Integer.MIN_VALUE,Integer.MAX_VALUE,true);
+        int[][][] board = miniMax.bestMove(this.board, r, b,4,Integer.MIN_VALUE,Integer.MAX_VALUE,true);
             if(evaluateBoard(board));
         miniMax.matched= evaluateBoard(board);
 
