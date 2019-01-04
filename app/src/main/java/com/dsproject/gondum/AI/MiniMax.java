@@ -15,7 +15,7 @@ public class MiniMax {
         if (depth == 0 || gameState(currentBoard) == 0) {
             return evaluation(currentBoard);
         }
-        ArrayList<int[][][]> boards = boardBuilder.boardBuilder(currentBoard);
+        ArrayList<int[][][]> boards = boardBuilder.boardBuilder(currentBoard , matched);
         if (maximizingPlayer) {
             int maxEval = Integer.MIN_VALUE;
             for (int[][][] child : boards) {
