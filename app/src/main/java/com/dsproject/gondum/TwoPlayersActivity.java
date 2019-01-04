@@ -274,181 +274,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
         mediaPlayer.release();
     }
 
-    public Result selectNode(int X, int Y, int Z, ImageView img) {
-        Result res = new Result();
-        if (this.matched) {//For deletion the opponent piece
-            res.succ = game.delete(X, Y, Z);
-            Log.i("delete", String.valueOf(this.matched));
-            if (res.succ) {
-                this.matched = false;
-                res.turn = 0;
-                game.nextTurn();
-            }
-        } else if (game.turn == 1) {
-            if (game.red.phase == 1) {
-                res.succ = game.insert(X, Y, Z);
-                if (res.succ) {
-                    this.matched = game.evaluate(X, Y, Z);
-                    if (this.matched) shakeItBaby();
-                    res.turn = game.turn;
-                    if (!this.matched) game.nextTurn();
-                    res.x = X;
-                    res.y = Y;
-                    res.z = Z;
-                    res.phase = 1;
-                }
-            } else if (game.red.phase == 2) {
-                res.phase = game.red.phase;
-                Log.i("redmove", "entered");
-                if (this.x != -1 && game.board[X][Y][Z] == 0) {
-                    res.succ = game.move(this.x, this.y, this.z, X, Y, Z);
-                    if (res.succ) {
-                        this.matched = game.evaluate(X, Y, Z);
-                        if (this.matched) shakeItBaby();
-                        res.turn = game.turn;
-                        if (!this.matched) game.nextTurn();
-                        if (res.succ) this.x = -1;
-                        res.x = this.x;
-                        res.y = this.y;
-                        res.z = this.z;
-                    }
-                } else {
-                    res.succ = false;
-                    if (game.board[X][Y][Z] == 1) {
-                        if(this.x != -1) this.img.setImageResource(R.drawable.red);
-                        this.x = X;
-                        this.y = Y;
-                        this.z = Z;
-                        this.img = img;
-                        img.setImageResource(R.drawable.yellow);
-                    }
-                }
-            } else {
-                Log.i("redfly", "entered x1:" + this.x + " y1: " + this.y + " z1: " + this.z
-                        + " x2: " + X + " Y2: " + Y + " Z2 : " + Z);
-                res.phase = game.red.phase;
-                if (this.x != -1) {
-                    Log.i("redfly", "1");
-
-                    res.succ = game.fly(this.x, this.y, this.z, X, Y, Z);
-                    if (res.succ) {
-                        this.matched = game.evaluate(X, Y, Z);
-                        if (this.matched) shakeItBaby();
-                        res.turn = game.turn;
-                        if (!this.matched) game.nextTurn();
-                        res.x = this.x;
-                        res.y = this.y;
-                        res.z = this.z;
-                        this.x = -1;
-                    }
-                } else {
-                    Log.i("redfly", "2");
-                    res.succ = false;
-                    if (game.board[X][Y][Z] == 1) {
-                        if(this.x != -1) this.img.setImageResource(R.drawable.red);
-                        this.x = X;
-                        this.y = Y;
-                        this.z = Z;
-                        this.img = img;
-                        img.setImageResource(R.drawable.yellow);
-                    }
-                }
-            }
-        } else {
-            if (game.blue.phase == 1) {
-                res.succ = game.insert(X, Y, Z);
-                if (res.succ) {
-                    this.matched = game.evaluate(X, Y, Z);
-                    if (this.matched) shakeItBaby();
-                    res.turn = game.turn;
-                    if (!this.matched) game.nextTurn();
-                    res.x = X;
-                    res.y = Y;
-                    res.z = Z;
-                    res.phase = 1;
-                }
-            } else if (game.blue.phase == 2) {
-                res.phase = game.blue.phase;
-                Log.i("bluemove", "entered");
-                if (this.x != -1 && game.board[X][Y][Z] == 0) {
-                    res.succ = game.move(this.x, this.y, this.z, X, Y, Z);
-                    if (res.succ) {
-                        this.matched = game.evaluate(X, Y, Z);
-                        if (this.matched) shakeItBaby();
-                        res.turn = game.turn;
-                        if (!this.matched) game.nextTurn();
-                        if (res.succ) this.x = -1;
-                        res.x = this.x;
-                        res.y = this.y;
-                        res.z = this.z;
-
-                    }
-                } else {
-                    res.succ = false;
-                    if (game.board[X][Y][Z] == 2) {
-                        if(this.x != -1) this.img.setImageResource(R.drawable.blue);
-                        this.x = X;
-                        this.y = Y;
-                        this.z = Z;
-                        this.img = img;
-                        img.setImageResource(R.drawable.yellow);
-                    }
-                }
-            } else {
-                Log.i("bluefly", "entered x1:" + this.x + " y1: " + this.y + " z1: " + this.z
-                        + " x2: " + X + " Y2: " + Y + " Z2 : " + Z);
-                res.phase = game.blue.phase;
-                if (this.x != -1 && game.board[X][Y][Z] == 0) {
-                    Log.i("bluefly", "1");
-                    res.succ = game.fly(this.x, this.y, this.z, X, Y, Z);
-                    if (res.succ) {
-                        this.matched = game.evaluate(X, Y, Z);
-                        if (this.matched) shakeItBaby();
-                        res.turn = game.turn;
-                        if (!this.matched) game.nextTurn();
-                        res.x = this.x;
-                        res.y = this.y;
-                        res.z = this.z;
-                        this.x = -1;
-                    }
-                } else {
-
-                    Log.i("bluefly", "2");
-                    res.succ = false;
-                    if (game.board[X][Y][Z] == 2) {
-                        if(this.x != -1) this.img.setImageResource(R.drawable.blue);
-                        this.x = X;
-                        this.y = Y;
-                        this.z = Z;
-                        this.img = img;
-                        img.setImageResource(R.drawable.yellow);
-                    }
-                }
-            }
-        }
-        if (res.succ) {
-            men_red.setText(NumberToPersian.toPersianNumber(String.valueOf(game.red.menCount)));
-            men_red_trash.setText(NumberToPersian.toPersianNumber(String.valueOf(12 - (game.red.menCount + game.red.menInBoardCount))));
-            men_blue.setText(NumberToPersian.toPersianNumber(String.valueOf(game.blue.menCount)));
-            men_blue_trash.setText(NumberToPersian.toPersianNumber(String.valueOf(12 - (game.blue.menCount + game.blue.menInBoardCount))));
-
-        }
-        if (!this.matched)
-            Log.i("res", "phase:" + String.valueOf(res.phase) + " succ:" + String.valueOf(res.succ) + " turn:" + String.valueOf(res.turn) + " x:" + String.valueOf(res.x) + " y:" + String.valueOf(res.y) + " z:" + String.valueOf(res.z));
-        if (game.gameState() != 0) {
-
-            if (game.gameState() == 1) {
-                gify.setImageResource(R.drawable.redbot);
-            } else {
-                gify.setImageResource(R.drawable.bluebot);
-            }
-            dialog.setCancelable(false);
-            dialog.show();
-        }
-
-        return res;
-    }
-
     private void image1Listener() {
         Result res;
         changeText();
@@ -908,5 +733,178 @@ public class TwoPlayersActivity extends AppCompatActivity {
             }
         });
 
+    }
+//-----------------------------------------------------
+    public Result selectNode(int X, int Y, int Z, ImageView img) {
+        Result res = new Result();
+        if (this.matched) {//For deletion the opponent piece
+            res.succ = game.delete(X, Y, Z);
+            Log.i("delete", String.valueOf(this.matched));
+            if (res.succ) {
+                this.matched = false;
+                res.turn = 0;
+                game.nextTurn();
+            }
+        } else if (game.turn == 1) {
+            if (game.red.phase == 1) {
+                res.succ = game.insert(X, Y, Z);
+                if (res.succ) {
+                    this.matched = game.evaluate(X, Y, Z);
+                    if (this.matched) shakeItBaby();
+                    res.turn = game.turn;
+                    if (!this.matched) game.nextTurn();
+                    res.x = X;
+                    res.y = Y;
+                    res.z = Z;
+                    res.phase = 1;
+                }
+            } else if (game.red.phase == 2) {
+                res.phase = game.red.phase;
+                Log.i("redmove", "entered");
+                if (this.x != -1 && game.board[X][Y][Z] == 0) {
+                    res.succ = game.move(this.x, this.y, this.z, X, Y, Z);
+                    if (res.succ) {
+                        this.matched = game.evaluate(X, Y, Z);
+                        if (this.matched) shakeItBaby();
+                        res.turn = game.turn;
+                        if (!this.matched) game.nextTurn();
+                        if (res.succ) this.x = -1;
+                        res.x = this.x;
+                        res.y = this.y;
+                        res.z = this.z;
+                    }
+                } else {
+                    res.succ = false;
+                    if (game.board[X][Y][Z] == 1) {
+                        if (this.x != -1) this.img.setImageResource(R.drawable.red);
+                        this.x = X;
+                        this.y = Y;
+                        this.z = Z;
+                        this.img = img;
+                        img.setImageResource(R.drawable.yellow);
+                    }
+                }
+            } else {
+                Log.i("redfly", "entered x1:" + this.x + " y1: " + this.y + " z1: " + this.z
+                        + " x2: " + X + " Y2: " + Y + " Z2 : " + Z);
+                res.phase = game.red.phase;
+                if (this.x != -1) {
+                    Log.i("redfly", "1");
+
+                    res.succ = game.fly(this.x, this.y, this.z, X, Y, Z);
+                    if (res.succ) {
+                        this.matched = game.evaluate(X, Y, Z);
+                        if (this.matched) shakeItBaby();
+                        res.turn = game.turn;
+                        if (!this.matched) game.nextTurn();
+                        res.x = this.x;
+                        res.y = this.y;
+                        res.z = this.z;
+                        this.x = -1;
+                    }
+                } else {
+                    Log.i("redfly", "2");
+                    res.succ = false;
+                    if (game.board[X][Y][Z] == 1) {
+                        if (this.x != -1) this.img.setImageResource(R.drawable.red);
+                        this.x = X;
+                        this.y = Y;
+                        this.z = Z;
+                        this.img = img;
+                        img.setImageResource(R.drawable.yellow);
+                    }
+                }
+            }
+        } else {
+            if (game.blue.phase == 1) {
+                res.succ = game.insert(X, Y, Z);
+                if (res.succ) {
+                    this.matched = game.evaluate(X, Y, Z);
+                    if (this.matched) shakeItBaby();
+                    res.turn = game.turn;
+                    if (!this.matched) game.nextTurn();
+                    res.x = X;
+                    res.y = Y;
+                    res.z = Z;
+                    res.phase = 1;
+                }
+            } else if (game.blue.phase == 2) {
+                res.phase = game.blue.phase;
+                Log.i("bluemove", "entered");
+                if (this.x != -1 && game.board[X][Y][Z] == 0) {
+                    res.succ = game.move(this.x, this.y, this.z, X, Y, Z);
+                    if (res.succ) {
+                        this.matched = game.evaluate(X, Y, Z);
+                        if (this.matched) shakeItBaby();
+                        res.turn = game.turn;
+                        if (!this.matched) game.nextTurn();
+                        if (res.succ) this.x = -1;
+                        res.x = this.x;
+                        res.y = this.y;
+                        res.z = this.z;
+
+                    }
+                } else {
+                    res.succ = false;
+                    if (game.board[X][Y][Z] == 2) {
+                        if (this.x != -1) this.img.setImageResource(R.drawable.blue);
+                        this.x = X;
+                        this.y = Y;
+                        this.z = Z;
+                        this.img = img;
+                        img.setImageResource(R.drawable.yellow);
+                    }
+                }
+            } else {
+                Log.i("bluefly", "entered x1:" + this.x + " y1: " + this.y + " z1: " + this.z
+                        + " x2: " + X + " Y2: " + Y + " Z2 : " + Z);
+                res.phase = game.blue.phase;
+                if (this.x != -1 && game.board[X][Y][Z] == 0) {
+                    Log.i("bluefly", "1");
+                    res.succ = game.fly(this.x, this.y, this.z, X, Y, Z);
+                    if (res.succ) {
+                        this.matched = game.evaluate(X, Y, Z);
+                        if (this.matched) shakeItBaby();
+                        res.turn = game.turn;
+                        if (!this.matched) game.nextTurn();
+                        res.x = this.x;
+                        res.y = this.y;
+                        res.z = this.z;
+                        this.x = -1;
+                    }
+                } else {
+
+                    Log.i("bluefly", "2");
+                    res.succ = false;
+                    if (game.board[X][Y][Z] == 2) {
+                        if (this.x != -1) this.img.setImageResource(R.drawable.blue);
+                        this.x = X;
+                        this.y = Y;
+                        this.z = Z;
+                        this.img = img;
+                        img.setImageResource(R.drawable.yellow);
+                    }
+                }
+            }
+        }
+        if (res.succ) {
+            men_red.setText(NumberToPersian.toPersianNumber(String.valueOf(game.red.menCount)));
+            men_red_trash.setText(NumberToPersian.toPersianNumber(String.valueOf(12 - (game.red.menCount + game.red.menInBoardCount))));
+            men_blue.setText(NumberToPersian.toPersianNumber(String.valueOf(game.blue.menCount)));
+            men_blue_trash.setText(NumberToPersian.toPersianNumber(String.valueOf(12 - (game.blue.menCount + game.blue.menInBoardCount))));
+
+        }
+        if (game.gameState() != 0) {
+
+            if (game.gameState() == 1) {
+                gify.setImageResource(R.drawable.redbot);
+            } else {
+                gify.setImageResource(R.drawable.bluebot);
+            }
+            dialog.setCancelable(false);
+            dialog.show();
+        }
+
+        return res;
     }
 }

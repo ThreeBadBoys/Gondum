@@ -6,8 +6,8 @@ public class Game {
     public int turn = 1;
     //1 -> red & 2 -> blue
     public int[][][] board = new int[3][3][3];
-    Red red = new Red();
-    Blue blue = new Blue();
+    public Red red = new Red();
+    public Blue blue = new Blue();
 
     /**
      * This function is for restarting the game.

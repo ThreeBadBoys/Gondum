@@ -1,5 +1,6 @@
 package com.dsproject.gondum;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -7,11 +8,19 @@ import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.dsproject.gondum.AI.Machine;
+
+import pl.droidsonroids.gif.GifImageView;
 
 public class OnePlayersActivity extends AppCompatActivity {
     ImageView imageView1;
@@ -43,15 +52,20 @@ public class OnePlayersActivity extends AppCompatActivity {
     TextView men_blue_trash;
     TextView men_red_trash;
     Typeface typeface;
-    MediaPlayer mediaPlayer;
-    SharedPreferences pref;
     int x;
     int y;
     int z;
     ImageView img;
     boolean matched = false;
     Game game = new Game();
-
+    Machine machine;
+    Dialog dialog;
+    MediaPlayer mediaPlayer;
+    SharedPreferences pref;
+    GifImageView gify;
+    Button exit;
+    Button menu;
+    Button restart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +78,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         men_blue.setText(NumberToPersian.toPersianNumber("12"));
         men_blue_trash.setText(NumberToPersian.toPersianNumber("0"));
         men_red_trash.setText(NumberToPersian.toPersianNumber("0"));
-
-        pref = getSharedPreferences("myprefs",MODE_PRIVATE);
-
-
+        pref = getSharedPreferences("myprefs", MODE_PRIVATE);
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -215,7 +226,7 @@ public class OnePlayersActivity extends AppCompatActivity {
 
         avoidStatusBarChange();
         mediaPlayer = MediaPlayer.create(this, R.raw.best);
-        if (pref.getBoolean("SOUND",true)) {
+        if (pref.getBoolean("SOUND", true)) {
             mediaPlayer.setLooping(true);
             mediaPlayer.start();
         }
@@ -273,109 +284,11 @@ public class OnePlayersActivity extends AppCompatActivity {
         men_red_trash.setTypeface(typeface);
     }
 
-    public Result selectNode(int x, int y, int z, ImageView img) {
-        Result res = new Result();
-        if (this.matched) {
-            res.succ = game.delete(x, y, z);
-            if (res.succ) {
-                this.matched = false;
-                img.setImageResource(0);
-            }
-            return res;
-        } else if (game.turn == 1) {
-            if (game.red.phase == 1) {
-                res.succ = game.insert(x, y, z);
-                this.matched = game.evaluate(x, y, z);
-                if (!this.matched) game.nextTurn();
-                res.x = x;
-                res.y = y;
-                res.z = z;
-                res.phase = 1;
-                res.turn = game.turn;
-                return res;
-            } else if (game.red.phase == 2) {
-                res.phase = game.red.phase;
-                if (this.x != -1) {
-                    res.succ = game.move(this.x, this.y, this.z, x, y, z);
-                    res.x = this.x;
-                    res.y = this.y;
-                    res.z = this.z;
-                    res.turn = game.turn;
-                    this.x = -1;
-                    return res;
-                } else {
-                    res.succ = false;
-                    this.x = x;
-                    this.y = y;
-                    this.z = z;
-                    this.img = img;
-                    return res;
-                }
-            } else {
-                res.phase = game.blue.phase;
-                if (this.x != -1) {
-                    res.succ = game.fly(this.x, this.y, this.z, x, y, z);
-                    res.x = this.x;
-                    res.y = this.y;
-                    res.z = this.z;
-                    res.turn = game.turn;
-                    this.x = -1;
-                    return res;
-                } else {
-                    res.succ = false;
-                    this.x = x;
-                    this.y = y;
-                    this.z = z;
-                    this.img = img;
-                    return res;
-                }
-            }
+    private void shakeItBaby() {
+        if (Build.VERSION.SDK_INT >= 26) {
+            ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(150, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
-            if (game.blue.phase == 1) {
-                res.succ = game.insert(x, y, z);
-                res.x = x;
-                res.y = y;
-                res.z = z;
-                res.phase = 1;
-                res.turn = game.turn;
-                return res;
-            } else if (game.blue.phase == 2) {
-                res.phase = game.blue.phase;
-                if (this.x != -1) {
-                    res.succ = game.move(this.x, this.y, this.z, x, y, z);
-                    res.x = this.x;
-                    res.y = this.y;
-                    res.z = this.z;
-                    res.turn = game.turn;
-                    this.x = -1;
-                    return res;
-                } else {
-                    res.succ = false;
-                    this.x = x;
-                    this.y = y;
-                    this.z = z;
-                    this.img = img;
-                    return res;
-                }
-            } else {
-                res.phase = game.blue.phase;
-                if (this.x != -1) {
-                    res.succ = game.fly(this.x, this.y, this.z, x, y, z);
-                    res.x = this.x;
-                    res.y = this.y;
-                    res.z = this.z;
-                    res.turn = game.turn;
-                    this.x = -1;
-                    return res;
-                } else {
-                    res.succ = false;
-                    this.x = x;
-                    this.y = y;
-                    this.z = z;
-                    this.img = img;
-                    return res;
-                }
-            }
+            ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(150);
         }
     }
 
@@ -384,7 +297,7 @@ public class OnePlayersActivity extends AppCompatActivity {
 
         res = selectNode(0, 0, 0, imageView1);
         if (res.succ) {
-            imageView1.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView1.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -396,7 +309,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(0, 1, 0, imageView2);
         if (res.succ) {
-            imageView2.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -408,7 +321,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(0, 2, 0, imageView3);
         if (res.succ) {
-            imageView3.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView3.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -420,7 +333,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(0, 0, 1, imageView4);
         if (res.succ) {
-            imageView4.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView4.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -432,7 +345,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(0, 1, 1, imageView5);
         if (res.succ) {
-            imageView5.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView5.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -444,7 +357,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(0, 2, 1, imageView6);
         if (res.succ) {
-            imageView6.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView6.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -456,7 +369,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(0, 0, 2, imageView7);
         if (res.succ) {
-            imageView7.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView7.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -468,7 +381,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(0, 1, 2, imageView8);
         if (res.succ) {
-            imageView8.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView8.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -480,7 +393,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(0, 2, 2, imageView9);
         if (res.succ) {
-            imageView9.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView9.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -492,7 +405,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(1, 0, 0, imageView10);
         if (res.succ) {
-            imageView10.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView10.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -504,7 +417,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(1, 0, 1, imageView11);
         if (res.succ) {
-            imageView11.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView11.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -516,7 +429,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(1, 0, 2, imageView12);
         if (res.succ) {
-            imageView12.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView12.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -528,7 +441,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(1, 2, 0, imageView13);
         if (res.succ) {
-            imageView13.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView13.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -540,7 +453,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(1, 2, 1, imageView14);
         if (res.succ) {
-            imageView14.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView14.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -552,7 +465,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(1, 2, 2, imageView15);
         if (res.succ) {
-            imageView15.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView15.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -564,7 +477,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(2, 0, 2, imageView16);
         if (res.succ) {
-            imageView16.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView16.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -576,7 +489,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(2, 1, 2, imageView17);
         if (res.succ) {
-            imageView17.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView17.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -588,7 +501,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(2, 2, 2, imageView18);
         if (res.succ) {
-            imageView18.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView18.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -600,7 +513,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(2, 0, 1, imageView19);
         if (res.succ) {
-            imageView19.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView19.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -612,7 +525,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(2, 1, 1, imageView20);
         if (res.succ) {
-            imageView20.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView20.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -624,10 +537,9 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(2, 2, 1, imageView21);
         if (res.succ) {
-            imageView21.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView21.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
         }
     }
@@ -636,7 +548,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(2, 0, 0, imageView22);
         if (res.succ) {
-            imageView22.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView22.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -648,7 +560,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(2, 1, 0, imageView23);
         if (res.succ) {
-            imageView23.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView23.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -660,7 +572,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         Result res;
         res = selectNode(2, 2, 0, imageView24);
         if (res.succ) {
-            imageView24.setImageResource(res.turn == 1 ? R.drawable.red : R.drawable.blue);
+            imageView24.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
 
@@ -670,11 +582,11 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(mediaPlayer.isPlaying()){
+        if (mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
         }
         game.gameBackEndReset();
-        startActivity(new Intent(this,MainMenuActivity.class));
+        startActivity(new Intent(this, MainMenuActivity.class));
         finish();
         super.onBackPressed();
     }
@@ -697,4 +609,116 @@ public class OnePlayersActivity extends AppCompatActivity {
             }
         });
     }
+
+    //----------------------------------------------------
+
+    public Result selectNode(int X, int Y, int Z, ImageView img) {
+        Result res = new Result();
+        if (this.matched) {//For deletion the opponent piece
+            res.succ = game.delete(X, Y, Z);
+            Log.i("delete", String.valueOf(this.matched));
+            if (res.succ) {
+                this.matched = false;
+                res.turn = 0;
+                game.nextTurn();
+            }
+        } else if (game.turn == 1){
+            if (game.red.phase == 1) {
+                res.succ = game.insert(X, Y, Z);
+                if (res.succ) {
+                    this.matched = game.evaluate(X, Y, Z);
+                    if (this.matched) shakeItBaby();
+                    res.turn = game.turn;
+                    if (!this.matched) game.nextTurn();
+                    res.x = X;
+                    res.y = Y;
+                    res.z = Z;
+                    res.phase = 1;
+                }
+            } else if (game.red.phase == 2) {
+                res.phase = game.red.phase;
+                Log.i("redmove", "entered");
+                if (this.x != -1 && game.board[X][Y][Z] == 0) {
+                    res.succ = game.move(this.x, this.y, this.z, X, Y, Z);
+                    if (res.succ) {
+                        this.matched = game.evaluate(X, Y, Z);
+                        if (this.matched) shakeItBaby();
+                        res.turn = game.turn;
+                        if (!this.matched) game.nextTurn();
+                        if (res.succ) this.x = -1;
+                        res.x = this.x;
+                        res.y = this.y;
+                        res.z = this.z;
+                    }
+                } else {
+                    res.succ = false;
+                    if (game.board[X][Y][Z] == 1) {
+                        if (this.x != -1) this.img.setImageResource(R.drawable.red);
+                        this.x = X;
+                        this.y = Y;
+                        this.z = Z;
+                        this.img = img;
+                        img.setImageResource(R.drawable.yellow);
+                    }
+                }
+            } else {
+                Log.i("redfly", "entered x1:" + this.x + " y1: " + this.y + " z1: " + this.z
+                        + " x2: " + X + " Y2: " + Y + " Z2 : " + Z);
+                res.phase = game.red.phase;
+                if (this.x != -1) {
+                    Log.i("redfly", "1");
+
+                    res.succ = game.fly(this.x, this.y, this.z, X, Y, Z);
+                    if (res.succ) {
+                        this.matched = game.evaluate(X, Y, Z);
+                        if (this.matched) shakeItBaby();
+                        res.turn = game.turn;
+                        if (!this.matched) game.nextTurn();
+                        res.x = this.x;
+                        res.y = this.y;
+                        res.z = this.z;
+                        this.x = -1;
+                    }
+                } else {
+                    Log.i("redfly", "2");
+                    res.succ = false;
+                    if (game.board[X][Y][Z] == 1) {
+                        if (this.x != -1) this.img.setImageResource(R.drawable.red);
+                        this.x = X;
+                        this.y = Y;
+                        this.z = Z;
+                        this.img = img;
+                        img.setImageResource(R.drawable.yellow);
+                    }
+                }
+            }
+        }
+
+        if (res.succ) {
+            men_red.setText(NumberToPersian.toPersianNumber(String.valueOf(game.red.menCount)));
+            men_red_trash.setText(NumberToPersian.toPersianNumber(String.valueOf(12 - (game.red.menCount + game.red.menInBoardCount))));
+            men_blue.setText(NumberToPersian.toPersianNumber(String.valueOf(game.blue.menCount)));
+            men_blue_trash.setText(NumberToPersian.toPersianNumber(String.valueOf(12 - (game.blue.menCount + game.blue.menInBoardCount))));
+
+        }
+
+        if (game.gameState() != 0) {
+            if (game.gameState() == 1) {
+                gify.setImageResource(R.drawable.redbot);
+            } else {
+                gify.setImageResource(R.drawable.bluebot);
+            }
+            dialog.setCancelable(false);
+            dialog.show();
+        } else {
+
+        }
+
+        return res;
+    }
+
+    public void machineSelectNode(){
+
+    }
+
 }
