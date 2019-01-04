@@ -246,7 +246,7 @@ public class Game {
             Log.i("isValid", "First");
             if (board[x2][y2][z2] == 0) {
                 Log.i("isValid", "Second");
-                if (XOR(XOR(Math.abs(z2 - z1) == 1, Math.abs(y2 - y1) == 1), Math.abs(x2 - x1) == 1)) {
+                if (XOR(Math.abs(z2 - z1) == 1, Math.abs(y2 - y1) == 1, Math.abs(x2 - x1) == 1)) {
                     if (Math.abs(z2 - z1) <= 1 && Math.abs(y2 - y1) <= 1 && Math.abs(x2 - x1) <= 1) {
                         Log.i("isValid", "Third");
                         return true;
@@ -300,13 +300,8 @@ public class Game {
         return false;
     }
 
-    public boolean XOR(boolean a, boolean b) {
-        if (a || b) {
-            if (a && b)
-                return false;
-            return true;
-        }
-        return false;
+    public boolean XOR(boolean a, boolean b, boolean c) {
+        return (a&&!b&&!c)||(!a&&b&&!c)||(!a&&!b&&c);
     }
 
 }
