@@ -1,9 +1,20 @@
 package com.dsproject.gondum.AI;
 
 import com.dsproject.gondum.*;
+
 import java.util.ArrayList;
 
 public class MiniMax {
+
+    final static int THREE_MATCHED_BLUE_RATIO = +3;
+    final static int THREE_MATCHED_RED_RATIO = -3;
+    final static int TWO_MATCHED_BLUE_RATIO = +2;
+    final static int TWO_MATCHED_RED_RATIO = -2;
+    final static int OPPONENT_DELETED_PIECE_FOR_BLUE_RATIO = +1;
+    final static int OPPONENT_DELETED_PIECE_FOR_RED_RATIO = -1;
+    final static int BLUE_WON_RATIO = Integer.MAX_VALUE;
+    final static int RED_WON_RATIO = Integer.MIN_VALUE;
+
     private BoardBuilder boardBuilder = new BoardBuilder();
     public boolean matched;
     public int[][][] board;
@@ -15,7 +26,7 @@ public class MiniMax {
 
     public int minimax(int[][][] currentBoard, Red red, Blue blue, int depth, int alpha, int beta, boolean maximizingPlayer) {
         if (depth == 0 || gameState(currentBoard, red, blue) == 0) {
-            return evaluation(currentBoard);
+            return evaluation(currentBoard, red, blue);
         }
 
         Node node = new Node(currentBoard, red, blue, maximizingPlayer ? 2 : 1);
@@ -161,8 +172,40 @@ public class MiniMax {
         return false;
     }
 
-    private static int evaluation(int[][][] currentBoard) {
-        return 0;
+    private static int evaluation(int[][][] currentBoard, Red red, Blue blue) {
+        int eval = 0;
+
+        if (red.menCount + red.menInBoardCount == 2) {// Blue won the game
+            return BLUE_WON_RATIO;
+        } else if (blue.menCount + blue.menInBoardCount == 2) {
+            return RED_WON_RATIO;
+        } else {
+            //---------------------THREE------------------------------------------------------------
+            int three_matched_horizontal = horizontalEval(currentBoard);
+            if (three_matched_horizontal >= 0) {
+                eval += THREE_MATCHED_BLUE_RATIO * three_matched_horizontal;
+            } else {
+                eval += THREE_MATCHED_RED_RATIO * three_matched_horizontal;
+            }
+
+            int three_matched_vertical = verticalEval(currentBoard);
+            if (three_matched_vertical >= 0) {
+                eval += THREE_MATCHED_BLUE_RATIO * three_matched_vertical;
+            } else {
+                eval += THREE_MATCHED_RED_RATIO * three_matched_vertical;
+            }
+            int three_matched_diagonal = diagonalEval(currentBoard);
+            if (three_matched_diagonal >= 0) {
+                eval += THREE_MATCHED_BLUE_RATIO * three_matched_diagonal;
+            } else {
+                eval += THREE_MATCHED_RED_RATIO * three_matched_diagonal;
+            }
+            //--------------------------TWO---------------------------------------------------------
+
+            
+
+        }
+
     }
 
     private static int max(int a, int b) {
@@ -172,4 +215,161 @@ public class MiniMax {
     private static int min(int a, int b) {
         return a >= b ? b : a;
     }
+
+    private static int horizontalEval(int[][][] board) {
+        int number = 0;
+        if (board[0][0][0] != 0 && (board[0][0][0] == board[0][1][0] && board[0][1][0] == board[0][2][0])) {
+            if (board[0][0][0] == 1) {
+                number--;
+            } else {
+                number++;
+            }
+        }
+
+        if (board[0][0][1] != 0 && (board[0][0][1] == board[0][1][1] && board[0][1][1] == board[0][2][1])) {
+            if (board[0][0][1] == 1) {
+                number--;
+            } else {
+                number++;
+            }
+        }
+        if (board[0][0][2] != 0 && (board[0][0][2] == board[0][1][2] && board[0][1][2] == board[0][2][2])) {
+            if (board[0][0][2] == 1) {
+                number--;
+            } else {
+                number++;
+            }
+        }
+        if (board[1][0][0] != 0 && (board[1][0][0] == board[1][0][1] && board[1][0][1] == board[1][0][2])) {
+            if (board[1][0][0] == 1) {
+                number--;
+            } else {
+                number++;
+            }
+        }
+        if (board[1][2][2] != 0 && (board[1][2][2] == board[1][2][1] && board[1][2][1] == board[1][2][0])) {
+            if (board[1][0][0] == 1) {
+                number--;
+            } else {
+                number++;
+            }
+        }
+        if (board[2][0][2] != 0 && (board[2][0][2] == board[2][1][2] && board[2][1][2] == board[2][2][2])) {
+            if (board[1][0][0] == 1) {
+                number--;
+            } else {
+                number++;
+            }
+        }
+        if (board[2][0][1] != 0 && (board[2][0][1] == board[2][1][1] && board[2][1][1] == board[2][2][1])) {
+            if (board[1][0][0] == 1) {
+                number--;
+            } else {
+                number++;
+            }
+        }
+        if (board[2][0][0] != 0 && (board[2][0][0] == board[2][1][0] && board[2][1][0] == board[2][2][0])) {
+            if (board[1][0][0] == 1) {
+                number--;
+            } else {
+                number++;
+            }
+        }
+        return number;
+    }
+
+    private static int verticalEval(int[][][] board) {
+        int number = 0;
+        if (board[0][0][0] != 0 && (board[0][0][0] == board[1][0][0] && board[1][0][0] == board[2][2][0])) {
+            if (board[0][0][0] == 1) {
+                number--;
+            } else {
+                number++;
+            }
+        }
+        if (board[0][0][1] != 0 && (board[0][0][1] == board[1][0][1] && board[1][0][1] == board[2][0][1])) {
+            if (board[0][0][1] == 1) {
+                number--;
+            } else {
+                number++;
+            }
+        }
+        if (board[0][0][2] != 0 && (board[0][0][2] == board[1][0][2] && board[1][0][2] == board[2][0][2])) {
+            if (board[0][0][2] == 1) {
+                number--;
+            } else {
+                number++;
+            }
+        }
+        if (board[0][1][0] != 0 && (board[0][1][0] == board[0][1][1] && board[0][1][1] == board[0][1][2])) {
+            if (board[0][1][0] == 1) {
+                number--;
+            } else {
+                number++;
+            }
+        }
+        if (board[2][1][2] != 0 && (board[2][1][2] == board[2][1][1] && board[2][1][1] == board[2][1][0])) {
+            if (board[2][1][2] == 1) {
+                number--;
+            } else {
+                number++;
+            }
+        }
+        if (board[0][2][2] != 0 && (board[0][2][2] == board[1][2][2] && board[1][2][2] == board[2][2][2])) {
+            if (board[0][2][2] == 1) {
+                number--;
+            } else {
+                number++;
+            }
+        }
+        if (board[0][2][1] != 0 && (board[0][2][1] == board[1][2][1] && board[1][2][1] == board[2][2][1])) {
+            if (board[0][2][1] == 1) {
+                number--;
+            } else {
+                number++;
+            }
+        }
+        if (board[0][2][0] != 0 && (board[0][2][0] == board[1][2][0] && board[1][2][0] == board[2][2][0])) {
+            if (board[0][2][0] == 1) {
+                number--;
+            } else {
+                number++;
+            }
+        }
+        return number;
+    }
+
+    private static int diagonalEval(int[][][] board) {
+        int number = 0;
+        if (board[0][0][0] != 0 && (board[0][0][0] == board[0][0][1] && board[0][0][1] == board[0][0][2])) {
+            if (board[0][0][0] == 1) {
+                number--;
+            } else {
+                number++;
+            }
+        }
+        if (board[2][0][0] != 0 && (board[2][0][0] == board[2][0][1] && board[2][0][1] == board[2][0][2])) {
+            if (board[2][0][0] == 1) {
+                number--;
+            } else {
+                number++;
+            }
+        }
+        if (board[0][2][0] != 0 && (board[0][2][0] == board[0][2][1] && board[0][2][1] == board[0][2][2])) {
+            if (board[0][2][0] == 1) {
+                number--;
+            } else {
+                number++;
+            }
+        }
+        if (board[2][2][2] != 0 && (board[2][2][2] == board[2][2][1] && board[2][2][1] == board[2][2][0])) {
+            if (board[2][2][2] == 1) {
+                number--;
+            } else {
+                number++;
+            }
+        }
+        return number;
+    }
+
 }
