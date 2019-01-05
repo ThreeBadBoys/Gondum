@@ -303,5 +303,4 @@ public class Game {
     public boolean XOR(boolean a, boolean b, boolean c) {
         return (a&&!b&&!c)||(!a&&b&&!c)||(!a&&!b&&c);
     }
-
 }
