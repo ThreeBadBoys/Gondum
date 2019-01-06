@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import com.dsproject.gondum.AI.Machine;
 
+import java.util.ArrayList;
+
 import pl.droidsonroids.gif.GifImageView;
 
 public class OnePlayersActivity extends AppCompatActivity {
@@ -622,7 +624,7 @@ public class OnePlayersActivity extends AppCompatActivity {
                 res.turn = 0;
                 game.nextTurn();
             }
-        } else if (game.turn == 1){
+        } else if (game.turn == 1) {
             if (game.red.phase == 1) {
                 res.succ = game.insert(X, Y, Z);
                 if (res.succ) {
@@ -717,8 +719,192 @@ public class OnePlayersActivity extends AppCompatActivity {
         return res;
     }
 
-    public void machineSelectNode(){
-        //TODO MachineSelectNode Method
+    public void machineSelectNode() {
+        if (game.gameState() == 0) {
+            machine = new Machine(game.board, game.red, game.blue);
+            int[][][] board = machine.decision();
+            int[] x = new int[3];
+            int[] y = new int[3];
+            int[] z = new int[3];
+            x[2] = -1;
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    for (int k = 0; k < 3; k++) {
+                        if (game.board[i][j][k] != board[i][j][k]) {
+                            if (game.board[i][j][k] == 0) {
+                                x[0] = i;
+                                y[0] = j;
+                                z[0] = k;
+                            } else if (game.board[i][j][k] == 1) {
+                                x[1] = i;
+                                y[1] = j;
+                                z[1] = k;
+                            } else {
+                                x[2] = i;
+                                y[2] = j;
+                                z[2] = k;
+                            }
+                        }
+                    }
+                }
+            }
+            if (game.blue.phase == 1) {
+                game.blue.menCount--;
+                game.blue.menInBoardCount++;
+            }else{
+                if (x[2] == 0 && y[2] == 0 && z[2] == 0) {
+                    imageView1.setImageResource(0);
+                } else if (x[2] == 0 && y[2] == 1 && z[2] == 0) {
+                    imageView2.setImageResource(0);
+                } else if (x[2] == 0 && y[2] == 2 && z[2] == 0) {
+                    imageView3.setImageResource(0);
+                } else if (x[2] == 0 && y[2] == 0 && z[2] == 1) {
+                    imageView4.setImageResource(0);
+                } else if (x[2] == 0 && y[2] == 1 && z[2] == 1) {
+                    imageView5.setImageResource(0);
+                } else if (x[2] == 0 && y[2] == 2 && z[2] == 1) {
+                    imageView6.setImageResource(0);
+                } else if (x[2] == 0 && y[2] == 0 && z[2] == 2) {
+                    imageView7.setImageResource(0);
+                } else if (x[2] == 0 && y[2] == 1 && z[2] == 2) {
+                    imageView8.setImageResource(0);
+                } else if (x[2] == 0 && y[2] == 2 && z[2] == 2) {
+                    imageView9.setImageResource(0);
+                } else if (x[2] == 1 && y[2] == 0 && z[2] == 0) {
+                    imageView10.setImageResource(0);
+                } else if (x[2] == 1 && y[2] == 0 && z[2] == 1) {
+                    imageView11.setImageResource(0);
+                } else if (x[2] == 1 && y[2] == 0 && z[2] == 2) {
+                    imageView12.setImageResource(0);
+                } else if (x[2] == 1 && y[2] == 2 && z[2] == 2) {
+                    imageView13.setImageResource(0);
+                } else if (x[2] == 1 && y[2] == 2 && z[2] == 1) {
+                    imageView14.setImageResource(0);
+                } else if (x[2] == 1 && y[2] == 2 && z[2] == 0) {
+                    imageView15.setImageResource(0);
+                } else if (x[2] == 2 && y[2] == 0 && z[2] == 2) {
+                    imageView16.setImageResource(0);
+                } else if (x[2] == 2 && y[2] == 1 && z[2] == 2) {
+                    imageView17.setImageResource(0);
+                } else if (x[2] == 2 && y[2] == 2 && z[2] == 2) {
+                    imageView18.setImageResource(0);
+                } else if (x[2] == 2 && y[2] == 0 && z[2] == 1) {
+                    imageView19.setImageResource(0);
+                } else if (x[2] == 2 && y[2] == 1 && z[2] == 1) {
+                    imageView20.setImageResource(0);
+                } else if (x[2] == 2 && y[2] == 2 && z[2] == 1) {
+                    imageView21.setImageResource(0);
+                } else if (x[2] == 2 && y[2] == 0 && z[2] == 0) {
+                    imageView22.setImageResource(0);
+                } else if (x[2] == 2 && y[2] == 1 && z[2] == 0) {
+                    imageView23.setImageResource(0);
+                } else if (x[2] == 2 && y[2] == 2 && z[2] == 0) {
+                    imageView24.setImageResource(0);
+                }
+            }
+            if (x[0] == 0 && y[0] == 0 && z[0] == 0) {
+                imageView1.setImageResource(R.drawable.blue);
+            } else if (x[0] == 0 && y[0] == 1 && z[0] == 0) {
+                imageView2.setImageResource(R.drawable.blue);
+            } else if (x[0] == 0 && y[0] == 2 && z[0] == 0) {
+                imageView3.setImageResource(R.drawable.blue);
+            } else if (x[0] == 0 && y[0] == 0 && z[0] == 1) {
+                imageView4.setImageResource(R.drawable.blue);
+            } else if (x[0] == 0 && y[0] == 1 && z[0] == 1) {
+                imageView5.setImageResource(R.drawable.blue);
+            } else if (x[0] == 0 && y[0] == 2 && z[0] == 1) {
+                imageView6.setImageResource(R.drawable.blue);
+            } else if (x[0] == 0 && y[0] == 0 && z[0] == 2) {
+                imageView7.setImageResource(R.drawable.blue);
+            } else if (x[0] == 0 && y[0] == 1 && z[0] == 2) {
+                imageView8.setImageResource(R.drawable.blue);
+            } else if (x[0] == 0 && y[0] == 2 && z[0] == 2) {
+                imageView9.setImageResource(R.drawable.blue);
+            } else if (x[0] == 1 && y[0] == 0 && z[0] == 0) {
+                imageView10.setImageResource(R.drawable.blue);
+            } else if (x[0] == 1 && y[0] == 0 && z[0] == 1) {
+                imageView11.setImageResource(R.drawable.blue);
+            } else if (x[0] == 1 && y[0] == 0 && z[0] == 2) {
+                imageView12.setImageResource(R.drawable.blue);
+            } else if (x[0] == 1 && y[0] == 2 && z[0] == 2) {
+                imageView13.setImageResource(R.drawable.blue);
+            } else if (x[0] == 1 && y[0] == 2 && z[0] == 1) {
+                imageView14.setImageResource(R.drawable.blue);
+            } else if (x[0] == 1 && y[0] == 2 && z[0] == 0) {
+                imageView15.setImageResource(R.drawable.blue);
+            } else if (x[0] == 2 && y[0] == 0 && z[0] == 2) {
+                imageView16.setImageResource(R.drawable.blue);
+            } else if (x[0] == 2 && y[0] == 1 && z[0] == 2) {
+                imageView17.setImageResource(R.drawable.blue);
+            } else if (x[0] == 2 && y[0] == 2 && z[0] == 2) {
+                imageView18.setImageResource(R.drawable.blue);
+            } else if (x[0] == 2 && y[0] == 0 && z[0] == 1) {
+                imageView19.setImageResource(R.drawable.blue);
+            } else if (x[0] == 2 && y[0] == 1 && z[0] == 1) {
+                imageView20.setImageResource(R.drawable.blue);
+            } else if (x[0] == 2 && y[0] == 2 && z[0] == 1) {
+                imageView21.setImageResource(R.drawable.blue);
+            } else if (x[0] == 2 && y[0] == 0 && z[0] == 0) {
+                imageView22.setImageResource(R.drawable.blue);
+            } else if (x[0] == 2 && y[0] == 1 && z[0] == 0) {
+                imageView23.setImageResource(R.drawable.blue);
+            } else if (x[0] == 2 && y[0] == 2 && z[0] == 0) {
+                imageView24.setImageResource(R.drawable.blue);
+            }
+            if (x[2] != -1) {
+                game.red.menInBoardCount--;
+                if (x[1] == 0 && y[1] == 0 && z[1] == 0) {
+                    imageView1.setImageResource(0);
+                } else if (x[1] == 0 && y[1] == 1 && z[1] == 0) {
+                    imageView2.setImageResource(0);
+                } else if (x[1] == 0 && y[1] == 2 && z[1] == 0) {
+                    imageView3.setImageResource(0);
+                } else if (x[1] == 0 && y[1] == 0 && z[1] == 1) {
+                    imageView4.setImageResource(0);
+                } else if (x[1] == 0 && y[1] == 1 && z[1] == 1) {
+                    imageView5.setImageResource(0);
+                } else if (x[1] == 0 && y[1] == 2 && z[1] == 1) {
+                    imageView6.setImageResource(0);
+                } else if (x[1] == 0 && y[1] == 0 && z[1] == 2) {
+                    imageView7.setImageResource(0);
+                } else if (x[1] == 0 && y[1] == 1 && z[1] == 2) {
+                    imageView8.setImageResource(0);
+                } else if (x[1] == 0 && y[1] == 2 && z[1] == 2) {
+                    imageView9.setImageResource(0);
+                } else if (x[1] == 1 && y[1] == 0 && z[1] == 0) {
+                    imageView10.setImageResource(0);
+                } else if (x[1] == 1 && y[1] == 0 && z[1] == 1) {
+                    imageView11.setImageResource(0);
+                } else if (x[1] == 1 && y[1] == 0 && z[1] == 2) {
+                    imageView12.setImageResource(0);
+                } else if (x[1] == 1 && y[1] == 2 && z[1] == 2) {
+                    imageView13.setImageResource(0);
+                } else if (x[1] == 1 && y[1] == 2 && z[1] == 1) {
+                    imageView14.setImageResource(0);
+                } else if (x[1] == 1 && y[1] == 2 && z[1] == 0) {
+                    imageView15.setImageResource(0);
+                } else if (x[1] == 2 && y[1] == 0 && z[1] == 2) {
+                    imageView16.setImageResource(0);
+                } else if (x[1] == 2 && y[1] == 1 && z[1] == 2) {
+                    imageView17.setImageResource(0);
+                } else if (x[1] == 2 && y[1] == 2 && z[1] == 2) {
+                    imageView18.setImageResource(0);
+                } else if (x[1] == 2 && y[1] == 0 && z[1] == 1) {
+                    imageView19.setImageResource(0);
+                } else if (x[1] == 2 && y[1] == 1 && z[1] == 1) {
+                    imageView20.setImageResource(0);
+                } else if (x[1] == 2 && y[1] == 2 && z[1] == 1) {
+                    imageView21.setImageResource(0);
+                } else if (x[1] == 2 && y[1] == 0 && z[1] == 0) {
+                    imageView22.setImageResource(0);
+                } else if (x[1] == 2 && y[1] == 1 && z[1] == 0) {
+                    imageView23.setImageResource(0);
+                } else if (x[2] == 2 && y[1] == 2 && z[1] == 0) {
+                    imageView24.setImageResource(0);
+                }
+            }
+            game.board=board;
+        }
     }
 
 }
