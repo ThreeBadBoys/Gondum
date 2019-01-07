@@ -1,5 +1,7 @@
 package com.dsproject.gondum.AI;
 
+import android.util.Log;
+
 import com.dsproject.gondum.*;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ public class MiniMax {
     public int[][][] board;
 
     int[][][] bestMove(int[][][] currentBoard, Red red, Blue blue, int depth, int alpha, int beta, boolean maximizingPlayer) {
+        Log.i("bestmove",""+maximizingPlayer);
         minimax(currentBoard, red, blue, depth, alpha, beta, maximizingPlayer);
         return board;
     }
@@ -30,7 +33,7 @@ public class MiniMax {
         }
 
         Node node = new Node(currentBoard, red, blue, maximizingPlayer ? 2 : 1);
-
+        Log.i("minimax",""+depth);
         ArrayList<Node> states = boardBuilder.boardBuilder(node, matched);
         if (maximizingPlayer) {
             int maxEval = Integer.MIN_VALUE;

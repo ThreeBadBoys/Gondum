@@ -296,14 +296,13 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image1Listener() {
         Result res;
-
         res = selectNode(0, 0, 0, imageView1);
         if (res.succ) {
             imageView1.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -314,8 +313,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView2.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -326,8 +325,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView3.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -338,8 +337,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView4.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -350,8 +349,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView5.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -362,8 +361,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView6.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -374,8 +373,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView7.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -386,8 +385,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView8.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -398,8 +397,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView9.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -410,8 +409,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView10.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -422,8 +421,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView11.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -434,8 +433,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView12.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -446,8 +445,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView13.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -458,8 +457,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView14.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -470,8 +469,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView15.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -482,8 +481,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView16.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -494,8 +493,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView17.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -506,8 +505,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView18.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -518,8 +517,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView19.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -530,8 +529,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView20.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -543,6 +542,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
+            machineSelectNode();
         }
     }
 
@@ -553,8 +553,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView22.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -565,8 +565,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView23.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -577,8 +577,8 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView24.setImageResource(R.drawable.red);
             if (res.phase > 1) {
                 this.img.setImageResource(0);
-
             }
+            machineSelectNode();
         }
     }
 
@@ -904,6 +904,18 @@ public class OnePlayersActivity extends AppCompatActivity {
                 }
             }
             game.board=board;
+            if (game.gameState() != 0) {
+                if (game.gameState() == 1) {
+                    gify.setImageResource(R.drawable.redbot);
+                } else {
+                    gify.setImageResource(R.drawable.bluebot);
+                }
+                dialog.setCancelable(false);
+                dialog.show();
+            } else {
+                game.nextTurn();
+            }
+
         }
     }
 

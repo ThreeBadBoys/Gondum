@@ -23,18 +23,20 @@ public class Machine extends Game {
     }
 
     public int[][][] decision() {
-        //TODO Decision Method
-        int[][][] board = miniMax.bestMove(this.board, r, b, 4, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
-        if (evaluateBoard(board)) ;
-        miniMax.matched = evaluateBoard(board);
 
-        return null;
+        int[][][] board = miniMax.bestMove(this.board, r, b, 4, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+        if (evaluateBoard(board)) {
+            miniMax.matched = true;
+            board = miniMax.bestMove(this.board, r, b, 4, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+        }
+
+        return board;
     }
 
 
     /**
      * This method is for checking if there is a matched state!!!
-     * **/
+     **/
     private boolean evaluateBoard(int[][][] board) {
         int x = -1, y = 0, z = 0;
         for (int i = 0; i < 3; i++) {
@@ -52,7 +54,7 @@ public class Machine extends Game {
         if (x != -1) {
             return evaluate(x, y, z, board);
         }
-        Log.i("evaluateBoard","The evaluateBoard method does not work properly");
+        Log.i("evaluateBoard", "The evaluateBoard method does not work properly");
         return false;
     }
 
