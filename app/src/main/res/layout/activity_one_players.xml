@@ -739,14 +739,14 @@
         android:textColor="#fa5754"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/blue_turn1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:background="#d4a472"
-        android:textAlignment="center"
-        android:textColor="#5a97f9"
-        android:textStyle="bold" />
+    <!--<TextView-->
+        <!--android:id="@+id/blue_turn1"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:background="#d4a472"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textColor="#5a97f9"-->
+        <!--android:textStyle="bold" />-->
 </RelativeLayout>

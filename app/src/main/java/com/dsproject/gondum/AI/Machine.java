@@ -23,7 +23,7 @@ public class Machine extends Game {
     }
 
     public int[][][] decision() {
-        int[][][] board = miniMax.bestMove(this.board, r, b, 4, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+        int[][][] board = miniMax.bestMove(this.board, r, b, 2, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
         if (evaluateBoard(board)) {
             miniMax.matched = true;
             if (b.phase == 1) {

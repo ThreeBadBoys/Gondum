@@ -54,13 +54,6 @@ public class OnePlayersActivity extends AppCompatActivity {
     TextView men_blue_trash;
     TextView men_red_trash;
     Typeface typeface;
-    int x;
-    int y;
-    int z;
-    ImageView img;
-    boolean matched = false;
-    Game game = new Game();
-    Machine machine;
     Dialog dialog;
     MediaPlayer mediaPlayer;
     SharedPreferences pref;
@@ -69,7 +62,14 @@ public class OnePlayersActivity extends AppCompatActivity {
     Button menu;
     Button restart;
     TextView turn_red;
-    TextView turn_blue;
+
+    int x;
+    int y;
+    int z;
+    ImageView img;
+    boolean matched = false;
+    Game game = new Game();
+    Machine machine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -227,7 +227,6 @@ public class OnePlayersActivity extends AppCompatActivity {
                 image24Listener();
             }
         });
-        turn_blue.setText("منتظر باش");
         turn_red.setText("نوبت منه");
         avoidStatusBarChange();
         mediaPlayer = MediaPlayer.create(this, R.raw.best);
@@ -281,7 +280,6 @@ public class OnePlayersActivity extends AppCompatActivity {
         men_red_trash = findViewById(R.id.red_men_trash);
         typeface = Typeface.createFromAsset(getResources().getAssets(), "iransansweb.ttf");
         turn_red = findViewById(R.id.red_turn1);
-        turn_blue = findViewById(R.id.blue_turn1);
     }
 
     void changeFont() {
@@ -309,7 +307,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -323,7 +321,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -337,7 +335,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -351,7 +349,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -365,7 +363,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -379,7 +377,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -393,7 +391,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -407,7 +405,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -421,7 +419,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -435,7 +433,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -449,7 +447,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -463,7 +461,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -477,7 +475,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -491,7 +489,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -505,7 +503,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -519,7 +517,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -533,7 +531,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -547,7 +545,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -559,7 +557,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -573,7 +571,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -587,7 +585,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -601,7 +599,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -615,7 +613,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -629,7 +627,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (res.phase > 1) {
                 this.img.setImageResource(0);
             }
-            machineSelectNode();
+            if(!matched) machineSelectNode();
         }
     }
 
@@ -977,20 +975,12 @@ public class OnePlayersActivity extends AppCompatActivity {
     public void changeText() {
         if (game.turn == 1) {
             if (this.matched) {
-                turn_red.setText("مهره رفیقت رو حذف کن");
-                turn_blue.setText("منتظرباش");
+                turn_red.setText("مهره رقیبت رو حذف کن");
             } else {
                 turn_red.setText("نوبت منه");
-                turn_blue.setText("منتظرباش");
             }
         } else if (game.turn == 2) {
-            if (this.matched) {
-                turn_blue.setText("مهره رفیقت رو حذف کن");
-                turn_red.setText("منتظرباش");
-            } else {
-                turn_blue.setText("نوبت منه");
-                turn_red.setText("منتظرباش");
-            }
+            turn_red.setText("منتظرباش");
         }
     }
 

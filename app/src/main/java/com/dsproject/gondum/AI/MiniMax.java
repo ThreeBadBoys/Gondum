@@ -60,7 +60,7 @@ public class MiniMax {
                     break;
                 }
             }
-            if (depth == 4) {
+            if (depth == 2) {
                 for (int i = 0; i < states.size(); i++) {
                     Log.i("minimax", " val:" + states.get(i).val);
                     if (states.get(i).val == position.val) {
