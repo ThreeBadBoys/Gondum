@@ -36,7 +36,7 @@ public class MiniMax {
 
         position.turn = maximizingPlayer ? 2 : 1;
 
-        ArrayList<Node> states = boardBuilder.boardBuilder(position, matched);
+        ArrayList<Node> states = boardBuilder.boardBuilder(position, matched || position.matched);
         int x = 0;
         for (Node state : states) {
             Log.i("minimax", "" + ++x);

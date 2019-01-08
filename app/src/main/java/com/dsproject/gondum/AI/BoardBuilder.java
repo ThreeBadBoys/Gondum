@@ -45,6 +45,7 @@ public class BoardBuilder {
                                 }
                             }
                             node.board[i][j][k] = 1;
+                            node.matched = evaluate(i, j, k, node.board);
                             menCount = state.blue.menCount;
                             menInBoardCount = state.blue.menInBoardCount;
                             phase = state.blue.phase;
@@ -76,6 +77,7 @@ public class BoardBuilder {
                                 }
                             }
                             node.board[i][j][k] = 2;
+                            node.matched = evaluate(i, j, k, node.board);
                             menCount = state.red.menCount;
                             menInBoardCount = state.red.menInBoardCount;
                             phase = state.red.phase;
@@ -94,7 +96,7 @@ public class BoardBuilder {
                 }
             }
         }
-        Log.i("board","insert");
+        Log.i("board", "insert");
         return outputList;
     }
 
@@ -127,7 +129,7 @@ public class BoardBuilder {
                 }
             }
         }
-        Log.i("board","move");
+        Log.i("board", "move");
         return outputList;
     }
 
@@ -143,7 +145,7 @@ public class BoardBuilder {
                                 for (int n = 0; n < 3; n++)
                                     if (state.board[l][m][n] == 0)
                                         outputList.add(createNode(state, i, j, k, l, m, n));
-        Log.i("board","fly");
+        Log.i("board", "fly");
         return outputList;
     }
 
@@ -185,7 +187,7 @@ public class BoardBuilder {
                 }
             }
         }
-        Log.i("board","delete");
+        Log.i("board", "delete");
         return outputList;
     }
 
@@ -203,6 +205,7 @@ public class BoardBuilder {
         }
         node.board[x][y][z] = state.turn;
         node.board[i][j][k] = 0;
+        node.matched = evaluate(x, y, z, node.board);
         node.turn = state.turn % 2 + 1;
         menCount = state.blue.menCount;
         menInBoardCount = state.blue.menInBoardCount;
@@ -217,5 +220,17 @@ public class BoardBuilder {
         node.red.menCount = menCount;
         node.red.phase = phase;
         return node;
+    }
+
+    private boolean evaluate(int x, int y, int z, int[][][] board) {
+        Log.i("state", "matched");
+        if (board[x][y][z] != 0 && board[0][y][z] == board[1][y][z] && board[1][y][z] == board[2][y][z])
+            return true;
+        if (board[x][y][z] != 0 && board[x][0][z] == board[x][1][z] && board[x][1][z] == board[x][2][z])
+            return true;
+        if (board[x][y][z] != 0 && board[x][y][0] == board[x][y][1] && board[x][y][1] == board[x][y][2])
+            return true;
+
+        return false;
     }
 }

@@ -8,6 +8,7 @@ public class Node {
     Red red;
     Blue blue;
     int turn;
+    boolean matched;
 
     public Node() {
         this.board = new int[3][3][3];
