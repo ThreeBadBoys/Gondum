@@ -68,6 +68,8 @@ public class OnePlayersActivity extends AppCompatActivity {
     Button exit;
     Button menu;
     Button restart;
+    TextView turn_red;
+    TextView turn_blue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -225,7 +227,8 @@ public class OnePlayersActivity extends AppCompatActivity {
                 image24Listener();
             }
         });
-
+        turn_blue.setText("منتظر باش");
+        turn_red.setText("نوبت منه");
         avoidStatusBarChange();
         mediaPlayer = MediaPlayer.create(this, R.raw.best);
         if (pref.getBoolean("SOUND", true)) {
@@ -277,6 +280,8 @@ public class OnePlayersActivity extends AppCompatActivity {
         men_blue_trash = findViewById(R.id.blue_men_trash);
         men_red_trash = findViewById(R.id.red_men_trash);
         typeface = Typeface.createFromAsset(getResources().getAssets(), "iransansweb.ttf");
+        turn_red = findViewById(R.id.red_turn1);
+        turn_blue = findViewById(R.id.blue_turn1);
     }
 
     void changeFont() {
@@ -296,7 +301,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image1Listener() {
         Result res;
+        changeText();
         res = selectNode(0, 0, 0, imageView1);
+        changeText();
         if (res.succ) {
             imageView1.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -308,7 +315,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image2Listener() {
         Result res;
+        changeText();
         res = selectNode(0, 1, 0, imageView2);
+        changeText();
         if (res.succ) {
             imageView2.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -320,7 +329,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image3Listener() {
         Result res;
+        changeText();
         res = selectNode(0, 2, 0, imageView3);
+        changeText();
         if (res.succ) {
             imageView3.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -332,7 +343,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image4Listener() {
         Result res;
+        changeText();
         res = selectNode(0, 0, 1, imageView4);
+        changeText();
         if (res.succ) {
             imageView4.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -344,7 +357,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image5Listener() {
         Result res;
+        changeText();
         res = selectNode(0, 1, 1, imageView5);
+        changeText();
         if (res.succ) {
             imageView5.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -356,7 +371,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image6Listener() {
         Result res;
+        changeText();
         res = selectNode(0, 2, 1, imageView6);
+        changeText();
         if (res.succ) {
             imageView6.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -368,7 +385,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image7Listener() {
         Result res;
+        changeText();
         res = selectNode(0, 0, 2, imageView7);
+        changeText();
         if (res.succ) {
             imageView7.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -380,7 +399,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image8Listener() {
         Result res;
+        changeText();
         res = selectNode(0, 1, 2, imageView8);
+        changeText();
         if (res.succ) {
             imageView8.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -392,7 +413,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image9Listener() {
         Result res;
+        changeText();
         res = selectNode(0, 2, 2, imageView9);
+        changeText();
         if (res.succ) {
             imageView9.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -404,7 +427,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image10Listener() {
         Result res;
+        changeText();
         res = selectNode(1, 0, 0, imageView10);
+        changeText();
         if (res.succ) {
             imageView10.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -416,7 +441,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image11Listener() {
         Result res;
+        changeText();
         res = selectNode(1, 0, 1, imageView11);
+        changeText();
         if (res.succ) {
             imageView11.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -428,7 +455,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image12Listener() {
         Result res;
+        changeText();
         res = selectNode(1, 0, 2, imageView12);
+        changeText();
         if (res.succ) {
             imageView12.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -440,7 +469,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image13Listener() {
         Result res;
+        changeText();
         res = selectNode(1, 2, 0, imageView13);
+        changeText();
         if (res.succ) {
             imageView13.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -452,7 +483,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image14Listener() {
         Result res;
+        changeText();
         res = selectNode(1, 2, 1, imageView14);
+        changeText();
         if (res.succ) {
             imageView14.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -464,7 +497,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image15Listener() {
         Result res;
+        changeText();
         res = selectNode(1, 2, 2, imageView15);
+        changeText();
         if (res.succ) {
             imageView15.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -476,7 +511,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image16Listener() {
         Result res;
+        changeText();
         res = selectNode(2, 0, 2, imageView16);
+        changeText();
         if (res.succ) {
             imageView16.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -488,7 +525,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image17Listener() {
         Result res;
+        changeText();
         res = selectNode(2, 1, 2, imageView17);
+        changeText();
         if (res.succ) {
             imageView17.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -500,7 +539,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image18Listener() {
         Result res;
+        changeText();
         res = selectNode(2, 2, 2, imageView18);
+        changeText();
         if (res.succ) {
             imageView18.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -524,7 +565,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image20Listener() {
         Result res;
+        changeText();
         res = selectNode(2, 1, 1, imageView20);
+        changeText();
         if (res.succ) {
             imageView20.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -536,7 +579,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image21Listener() {
         Result res;
+        changeText();
         res = selectNode(2, 2, 1, imageView21);
+        changeText();
         if (res.succ) {
             imageView21.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -548,7 +593,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image22Listener() {
         Result res;
+        changeText();
         res = selectNode(2, 0, 0, imageView22);
+        changeText();
         if (res.succ) {
             imageView22.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -560,7 +607,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image23Listener() {
         Result res;
+        changeText();
         res = selectNode(2, 1, 0, imageView23);
+        changeText();
         if (res.succ) {
             imageView23.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -572,7 +621,9 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     private void image24Listener() {
         Result res;
+        changeText();
         res = selectNode(2, 2, 0, imageView24);
+        changeText();
         if (res.succ) {
             imageView24.setImageResource(R.drawable.red);
             if (res.phase > 1) {
@@ -719,6 +770,7 @@ public class OnePlayersActivity extends AppCompatActivity {
     }
 
     public void machineSelectNode() {
+        changeText();
         if (game.gameState() == 0) {
             machine = new Machine(game.board, game.red, game.blue);
             int[][][] board = machine.decision();
@@ -919,5 +971,27 @@ public class OnePlayersActivity extends AppCompatActivity {
             men_blue.setText(NumberToPersian.toPersianNumber(String.valueOf(game.blue.menCount)));
             men_blue_trash.setText(NumberToPersian.toPersianNumber(String.valueOf(12 - (game.blue.menCount + game.blue.menInBoardCount))));
         }
+        changeText();
     }
+
+    public void changeText() {
+        if (game.turn == 1) {
+            if (this.matched) {
+                turn_red.setText("مهره رفیقت رو حذف کن");
+                turn_blue.setText("منتظرباش");
+            } else {
+                turn_red.setText("نوبت منه");
+                turn_blue.setText("منتظرباش");
+            }
+        } else if (game.turn == 2) {
+            if (this.matched) {
+                turn_blue.setText("مهره رفیقت رو حذف کن");
+                turn_red.setText("منتظرباش");
+            } else {
+                turn_blue.setText("نوبت منه");
+                turn_red.setText("منتظرباش");
+            }
+        }
+    }
+
 }
