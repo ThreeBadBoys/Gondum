@@ -18,28 +18,43 @@ public class MiniMax {
     final static int RED_WON_RATIO = Integer.MIN_VALUE;
 
     private BoardBuilder boardBuilder = new BoardBuilder();
-    public boolean matched;
+    public boolean matched = false;
     public int[][][] board;
 
     int[][][] bestMove(int[][][] currentBoard, Red red, Blue blue, int depth, int alpha, int beta, boolean maximizingPlayer) {
-        Log.i("bestmove",""+maximizingPlayer);
-        minimax(currentBoard, red, blue, depth, alpha, beta, maximizingPlayer);
+        Node position = new Node(currentBoard, red, blue, 2);
+        minimax(position, depth, alpha, beta, maximizingPlayer);
         return board;
     }
 
-    public int minimax(int[][][] currentBoard, Red red, Blue blue, int depth, int alpha, int beta, boolean maximizingPlayer) {
-        if (depth == 0 || gameState(currentBoard, red, blue) == 0) {
-            return evaluation(currentBoard, red, blue);
+    public int minimax(Node position, int depth, int alpha, int beta, boolean maximizingPlayer) {
+        Log.i("minimax", "depth:" + depth);
+        if (depth == 0 || gameState(position) != 0) {
+            Log.i("minimax", "end of branch");
+            return evaluation(position);
         }
 
-        Node node = new Node(currentBoard, red, blue, maximizingPlayer ? 2 : 1);
-        Log.i("minimax",""+depth);
-        ArrayList<Node> states = boardBuilder.boardBuilder(node, matched);
+        position.turn = maximizingPlayer ? 2 : 1;
+
+        ArrayList<Node> states = boardBuilder.boardBuilder(position, matched);
+        int x = 0;
+        for (Node state : states) {
+            Log.i("minimax", "" + ++x);
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    for (int k = 0; k < 3; k++) {
+                        Log.i("boards", "i:" + i + " j:" + j + " k:" + k + " array val:" + state.board[i][j][k]);
+                        Log.i("boards", "red mencount:" + state.red.menCount + " red meninboardcount:" + state.red.menInBoardCount);
+                        Log.i("boards", "blue mencount:" + state.blue.menCount + " blue meninboardcount:" + state.blue.menInBoardCount);
+                    }
+                }
+            }
+        }
         if (maximizingPlayer) {
-            int maxEval = Integer.MIN_VALUE;
+            position.val = Integer.MIN_VALUE;
             for (Node state : states) {
-                int eval = minimax(state.board, state.red, state.blue, depth - 1, alpha, beta, false);
-                maxEval = max(maxEval, eval);
+                int eval = minimax(state, depth - 1, alpha, beta, false);
+                position.val = max(position.val, eval);
                 alpha = max(alpha, eval);
                 if (beta <= alpha) {
                     break;
@@ -47,52 +62,44 @@ public class MiniMax {
             }
             if (depth == 4) {
                 for (int i = 0; i < states.size(); i++) {
-                    if (states.get(i).val == maxEval) {
+                    Log.i("minimax", " val:" + states.get(i).val);
+                    if (states.get(i).val == position.val) {
                         board = states.get(i).board;
                         break;
                     }
                 }
             }
-            return maxEval;
+            return position.val;
         } else {
-            int minEval = Integer.MAX_VALUE;
+            position.val = Integer.MAX_VALUE;
             for (Node state : states) {
-                int eval = minimax(state.board, state.red, state.blue, depth - 1, alpha, beta, true);
-                minEval = min(minEval, eval);
+                int eval = minimax(state, depth - 1, alpha, beta, true);
+                position.val = min(position.val, eval);
                 beta = min(beta, eval);
                 if (beta <= alpha) {
                     break;
                 }
             }
-            return minEval;
+            return position.val;
         }
     }
 
-
-    private int gameState(int[][][] currentBoard, Red red, Blue blue) {
+    private int gameState(Node position) {
         int redValidMoves = 0;
         int blueValidMoves = 0;
-
-        if (red.menInBoardCount + red.menCount < 3) {
+        if (position.red.menInBoardCount + position.red.menCount < 3) {
             return 2;
-        } else if (blue.menInBoardCount + blue.menCount < 3) {
+        } else if (position.blue.menInBoardCount + position.blue.menCount < 3) {
             return 1;
         } else {
             for (int x = 0; x < 3; x++) {
                 for (int y = 0; y < 3; y++) {
                     for (int z = 0; z < 3; z++) {
-                        if (currentBoard[x][y][z] == 2) {
-                            if (hasValidMove(x, y, z, currentBoard))
+                        if (position.board[x][y][z] == 2) {
+                            if (hasValidMove(x, y, z, position.board))
                                 blueValidMoves++;
-                        }
-                    }
-                }
-            }
-            for (int x = 0; x < 3; x++) {
-                for (int y = 0; y < 3; y++) {
-                    for (int z = 0; z < 3; z++) {
-                        if (currentBoard[x][y][z] == 1) {
-                            if (hasValidMove(x, y, z, currentBoard))
+                        } else if (position.board[x][y][z] == 1) {
+                            if (hasValidMove(x, y, z, position.board))
                                 redValidMoves++;
                         }
                     }
@@ -160,7 +167,7 @@ public class MiniMax {
             return (currentBoard[0][1][2] == 0 || currentBoard[1][2][2] == 0 || currentBoard[0][2][1] == 0);
         }//-------------------------------------------------------------------------
         else if (x == 1 && y == 0 && z == 2) {
-            return (currentBoard[0][0][2] == 0 || currentBoard[2][0][2] == 0 || board[1][0][1] == 0);
+            return (currentBoard[0][0][2] == 0 || currentBoard[2][0][2] == 0 || currentBoard[1][0][1] == 0);
         } else if (x == 1 && y == 2 && z == 2) {
             return (currentBoard[0][2][2] == 0 || currentBoard[2][2][2] == 0 || currentBoard[1][2][1] == 0);
         }//-------------------------------------------------------------------------
@@ -175,48 +182,48 @@ public class MiniMax {
         return false;
     }
 
-    private static int evaluation(int[][][] currentBoard, Red red, Blue blue) {
+    private static int evaluation(Node position) {
         int eval = 0;
 
-        if (red.menCount + red.menInBoardCount == 2) {// Blue won the game
+        if (position.red.menCount + position.red.menInBoardCount == 2) {// Blue won the game
             return BLUE_WON_RATIO;
-        } else if (blue.menCount + blue.menInBoardCount == 2) {
+        } else if (position.blue.menCount + position.blue.menInBoardCount == 2) {
             return RED_WON_RATIO;
         } else {
             //---------------------THREE------------------------------------------------------------
-            int three_matched_horizontal = horizontalThreeEval(currentBoard);
+            int three_matched_horizontal = horizontalThreeEval(position.board);
             if (three_matched_horizontal >= 0) {
                 eval += THREE_MATCHED_BLUE_RATIO * three_matched_horizontal;
             } else {
                 eval += THREE_MATCHED_RED_RATIO * three_matched_horizontal;
             }
 
-            int three_matched_vertical = verticalThreeEval(currentBoard);
+            int three_matched_vertical = verticalThreeEval(position.board);
             if (three_matched_vertical >= 0) {
                 eval += THREE_MATCHED_BLUE_RATIO * three_matched_vertical;
             } else {
                 eval += THREE_MATCHED_RED_RATIO * three_matched_vertical;
             }
-            int three_matched_diagonal = diagonalThreeEval(currentBoard);
+            int three_matched_diagonal = diagonalThreeEval(position.board);
             if (three_matched_diagonal >= 0) {
                 eval += THREE_MATCHED_BLUE_RATIO * three_matched_diagonal;
             } else {
                 eval += THREE_MATCHED_RED_RATIO * three_matched_diagonal;
             }
             //--------------------------TWO---------------------------------------------------------
-            int two_matched_horizontal = horizontalTwoEval(currentBoard);
+            int two_matched_horizontal = horizontalTwoEval(position.board);
             if (two_matched_horizontal >= 0) {
                 eval += TWO_MATCHED_BLUE_RATIO * two_matched_horizontal;
             } else {
                 eval += TWO_MATCHED_RED_RATIO * two_matched_horizontal;
             }
-            int two_matched_vertical = verticalTwoEval(currentBoard);
+            int two_matched_vertical = verticalTwoEval(position.board);
             if (two_matched_vertical >= 0) {
                 eval += TWO_MATCHED_BLUE_RATIO * two_matched_vertical;
             } else {
                 eval += TWO_MATCHED_RED_RATIO * two_matched_vertical;
             }
-            int two_matched_diagonal = diagonalTwoEval(currentBoard);
+            int two_matched_diagonal = diagonalTwoEval(position.board);
             if (two_matched_diagonal >= 0) {
                 eval += TWO_MATCHED_BLUE_RATIO * two_matched_diagonal;
             } else {
@@ -224,8 +231,8 @@ public class MiniMax {
             }
 
             //------------------------OPPONENT_PIECE_DELETED----------------------------------------
-            eval += (12 - (red.menCount + red.menInBoardCount)) * OPPONENT_DELETED_PIECE_FOR_BLUE_RATIO;
-            eval += (12 - (blue.menCount + blue.menInBoardCount)) * OPPONENT_DELETED_PIECE_FOR_RED_RATIO;
+            eval += (12 - (position.red.menCount + position.red.menInBoardCount)) * OPPONENT_DELETED_PIECE_FOR_BLUE_RATIO;
+            eval += (12 - (position.blue.menCount + position.blue.menInBoardCount)) * OPPONENT_DELETED_PIECE_FOR_RED_RATIO;
             //--------------------------------------------------------------------------------------
             return eval;
         }

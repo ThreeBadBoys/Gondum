@@ -23,10 +23,13 @@ public class Machine extends Game {
     }
 
     public int[][][] decision() {
-
         int[][][] board = miniMax.bestMove(this.board, r, b, 4, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
         if (evaluateBoard(board)) {
             miniMax.matched = true;
+            if (b.phase == 1) {
+                b.menCount--;
+                b.menInBoardCount++;
+            }
             board = miniMax.bestMove(this.board, r, b, 4, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
         }
 
@@ -59,7 +62,7 @@ public class Machine extends Game {
     }
 
     private boolean evaluate(int x, int y, int z, int[][][] board) {
-
+        Log.i("state", "matched");
         if (board[x][y][z] != 0 && board[0][y][z] == board[1][y][z] && board[1][y][z] == board[2][y][z])
             return true;
         if (board[x][y][z] != 0 && board[x][0][z] == board[x][1][z] && board[x][1][z] == board[x][2][z])

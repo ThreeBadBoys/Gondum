@@ -135,6 +135,7 @@ public class Game {
                     }
                 }
             }
+            Log.i("state","redmoves:"+redValidMoves+" bluemoves:"+blueValidMoves);
             if (redValidMoves > 0) {
                 return 0;
             } else if (blueValidMoves > 0) {

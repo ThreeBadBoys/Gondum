@@ -701,7 +701,6 @@ public class OnePlayersActivity extends AppCompatActivity {
             men_red_trash.setText(NumberToPersian.toPersianNumber(String.valueOf(12 - (game.red.menCount + game.red.menInBoardCount))));
             men_blue.setText(NumberToPersian.toPersianNumber(String.valueOf(game.blue.menCount)));
             men_blue_trash.setText(NumberToPersian.toPersianNumber(String.valueOf(12 - (game.blue.menCount + game.blue.menInBoardCount))));
-
         }
 
         if (game.gameState() != 0) {
@@ -726,7 +725,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             int[] x = new int[3];
             int[] y = new int[3];
             int[] z = new int[3];
-            x[2] = -1;
+            x[1] = -1;
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     for (int k = 0; k < 3; k++) {
@@ -751,7 +750,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             if (game.blue.phase == 1) {
                 game.blue.menCount--;
                 game.blue.menInBoardCount++;
-            }else{
+            } else {
                 if (x[2] == 0 && y[2] == 0 && z[2] == 0) {
                     imageView1.setImageResource(0);
                 } else if (x[2] == 0 && y[2] == 1 && z[2] == 0) {
@@ -851,7 +850,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             } else if (x[0] == 2 && y[0] == 2 && z[0] == 0) {
                 imageView24.setImageResource(R.drawable.blue);
             }
-            if (x[2] != -1) {
+            if (x[1] != -1) {
                 game.red.menInBoardCount--;
                 if (x[1] == 0 && y[1] == 0 && z[1] == 0) {
                     imageView1.setImageResource(0);
@@ -903,7 +902,7 @@ public class OnePlayersActivity extends AppCompatActivity {
                     imageView24.setImageResource(0);
                 }
             }
-            game.board=board;
+            game.board = board;
             if (game.gameState() != 0) {
                 if (game.gameState() == 1) {
                     gify.setImageResource(R.drawable.redbot);
@@ -915,8 +914,10 @@ public class OnePlayersActivity extends AppCompatActivity {
             } else {
                 game.nextTurn();
             }
-
+            men_red.setText(NumberToPersian.toPersianNumber(String.valueOf(game.red.menCount)));
+            men_red_trash.setText(NumberToPersian.toPersianNumber(String.valueOf(12 - (game.red.menCount + game.red.menInBoardCount))));
+            men_blue.setText(NumberToPersian.toPersianNumber(String.valueOf(game.blue.menCount)));
+            men_blue_trash.setText(NumberToPersian.toPersianNumber(String.valueOf(12 - (game.blue.menCount + game.blue.menInBoardCount))));
         }
     }
-
 }
