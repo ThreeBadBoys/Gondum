@@ -263,9 +263,6 @@ public class TwoPlayersActivity extends AppCompatActivity {
             mediaPlayer.setLooping(true);
             mediaPlayer.start();
         }
-//        getSharedPreferences("SOUND")
-
-
     }
 
     @Override
