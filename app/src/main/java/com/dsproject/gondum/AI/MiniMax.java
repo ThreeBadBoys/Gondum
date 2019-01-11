@@ -12,8 +12,8 @@ public class MiniMax {
     final static int THREE_MATCHED_RED_RATIO = -3;
     final static int TWO_MATCHED_BLUE_RATIO = +2;
     final static int TWO_MATCHED_RED_RATIO = -2;
-    final static int OPPONENT_DELETED_PIECE_FOR_BLUE_RATIO = +1;
-    final static int OPPONENT_DELETED_PIECE_FOR_RED_RATIO = -1;
+    final static int OPPONENT_DELETED_PIECE_FOR_BLUE_RATIO = +3;
+    final static int OPPONENT_DELETED_PIECE_FOR_RED_RATIO = -3;
     final static int BLUE_WON_RATIO = Integer.MAX_VALUE;
     final static int RED_WON_RATIO = Integer.MIN_VALUE;
 
@@ -229,7 +229,6 @@ public class MiniMax {
             } else {
                 eval += TWO_MATCHED_RED_RATIO * two_matched_diagonal;
             }
-
             //------------------------OPPONENT_PIECE_DELETED----------------------------------------
             eval += (12 - (position.red.menCount + position.red.menInBoardCount)) * OPPONENT_DELETED_PIECE_FOR_BLUE_RATIO;
             eval += (12 - (position.blue.menCount + position.blue.menInBoardCount)) * OPPONENT_DELETED_PIECE_FOR_RED_RATIO;
