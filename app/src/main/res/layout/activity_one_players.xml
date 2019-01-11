@@ -561,8 +561,8 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:background="#d4a472"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#d4a472">
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
@@ -647,8 +647,8 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:background="#d4a472"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#d4a472">
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
@@ -728,6 +728,7 @@
             </LinearLayout>
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
+
     <TextView
         android:id="@+id/red_turn1"
         android:layout_width="wrap_content"
@@ -740,13 +741,13 @@
         android:textStyle="bold" />
 
     <!--<TextView-->
-        <!--android:id="@+id/blue_turn1"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:background="#d4a472"-->
-        <!--android:textAlignment="center"-->
-        <!--android:textColor="#5a97f9"-->
-        <!--android:textStyle="bold" />-->
+    <!--android:id="@+id/blue_turn1"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignParentEnd="true"-->
+    <!--android:background="#d4a472"-->
+    <!--android:textAlignment="center"-->
+    <!--android:textColor="#5a97f9"-->
+    <!--android:textStyle="bold" />-->
 </RelativeLayout>
