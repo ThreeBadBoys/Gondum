@@ -634,6 +634,7 @@ public class OnePlayersActivity extends AppCompatActivity {
         }
     }
 
+    
     @Override
     public void onBackPressed() {
         if (mediaPlayer.isPlaying()) {
