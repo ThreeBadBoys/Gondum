@@ -747,9 +747,8 @@ public class TwoPlayersActivity extends AppCompatActivity {
                 res.succ = game.insert(X, Y, Z);
                 if (res.succ) {
                     this.matched = game.evaluate(X, Y, Z);
-                    if (this.matched) shakeItBaby();
                     res.turn = game.turn;
-                    if (!this.matched) game.nextTurn();
+                    if (this.matched) shakeItBaby(); else game.nextTurn();
                     res.x = X;
                     res.y = Y;
                     res.z = Z;
@@ -762,9 +761,8 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     res.succ = game.move(this.x, this.y, this.z, X, Y, Z);
                     if (res.succ) {
                         this.matched = game.evaluate(X, Y, Z);
-                        if (this.matched) shakeItBaby();
                         res.turn = game.turn;
-                        if (!this.matched) game.nextTurn();
+                        if (this.matched) shakeItBaby(); else game.nextTurn();
                         if (res.succ) this.x = -1;
                         res.x = this.x;
                         res.y = this.y;
@@ -791,9 +789,8 @@ public class TwoPlayersActivity extends AppCompatActivity {
                     res.succ = game.fly(this.x, this.y, this.z, X, Y, Z);
                     if (res.succ) {
                         this.matched = game.evaluate(X, Y, Z);
-                        if (this.matched) shakeItBaby();
                         res.turn = game.turn;
-                        if (!this.matched) game.nextTurn();
+                        if (this.matched) shakeItBaby(); else game.nextTurn();
                         res.x = this.x;
                         res.y = this.y;
                         res.z = this.z;

@@ -8,26 +8,23 @@ import java.util.ArrayList;
 
 public class MiniMax {
 
-    final static int THREE_MATCHED_BLUE_RATIO = +3;
-    final static int THREE_MATCHED_RED_RATIO = -3;
-    final static int TWO_MATCHED_BLUE_RATIO = +2;
-    final static int TWO_MATCHED_RED_RATIO = -2;
-    final static int OPPONENT_DELETED_PIECE_FOR_BLUE_RATIO = +3;
-    final static int OPPONENT_DELETED_PIECE_FOR_RED_RATIO = -3;
+    final static int THREE_MATCHED_RATIO = +3;
+    final static int TWO_MATCHED_RATIO = +2;
+    final static int OPPONENT_DELETED_PIECE_FOR_BLUE_RATIO = -3;
+    final static int OPPONENT_DELETED_PIECE_FOR_RED_RATIO = +3;
     final static int BLUE_WON_RATIO = Integer.MAX_VALUE;
     final static int RED_WON_RATIO = Integer.MIN_VALUE;
 
     private BoardBuilder boardBuilder = new BoardBuilder();
-    public boolean matched = false;
     public int[][][] board;
 
-    int[][][] bestMove(int[][][] currentBoard, Red red, Blue blue, int depth, int alpha, int beta, boolean maximizingPlayer) {
-        Node position = new Node(currentBoard, red, blue, 2);
-        minimax(position, depth, alpha, beta, maximizingPlayer);
+    int[][][] bestMove(int[][][] currentBoard, Red red, Blue blue, int depth, int alpha, int beta, boolean maximizingPlayer, boolean matched) {
+        Node state = new Node(currentBoard, red, blue, 2);
+        minimax(state, depth, alpha, beta, maximizingPlayer, matched);
         return board;
     }
 
-    public int minimax(Node position, int depth, int alpha, int beta, boolean maximizingPlayer) {
+    public int minimax(Node position, int depth, int alpha, int beta, boolean maximizingPlayer, boolean matched) {
         Log.i("minimax", "depth:" + depth);
         if (depth == 0 || gameState(position) != 0) {
             Log.i("minimax", "end of branch");
@@ -36,7 +33,7 @@ public class MiniMax {
 
         position.turn = maximizingPlayer ? 2 : 1;
 
-        ArrayList<Node> states = boardBuilder.boardBuilder(position, matched || position.matched);
+        ArrayList<Node> states = boardBuilder.boardBuilder(position, matched);
         int x = 0;
         for (Node state : states) {
             Log.i("minimax", "" + ++x);
@@ -53,7 +50,7 @@ public class MiniMax {
         if (maximizingPlayer) {
             position.val = Integer.MIN_VALUE;
             for (Node state : states) {
-                int eval = minimax(state, depth - 1, alpha, beta, false);
+                int eval = minimax(state, depth - 1, alpha, beta, false, state.matched);
                 position.val = max(position.val, eval);
                 alpha = max(alpha, eval);
                 if (beta <= alpha) {
@@ -73,7 +70,7 @@ public class MiniMax {
         } else {
             position.val = Integer.MAX_VALUE;
             for (Node state : states) {
-                int eval = minimax(state, depth - 1, alpha, beta, true);
+                int eval = minimax(state, depth - 1, alpha, beta, true, state.matched);
                 position.val = min(position.val, eval);
                 beta = min(beta, eval);
                 if (beta <= alpha) {
@@ -192,43 +189,22 @@ public class MiniMax {
         } else {
             //---------------------THREE------------------------------------------------------------
             int three_matched_horizontal = horizontalThreeEval(position.board);
-            if (three_matched_horizontal >= 0) {
-                eval += THREE_MATCHED_BLUE_RATIO * three_matched_horizontal;
-            } else {
-                eval += THREE_MATCHED_RED_RATIO * three_matched_horizontal;
-            }
+            eval += THREE_MATCHED_RATIO * three_matched_horizontal;
 
             int three_matched_vertical = verticalThreeEval(position.board);
-            if (three_matched_vertical >= 0) {
-                eval += THREE_MATCHED_BLUE_RATIO * three_matched_vertical;
-            } else {
-                eval += THREE_MATCHED_RED_RATIO * three_matched_vertical;
-            }
+            eval += THREE_MATCHED_RATIO * three_matched_vertical;
+
             int three_matched_diagonal = diagonalThreeEval(position.board);
-            if (three_matched_diagonal >= 0) {
-                eval += THREE_MATCHED_BLUE_RATIO * three_matched_diagonal;
-            } else {
-                eval += THREE_MATCHED_RED_RATIO * three_matched_diagonal;
-            }
+            eval += THREE_MATCHED_RATIO * three_matched_diagonal;
             //--------------------------TWO---------------------------------------------------------
             int two_matched_horizontal = horizontalTwoEval(position.board);
-            if (two_matched_horizontal >= 0) {
-                eval += TWO_MATCHED_BLUE_RATIO * two_matched_horizontal;
-            } else {
-                eval += TWO_MATCHED_RED_RATIO * two_matched_horizontal;
-            }
+            eval += TWO_MATCHED_RATIO * two_matched_horizontal;
+
             int two_matched_vertical = verticalTwoEval(position.board);
-            if (two_matched_vertical >= 0) {
-                eval += TWO_MATCHED_BLUE_RATIO * two_matched_vertical;
-            } else {
-                eval += TWO_MATCHED_RED_RATIO * two_matched_vertical;
-            }
+            eval += TWO_MATCHED_RATIO * two_matched_vertical;
+
             int two_matched_diagonal = diagonalTwoEval(position.board);
-            if (two_matched_diagonal >= 0) {
-                eval += TWO_MATCHED_BLUE_RATIO * two_matched_diagonal;
-            } else {
-                eval += TWO_MATCHED_RED_RATIO * two_matched_diagonal;
-            }
+            eval += TWO_MATCHED_RATIO * two_matched_diagonal;
             //------------------------OPPONENT_PIECE_DELETED----------------------------------------
             eval += (12 - (position.red.menCount + position.red.menInBoardCount)) * OPPONENT_DELETED_PIECE_FOR_BLUE_RATIO;
             eval += (12 - (position.blue.menCount + position.blue.menInBoardCount)) * OPPONENT_DELETED_PIECE_FOR_RED_RATIO;
@@ -254,7 +230,6 @@ public class MiniMax {
                 number++;
             }
         }
-
         if (board[0][0][1] != 0 && (board[0][0][1] == board[0][1][1] && board[0][1][1] == board[0][2][1])) {
             if (board[0][0][1] == 1) {
                 number--;
