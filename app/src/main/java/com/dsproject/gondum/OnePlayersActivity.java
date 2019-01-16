@@ -227,6 +227,33 @@ public class OnePlayersActivity extends AppCompatActivity {
                 image24Listener();
             }
         });
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
+            }
+        });
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.pause();
+                }
+                Intent intent = new Intent(OnePlayersActivity.this, MainMenuActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        restart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                game.gameBackEndReset();
+                GameFrontEndReset();
+                dialog.dismiss();
+            }
+        });
         turn_red.setText("نوبت منه");
         avoidStatusBarChange();
         mediaPlayer = MediaPlayer.create(this, R.raw.best);
@@ -250,6 +277,7 @@ public class OnePlayersActivity extends AppCompatActivity {
     }
 
     void init() {
+        dialog = new Dialog(this);
         imageView1 = findViewById(R.id.image1);
         imageView2 = findViewById(R.id.image2);
         imageView3 = findViewById(R.id.image3);
@@ -280,6 +308,12 @@ public class OnePlayersActivity extends AppCompatActivity {
         men_red_trash = findViewById(R.id.red_men_trash);
         typeface = Typeface.createFromAsset(getResources().getAssets(), "iransansweb.ttf");
         turn_red = findViewById(R.id.red_turn1);
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_layout);
+        gify = dialog.findViewById(R.id.gify);
+        exit = dialog.findViewById(R.id.exit);
+        menu = dialog.findViewById(R.id.main_menu);
+        restart = dialog.findViewById(R.id.restart);
     }
 
     void changeFont() {
@@ -468,7 +502,7 @@ public class OnePlayersActivity extends AppCompatActivity {
     private void image13Listener() {
         Result res;
         changeText();
-        res = selectNode(1, 2, 0, imageView13);
+        res = selectNode(1, 2, 2, imageView13);
         changeText();
         if (res.succ) {
             imageView13.setImageResource(res.turn == 0 ? 0 : R.drawable.red);
@@ -496,7 +530,7 @@ public class OnePlayersActivity extends AppCompatActivity {
     private void image15Listener() {
         Result res;
         changeText();
-        res = selectNode(1, 2, 2, imageView15);
+        res = selectNode(1, 2, 0, imageView15);
         changeText();
         if (res.succ) {
             imageView15.setImageResource(res.turn == 0 ? 0 : R.drawable.red);
@@ -665,6 +699,7 @@ public class OnePlayersActivity extends AppCompatActivity {
 
     public Result selectNode(int x, int y, int z, ImageView img) {
         Result res = new Result();
+        Log.i("turn", ""+game.turn);
         if (this.matched) {//For deletion the opponent piece
             res.succ = game.delete(x, y, z);
             Log.i("delete", String.valueOf(this.matched));
@@ -763,6 +798,7 @@ public class OnePlayersActivity extends AppCompatActivity {
     }
 
     public void machineSelectNode() {
+        Log.i("turn", ""+game.turn);
         changeText();
         if (game.gameState() == 0) {
             machine = new Machine(game.board, game.red, game.blue);
@@ -779,17 +815,19 @@ public class OnePlayersActivity extends AppCompatActivity {
                     for (int k = 0; k < 3; k++) {
                         if (game.board[i][j][k] != board[i][j][k]) {
                             if (game.board[i][j][k] == 0) {
+                                Log.i("Delete Issue" ,"0");
                                 x[0] = i;
                                 y[0] = j;
                                 z[0] = k;
                             } else if (game.board[i][j][k] == 1) {
+                                Log.i("Delete Issue" ,"1");
                                 x[1] = i;
                                 y[1] = j;
                                 z[1] = k;
                                 game.red.menInBoardCount--;
-                                if (game.red.menInBoardCount == 3 && game.red.menCount == 0)
-                                    game.red.phase = 3;
+                                if (game.red.menInBoardCount == 3 && game.red.menCount == 0) game.red.phase = 3;
                             } else {
+                                Log.i("Delete Issue" ,"2");
                                 x[2] = i;
                                 y[2] = j;
                                 z[2] = k;
@@ -798,6 +836,7 @@ public class OnePlayersActivity extends AppCompatActivity {
                     }
                 }
             }
+
             imageView1.setImageResource(board[0][0][0] == 0 ? 0 : board[0][0][0] == 1 ? R.drawable.red : R.drawable.blue);
             imageView2.setImageResource(board[0][1][0] == 0 ? 0 : board[0][1][0] == 1 ? R.drawable.red : R.drawable.blue);
             imageView3.setImageResource(board[0][2][0] == 0 ? 0 : board[0][2][0] == 1 ? R.drawable.red : R.drawable.blue);
@@ -824,164 +863,13 @@ public class OnePlayersActivity extends AppCompatActivity {
             imageView24.setImageResource(board[2][2][0] == 0 ? 0 : board[2][2][0] == 1 ? R.drawable.red : R.drawable.blue);
 
             if (game.blue.phase == 1) {
-                if (x[1] != -1) {
-                    game.blue.menCount--;
-                    game.blue.menInBoardCount++;
-                }
+                game.blue.menCount--;
+                game.blue.menInBoardCount++;
                 game.blue.phase = game.blue.menCount > 0 ? 1 : game.blue.menInBoardCount > 3 ? 2 : 3;
-            } else {
-                if (x[2] == 0 && y[2] == 0 && z[2] == 0) {
-                    imageView1.setImageResource(0);
-                } else if (x[2] == 0 && y[2] == 1 && z[2] == 0) {
-                    imageView2.setImageResource(0);
-                } else if (x[2] == 0 && y[2] == 2 && z[2] == 0) {
-                    imageView3.setImageResource(0);
-                } else if (x[2] == 0 && y[2] == 0 && z[2] == 1) {
-                    imageView4.setImageResource(0);
-                } else if (x[2] == 0 && y[2] == 1 && z[2] == 1) {
-                    imageView5.setImageResource(0);
-                } else if (x[2] == 0 && y[2] == 2 && z[2] == 1) {
-                    imageView6.setImageResource(0);
-                } else if (x[2] == 0 && y[2] == 0 && z[2] == 2) {
-                    imageView7.setImageResource(0);
-                } else if (x[2] == 0 && y[2] == 1 && z[2] == 2) {
-                    imageView8.setImageResource(0);
-                } else if (x[2] == 0 && y[2] == 2 && z[2] == 2) {
-                    imageView9.setImageResource(0);
-                } else if (x[2] == 1 && y[2] == 0 && z[2] == 0) {
-                    imageView10.setImageResource(0);
-                } else if (x[2] == 1 && y[2] == 0 && z[2] == 1) {
-                    imageView11.setImageResource(0);
-                } else if (x[2] == 1 && y[2] == 0 && z[2] == 2) {
-                    imageView12.setImageResource(0);
-                } else if (x[2] == 1 && y[2] == 2 && z[2] == 2) {
-                    imageView13.setImageResource(0);
-                } else if (x[2] == 1 && y[2] == 2 && z[2] == 1) {
-                    imageView14.setImageResource(0);
-                } else if (x[2] == 1 && y[2] == 2 && z[2] == 0) {
-                    imageView15.setImageResource(0);
-                } else if (x[2] == 2 && y[2] == 0 && z[2] == 2) {
-                    imageView16.setImageResource(0);
-                } else if (x[2] == 2 && y[2] == 1 && z[2] == 2) {
-                    imageView17.setImageResource(0);
-                } else if (x[2] == 2 && y[2] == 2 && z[2] == 2) {
-                    imageView18.setImageResource(0);
-                } else if (x[2] == 2 && y[2] == 0 && z[2] == 1) {
-                    imageView19.setImageResource(0);
-                } else if (x[2] == 2 && y[2] == 1 && z[2] == 1) {
-                    imageView20.setImageResource(0);
-                } else if (x[2] == 2 && y[2] == 2 && z[2] == 1) {
-                    imageView21.setImageResource(0);
-                } else if (x[2] == 2 && y[2] == 0 && z[2] == 0) {
-                    imageView22.setImageResource(0);
-                } else if (x[2] == 2 && y[2] == 1 && z[2] == 0) {
-                    imageView23.setImageResource(0);
-                } else if (x[2] == 2 && y[2] == 2 && z[2] == 0) {
-                    imageView24.setImageResource(0);
-                }
             }
-            if (x[0] == 0 && y[0] == 0 && z[0] == 0) {
-                imageView1.setImageResource(R.drawable.blue);
-            } else if (x[0] == 0 && y[0] == 1 && z[0] == 0) {
-                imageView2.setImageResource(R.drawable.blue);
-            } else if (x[0] == 0 && y[0] == 2 && z[0] == 0) {
-                imageView3.setImageResource(R.drawable.blue);
-            } else if (x[0] == 0 && y[0] == 0 && z[0] == 1) {
-                imageView4.setImageResource(R.drawable.blue);
-            } else if (x[0] == 0 && y[0] == 1 && z[0] == 1) {
-                imageView5.setImageResource(R.drawable.blue);
-            } else if (x[0] == 0 && y[0] == 2 && z[0] == 1) {
-                imageView6.setImageResource(R.drawable.blue);
-            } else if (x[0] == 0 && y[0] == 0 && z[0] == 2) {
-                imageView7.setImageResource(R.drawable.blue);
-            } else if (x[0] == 0 && y[0] == 1 && z[0] == 2) {
-                imageView8.setImageResource(R.drawable.blue);
-            } else if (x[0] == 0 && y[0] == 2 && z[0] == 2) {
-                imageView9.setImageResource(R.drawable.blue);
-            } else if (x[0] == 1 && y[0] == 0 && z[0] == 0) {
-                imageView10.setImageResource(R.drawable.blue);
-            } else if (x[0] == 1 && y[0] == 0 && z[0] == 1) {
-                imageView11.setImageResource(R.drawable.blue);
-            } else if (x[0] == 1 && y[0] == 0 && z[0] == 2) {
-                imageView12.setImageResource(R.drawable.blue);
-            } else if (x[0] == 1 && y[0] == 2 && z[0] == 2) {
-                imageView13.setImageResource(R.drawable.blue);
-            } else if (x[0] == 1 && y[0] == 2 && z[0] == 1) {
-                imageView14.setImageResource(R.drawable.blue);
-            } else if (x[0] == 1 && y[0] == 2 && z[0] == 0) {
-                imageView15.setImageResource(R.drawable.blue);
-            } else if (x[0] == 2 && y[0] == 0 && z[0] == 2) {
-                imageView16.setImageResource(R.drawable.blue);
-            } else if (x[0] == 2 && y[0] == 1 && z[0] == 2) {
-                imageView17.setImageResource(R.drawable.blue);
-            } else if (x[0] == 2 && y[0] == 2 && z[0] == 2) {
-                imageView18.setImageResource(R.drawable.blue);
-            } else if (x[0] == 2 && y[0] == 0 && z[0] == 1) {
-                imageView19.setImageResource(R.drawable.blue);
-            } else if (x[0] == 2 && y[0] == 1 && z[0] == 1) {
-                imageView20.setImageResource(R.drawable.blue);
-            } else if (x[0] == 2 && y[0] == 2 && z[0] == 1) {
-                imageView21.setImageResource(R.drawable.blue);
-            } else if (x[0] == 2 && y[0] == 0 && z[0] == 0) {
-                imageView22.setImageResource(R.drawable.blue);
-            } else if (x[0] == 2 && y[0] == 1 && z[0] == 0) {
-                imageView23.setImageResource(R.drawable.blue);
-            } else if (x[0] == 2 && y[0] == 2 && z[0] == 0) {
-                imageView24.setImageResource(R.drawable.blue);
-            }
-            if (x[1] != -1) {
-                game.red.menInBoardCount--;
-                if (x[1] == 0 && y[1] == 0 && z[1] == 0) {
-                    imageView1.setImageResource(0);
-                } else if (x[1] == 0 && y[1] == 1 && z[1] == 0) {
-                    imageView2.setImageResource(0);
-                } else if (x[1] == 0 && y[1] == 2 && z[1] == 0) {
-                    imageView3.setImageResource(0);
-                } else if (x[1] == 0 && y[1] == 0 && z[1] == 1) {
-                    imageView4.setImageResource(0);
-                } else if (x[1] == 0 && y[1] == 1 && z[1] == 1) {
-                    imageView5.setImageResource(0);
-                } else if (x[1] == 0 && y[1] == 2 && z[1] == 1) {
-                    imageView6.setImageResource(0);
-                } else if (x[1] == 0 && y[1] == 0 && z[1] == 2) {
-                    imageView7.setImageResource(0);
-                } else if (x[1] == 0 && y[1] == 1 && z[1] == 2) {
-                    imageView8.setImageResource(0);
-                } else if (x[1] == 0 && y[1] == 2 && z[1] == 2) {
-                    imageView9.setImageResource(0);
-                } else if (x[1] == 1 && y[1] == 0 && z[1] == 0) {
-                    imageView10.setImageResource(0);
-                } else if (x[1] == 1 && y[1] == 0 && z[1] == 1) {
-                    imageView11.setImageResource(0);
-                } else if (x[1] == 1 && y[1] == 0 && z[1] == 2) {
-                    imageView12.setImageResource(0);
-                } else if (x[1] == 1 && y[1] == 2 && z[1] == 2) {
-                    imageView13.setImageResource(0);
-                } else if (x[1] == 1 && y[1] == 2 && z[1] == 1) {
-                    imageView14.setImageResource(0);
-                } else if (x[1] == 1 && y[1] == 2 && z[1] == 0) {
-                    imageView15.setImageResource(0);
-                } else if (x[1] == 2 && y[1] == 0 && z[1] == 2) {
-                    imageView16.setImageResource(0);
-                } else if (x[1] == 2 && y[1] == 1 && z[1] == 2) {
-                    imageView17.setImageResource(0);
-                } else if (x[1] == 2 && y[1] == 2 && z[1] == 2) {
-                    imageView18.setImageResource(0);
-                } else if (x[1] == 2 && y[1] == 0 && z[1] == 1) {
-                    imageView19.setImageResource(0);
-                } else if (x[1] == 2 && y[1] == 1 && z[1] == 1) {
-                    imageView20.setImageResource(0);
-                } else if (x[1] == 2 && y[1] == 2 && z[1] == 1) {
-                    imageView21.setImageResource(0);
-                } else if (x[1] == 2 && y[1] == 0 && z[1] == 0) {
-                    imageView22.setImageResource(0);
-                } else if (x[1] == 2 && y[1] == 1 && z[1] == 0) {
-                    imageView23.setImageResource(0);
-                } else if (x[2] == 2 && y[1] == 2 && z[1] == 0) {
-                    imageView24.setImageResource(0);
-                }
-            }
+
             game.board = board;
+
             if (game.gameState() != 0) {
                 if (game.gameState() == 1) {
                     gify.setImageResource(R.drawable.redbot);
@@ -993,6 +881,7 @@ public class OnePlayersActivity extends AppCompatActivity {
             } else {
                 game.nextTurn();
             }
+
             men_red.setText(NumberToPersian.toPersianNumber(String.valueOf(game.red.menCount)));
             men_red_trash.setText(NumberToPersian.toPersianNumber(String.valueOf(12 - (game.red.menCount + game.red.menInBoardCount))));
             men_blue.setText(NumberToPersian.toPersianNumber(String.valueOf(game.blue.menCount)));
@@ -1012,5 +901,37 @@ public class OnePlayersActivity extends AppCompatActivity {
             turn_red.setText("منتظرباش");
         }
     }
+    public void GameFrontEndReset() {
+        imageView1.setImageResource(0);
+        imageView2.setImageResource(0);
+        imageView3.setImageResource(0);
+        imageView4.setImageResource(0);
+        imageView5.setImageResource(0);
+        imageView6.setImageResource(0);
+        imageView7.setImageResource(0);
+        imageView8.setImageResource(0);
+        imageView9.setImageResource(0);
+        imageView10.setImageResource(0);
+        imageView11.setImageResource(0);
+        imageView12.setImageResource(0);
+        imageView13.setImageResource(0);
+        imageView14.setImageResource(0);
+        imageView15.setImageResource(0);
+        imageView16.setImageResource(0);
+        imageView17.setImageResource(0);
+        imageView18.setImageResource(0);
+        imageView19.setImageResource(0);
+        imageView20.setImageResource(0);
+        imageView21.setImageResource(0);
+        imageView22.setImageResource(0);
+        imageView23.setImageResource(0);
+        imageView24.setImageResource(0);
 
+        turn_red.setText("نوبت منه");
+        men_red_trash.setText("0");
+        men_blue_trash.setText("0");
+        men_blue.setText("12");
+        men_red.setText("12");
+
+    }
 }
