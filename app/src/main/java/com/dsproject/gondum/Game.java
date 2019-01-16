@@ -288,12 +288,9 @@ public class Game {
             board[x][y][z] = 0;
             if (turn == 1) {
                 blue.menInBoardCount--;
-            } else {
-                red.menInBoardCount--;
-            }
-            if (turn == 1) {
                 if (blue.menInBoardCount == 3 && blue.menCount == 0) blue.phase = 3;
             } else {
+                red.menInBoardCount--;
                 if (red.menInBoardCount == 3 && red.menCount == 0) red.phase = 3;
             }
             return true;

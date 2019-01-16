@@ -63,7 +63,7 @@ public class OnePlayersActivity extends AppCompatActivity {
     Button restart;
     TextView turn_red;
 
-    int x=-1;
+    int x = -1;
     int y;
     int z;
     ImageView img;
@@ -673,13 +673,14 @@ public class OnePlayersActivity extends AppCompatActivity {
                 res.turn = 0;
                 game.nextTurn();
             }
-        } else if (game.turn == 1) {
+        } else {
             if (game.red.phase == 1) {
                 res.succ = game.insert(x, y, z);
                 if (res.succ) {
                     this.matched = game.evaluate(x, y, z);
                     res.turn = game.turn;
-                    if (this.matched) shakeItBaby(); else game.nextTurn();
+                    if (this.matched) shakeItBaby();
+                    else game.nextTurn();
                     res.x = x;
                     res.y = y;
                     res.z = z;
@@ -693,7 +694,8 @@ public class OnePlayersActivity extends AppCompatActivity {
                     if (res.succ) {
                         this.matched = game.evaluate(x, y, z);
                         res.turn = game.turn;
-                        if (this.matched) shakeItBaby(); else game.nextTurn();
+                        if (this.matched) shakeItBaby();
+                        else game.nextTurn();
                         this.x = -1;
                         res.x = this.x;
                         res.y = this.y;
@@ -719,7 +721,8 @@ public class OnePlayersActivity extends AppCompatActivity {
                     if (res.succ) {
                         this.matched = game.evaluate(x, y, z);
                         res.turn = game.turn;
-                        if (this.matched) shakeItBaby(); else game.nextTurn();
+                        if (this.matched) shakeItBaby();
+                        else game.nextTurn();
                         res.x = this.x;
                         res.y = this.y;
                         res.z = this.z;
@@ -783,6 +786,9 @@ public class OnePlayersActivity extends AppCompatActivity {
                                 x[1] = i;
                                 y[1] = j;
                                 z[1] = k;
+                                game.red.menInBoardCount--;
+                                if (game.red.menInBoardCount == 3 && game.red.menCount == 0)
+                                    game.red.phase = 3;
                             } else {
                                 x[2] = i;
                                 y[2] = j;
@@ -792,9 +798,37 @@ public class OnePlayersActivity extends AppCompatActivity {
                     }
                 }
             }
+            imageView1.setImageResource(board[0][0][0] == 0 ? 0 : board[0][0][0] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView2.setImageResource(board[0][1][0] == 0 ? 0 : board[0][1][0] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView3.setImageResource(board[0][2][0] == 0 ? 0 : board[0][2][0] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView4.setImageResource(board[0][0][1] == 0 ? 0 : board[0][0][1] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView5.setImageResource(board[0][1][1] == 0 ? 0 : board[0][1][1] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView6.setImageResource(board[0][2][1] == 0 ? 0 : board[0][2][1] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView7.setImageResource(board[0][0][2] == 0 ? 0 : board[0][0][2] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView8.setImageResource(board[0][1][2] == 0 ? 0 : board[0][1][2] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView9.setImageResource(board[0][2][2] == 0 ? 0 : board[0][2][2] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView10.setImageResource(board[1][0][0] == 0 ? 0 : board[1][0][0] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView11.setImageResource(board[1][0][1] == 0 ? 0 : board[1][0][1] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView12.setImageResource(board[1][0][2] == 0 ? 0 : board[1][0][2] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView13.setImageResource(board[1][2][2] == 0 ? 0 : board[1][2][2] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView14.setImageResource(board[1][2][1] == 0 ? 0 : board[1][2][1] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView15.setImageResource(board[1][2][0] == 0 ? 0 : board[1][2][0] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView16.setImageResource(board[2][0][2] == 0 ? 0 : board[2][0][2] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView17.setImageResource(board[2][1][2] == 0 ? 0 : board[2][1][2] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView18.setImageResource(board[2][2][2] == 0 ? 0 : board[2][2][2] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView19.setImageResource(board[2][0][1] == 0 ? 0 : board[2][0][1] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView20.setImageResource(board[2][1][1] == 0 ? 0 : board[2][1][1] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView21.setImageResource(board[2][2][1] == 0 ? 0 : board[2][2][1] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView22.setImageResource(board[2][0][0] == 0 ? 0 : board[2][0][0] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView23.setImageResource(board[2][1][0] == 0 ? 0 : board[2][1][0] == 1 ? R.drawable.red : R.drawable.blue);
+            imageView24.setImageResource(board[2][2][0] == 0 ? 0 : board[2][2][0] == 1 ? R.drawable.red : R.drawable.blue);
+
             if (game.blue.phase == 1) {
-                game.blue.menCount--;
-                game.blue.menInBoardCount++;
+                if (x[1] != -1) {
+                    game.blue.menCount--;
+                    game.blue.menInBoardCount++;
+                }
+                game.blue.phase = game.blue.menCount > 0 ? 1 : game.blue.menInBoardCount > 3 ? 2 : 3;
             } else {
                 if (x[2] == 0 && y[2] == 0 && z[2] == 0) {
                     imageView1.setImageResource(0);
