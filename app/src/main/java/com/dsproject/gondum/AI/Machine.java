@@ -50,8 +50,6 @@ public class Machine extends Game {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 for (int k = 0; k < 3; k++) {
-                    if(this.board == null) Log.i("this.board is null","Why this fucking bug happened?");
-                    if(board == null)Log.i("board is null","Why this fucking bug happened?");
                     if (this.board[i][j][k] != changedBoard[i][j][k]) {
                         x = i;
                         y = j;
@@ -62,21 +60,19 @@ public class Machine extends Game {
             }
         }
         if (x != -1) {
-            return evaluate(x, y, z, board);
+            return evaluate(x, y, z, changedBoard);
         }
-        Log.i("evaluateBoard", "The evaluateBoard method does not work properly");
         return false;
     }
 
     private boolean evaluate(int x, int y, int z, int[][][] board) {
-        Log.i("state", "matched");
         if (board[x][y][z] != 0 && board[0][y][z] == board[1][y][z] && board[1][y][z] == board[2][y][z])
             return true;
         if (board[x][y][z] != 0 && board[x][0][z] == board[x][1][z] && board[x][1][z] == board[x][2][z])
             return true;
         if (board[x][y][z] != 0 && board[x][y][0] == board[x][y][1] && board[x][y][1] == board[x][y][2])
             return true;
-
+        Log.i("matched","false");
         return false;
     }
 

@@ -811,7 +811,7 @@ public class OnePlayersActivity extends AppCompatActivity {
                 for (int j = 0; j < 3; j++) {
                     if (i == 1 && j == 1) {
                         continue;
-                    }
+                }
                     for (int k = 0; k < 3; k++) {
                         if (game.board[i][j][k] != board[i][j][k]) {
                             if (game.board[i][j][k] == 0) {
