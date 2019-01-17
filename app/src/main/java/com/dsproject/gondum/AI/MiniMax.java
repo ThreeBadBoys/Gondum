@@ -85,8 +85,10 @@ public class MiniMax {
         int redValidMoves = 0;
         int blueValidMoves = 0;
         if (position.red.menInBoardCount + position.red.menCount < 3) {
+            Log.i("state","1");
             return 2;
         } else if (position.blue.menInBoardCount + position.blue.menCount < 3) {
+            Log.i("state","2");
             return 1;
         } else {
             for (int x = 0; x < 3; x++) {

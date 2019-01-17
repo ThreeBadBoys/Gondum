@@ -31,6 +31,7 @@ public class Machine extends Game {
     public int[][][] decision() {
         int[][][] changedBoard = miniMax.bestMove(board, r, b, 2, Integer.MIN_VALUE, Integer.MAX_VALUE, true, false);
         if (evaluateBoard(changedBoard)) {
+            Log.i("matched", "yes");
             if (b.phase == 1) {
                 b.menCount--;
                 b.menInBoardCount++;
@@ -50,7 +51,7 @@ public class Machine extends Game {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 for (int k = 0; k < 3; k++) {
-                    if (this.board[i][j][k] != changedBoard[i][j][k]) {
+                    if (this.board[i][j][k] != changedBoard[i][j][k] && changedBoard[i][j][k] != 0) {
                         x = i;
                         y = j;
                         z = k;
@@ -59,6 +60,7 @@ public class Machine extends Game {
                 }
             }
         }
+        Log.i("changed","x:"+x+" y:"+y+" z:"+z);
         if (x != -1) {
             return evaluate(x, y, z, changedBoard);
         }
@@ -72,7 +74,7 @@ public class Machine extends Game {
             return true;
         if (board[x][y][z] != 0 && board[x][y][0] == board[x][y][1] && board[x][y][1] == board[x][y][2])
             return true;
-        Log.i("matched","false");
+        Log.i("matched", "false");
         return false;
     }
 
